@@ -11,6 +11,8 @@ const clinicas = defineCollection({
     estilo: z.enum(['lavanda', 'grafite']),
     bairro: z.string().optional(),
     whatsapp: z.string().optional(),
+    // texto pré-preenchido na conversa do WhatsApp (wa.me/?text=)
+    whatsappMensagem: z.string().optional(),
     telefone: z.string().optional(),
     emergencia24h: z.boolean().default(false),
     servicos: z.array(z.string()).optional(),
