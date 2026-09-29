@@ -1,0 +1,17 @@
+---
+const { clinica, cor } = Astro.props;
+---
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>{clinica.nome}</title>
+    <meta property="og:title" content={clinica.nome} />
+    <meta property="og:description" content={clinica.descricao ?? `Clínica veterinária em ${clinica.bairro ?? 'Bauru'}`} />
+  </head>
+  <body style={`--primaria: ${cor}`}>
+    <slot />
+    <aside class="demo-faixa">Demonstração criada por Giovanni</aside>
+  </body>
+</html>

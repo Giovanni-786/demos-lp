@@ -1,0 +1,39 @@
+{
+  "nome": "Gabriel Cruz",
+  "estilo": "grafite",
+  "fundo": "logo-gabriel-cruz.png",
+  "fundoMobile": "logo-gabriel-cruz-mobile.png",
+  "assinatura": "Performance",
+  "marca": "CRUZ METABOLIC®",
+  "area": "Nutrição esportiva",
+  "slogan": "Metabolismo • Performance • Resultado",
+  "descricao": "Nutrição esportiva e treinos personalizados para emagrecimento, hipertrofia e endurance. Bauru/SP, Itápolis/SP e online.",
+  "instagram": "nutrigabrielcruz_",
+  "especialidades": [
+    "Emagrecimento",
+    "Hipertrofia",
+    "Endurance"
+  ],
+  "cidades": [
+    "Bauru/SP",
+    "Itápolis/SP"
+  ],
+  "online": true,
+  "produtos": [
+    {
+      "tag": "Consultoria",
+      "titulo": "Consultoria CRUZ",
+      "descricao": "Emagrecimento, performance e recomposição corporal."
+    },
+    {
+      "tag": "Treinos",
+      "titulo": "MFIT Elite",
+      "descricao": "Treinos personalizados e acompanhamento. Sua evolução começa aqui."
+    },
+    {
+      "tag": "E-book",
+      "titulo": "E-book CRUZ METABOLIC",
+      "descricao": "O guia definitivo da recomposição corporal."
+    }
+  ]
+}

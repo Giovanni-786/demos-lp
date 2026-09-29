@@ -1,0 +1,253 @@
+---
+// Estilo "grafite" — convertido do img-to-html (future-co, layout responsivo) e
+// adaptado para landing de profissional de performance (personal / nutrição esportiva).
+// Fotos do mock removidas; fundos neutros no lugar.
+// Pastas: assets/styles.css, assets/fonts/, assets/status-fff.svg
+// CSS como URL, não como import: o [slug].astro importa todos os templates, e um
+// import de CSS entraria no bundle de TODAS as páginas. Com ?url, só a página que
+// renderiza este template carrega o arquivo.
+import { getImage } from 'astro:assets';
+import cssUrl from './assets/styles.css?url';
+
+const { clinica } = Astro.props;
+
+const arquivos = import.meta.glob<{ default: ImageMetadata }>(
+  './assets/**/*.{svg,png,jpg,jpeg,webp}',
+  { eager: true }
+);
+const a = (path: string) => {
+  const mod = arquivos[`./assets/${path}`];
+  if (!mod) throw new Error(`[grafite] asset não encontrado: assets/${path}`);
+  return mod.default;
+};
+
+// Fundo do hero (logo/arte da marca): PNG pesado vira WebP no build.
+const fundoOrig = clinica.fundo ?? clinica.fundoMobile;
+const fundoDesk = fundoOrig ? await getImage({ src: a(fundoOrig), format: 'webp', width: 3840, quality: 92 }) : null;
+const fundoMob = clinica.fundoMobile ? await getImage({ src: a(clinica.fundoMobile), format: 'webp', width: 1290, quality: 92 }) : fundoDesk;
+
+// Contato: WhatsApp > telefone > Instagram (direct). Sem nenhum, os CTAs somem.
+const digitos = (s: string) => s.replace(/\D/g, '');
+const whatsappHref = clinica.whatsapp ? `https://wa.me/55${digitos(clinica.whatsapp)}` : null;
+const telefoneHref = clinica.telefone ? `tel:+55${digitos(clinica.telefone)}` : null;
+const handle = clinica.instagram?.replace(/^@/, '');
+const instagramHref = handle ? `https://instagram.com/${handle}` : null;
+const contatoHref = whatsappHref ?? telefoneHref ?? instagramHref;
+const contatoLabel = whatsappHref ? 'Chamar no WhatsApp' : telefoneHref ? 'Ligar agora' : 'Falar no Instagram';
+
+const primeiroNome = clinica.nome.trim().split(/\s+/)[0];
+const inicial = clinica.nome.trim().charAt(0).toUpperCase();
+const slogan = clinica.slogan ?? 'Metabolismo • Performance • Resultado';
+const sloganTitulo = slogan.split('•').map((s: string) => s.trim()).filter(Boolean);
+
+const especialidades: string[] = clinica.especialidades?.length
+  ? clinica.especialidades
+  : ['Emagrecimento', 'Hipertrofia', 'Endurance'];
+const textosEspecialidade: Record<string, string> = {
+  emagrecimento: 'Perda de gordura com estratégia: dieta que cabe na rotina, sem efeito sanfona e preservando massa magra.',
+  hipertrofia: 'Ganho de massa muscular com treino e nutrição alinhados ao seu volume, frequência e recuperação.',
+  endurance: 'Combustível certo para corrida, ciclismo e provas longas: periodização, suplementação e dia de prova.',
+};
+const icones = ['flame', 'dumbbell', 'route'];
+
+const cidades: string[] = clinica.cidades ?? (clinica.bairro ? [clinica.bairro] : []);
+const locais = [...cidades, ...(clinica.online ? ['Online'] : [])];
+const locaisTexto = cidades.join(' • ') + (clinica.online ? (cidades.length ? ' + Online' : 'Online') : '');
+
+const produtos = clinica.produtos ?? [];
+
+// Treino exibido no celular do hero (ilustrativo).
+const treino = [
+  { nome: 'Supino inclinado', series: '4 × 10', feito: true },
+  { nome: 'Crucifixo na polia', series: '3 × 12', feito: true },
+  { nome: 'Desenvolvimento', series: '4 × 8', feito: false },
+  { nome: 'Elevação lateral', series: '3 × 15', feito: false },
+  { nome: 'Tríceps corda', series: '3 × 12', feito: false },
+];
+const feitos = treino.filter((e) => e.feito).length;
+
+const passos = [
+  { titulo: 'Avaliação', texto: 'Anamnese, rotina, exames e composição corporal para entender de onde você parte.' },
+  { titulo: 'Estratégia', texto: 'Plano alimentar e treino montados para o seu objetivo, agenda e preferências.' },
+  { titulo: 'Acompanhamento', texto: 'Check-ins frequentes e suporte direto para tirar dúvidas e manter a constância.' },
+  { titulo: 'Ajustes', texto: 'Revisões periódicas com base nos seus resultados. O plano evolui com você.' },
+];
+
+const ano = new Date().getFullYear();
+---
+<link rel="stylesheet" href={cssUrl} />
+<div class="demo-grafite">
+
+  {(clinica.marca || clinica.area) && (
+    <div class="banner">
+      <a class="lnk banner__lnk" href="#programas">⚡ {[clinica.marca, clinica.area].filter(Boolean).join(' | ')}</a>
+    </div>
+  )}
+
+  <header class:list={['hero', { 'hero--brand': fundoDesk }]} id="inicio">
+    {fundoDesk && fundoMob && (
+      <picture class="hero__bg">
+        <source media="(min-width:1024px)" srcset={fundoDesk.src} />
+        <img src={fundoMob.src} alt={`${clinica.nome}${clinica.assinatura ? ` | ${clinica.assinatura}` : ''}`} fetchpriority="high" />
+      </picture>
+    )}
+    <nav class="nav">
+      <span class="nav__logo">{clinica.nome}{clinica.assinatura && <span class="nav__logo-pro">| {clinica.assinatura}</span>}</span>
+      <div class="nav__right">
+        <a class="lnk nav__lnk" href="#especialidades">Especialidades</a>
+        {produtos.length > 0 && <a class="lnk nav__lnk" href="#programas">Programas</a>}
+        <a class="lnk nav__lnk" href="#metodo">Método</a>
+        {contatoHref && <a class="btn btn--nav" href={contatoHref}>Quero começar</a>}
+      </div>
+    </nav>
+
+    <h1 class="h1 hero__title">
+      {sloganTitulo.map((p: string, i: number) => (
+        <>{i > 0 && <span class="hero__dot"> · </span>}<span class="hero__word">{p}</span></>
+      ))}
+    </h1>
+    <p class="t1 hero__lead">
+      {clinica.area ?? 'Performance'} para {especialidades.map((e) => e.toLowerCase()).join(', ').replace(/, ([^,]*)$/, ' e $1')}.
+      {locaisTexto && <> Atendimento em {locaisTexto}.</>}
+    </p>
+    {contatoHref && <a class="btn" href={contatoHref}>Quero começar</a>}
+    {clinica.marca && <p class="t2 hero__price">Método {clinica.marca}</p>}
+    {handle && <a class="t3 hero__refund" href={instagramHref}>@{handle}</a>}
+
+    <div class="phone phone--hero" aria-hidden="true">
+      <div class="phone__screen phone__screen--dark">
+        <div class="phone__status"><span>9:41</span><img class="ico ico--status" src={a('status-fff.svg').src} alt="" /></div>
+
+        <div class="wk__head">
+          <span class="av av--coach wk__av">{inicial}</span>
+          <div>
+            <p class="wk__by">Treino personalizado</p>
+            <p class="wk__coach">por {clinica.nome}</p>
+          </div>
+        </div>
+
+        <p class="h3 phone__greeting">Treino A · {especialidades[1] ?? especialidades[0]}</p>
+        <div class="wk__chips">
+          <span>55 min</span><span>{treino.length} exercícios</span><span>Semana 3</span>
+        </div>
+
+        <div class="wk__card">
+          <div class="wk__progress">
+            <span>{feitos} de {treino.length} concluídos</span>
+            <span class="wk__bar"><i style={`width:${(feitos / treino.length) * 100}%`}></i></span>
+          </div>
+          <ol class="wk__list">
+            {treino.map((e, i) => (
+              <li class:list={['wk__item', { 'wk__item--done': e.feito }]}>
+                <span class="wk__n">{e.feito ? '✓' : i + 1}</span>
+                <span class="wk__name">{e.nome}</span>
+                <span class="wk__sets">{e.series}</span>
+              </li>
+            ))}
+          </ol>
+          <div class="phone__msg wk__msg">
+            <span class="av av--coach">{inicial}</span>
+            <p class="t3 phone__msg-text">Bora, foco na execução! Sobe a carga no desenvolvimento se fechar as 8 reps. — {primeiroNome}</p>
+          </div>
+          <span class="wk__cta">Continuar treino</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="esp" id="especialidades">
+      <h2 class="h2 esp__title">{especialidades.join(' • ')}</h2>
+      <p class="t2 esp__lead">Um plano para cada objetivo, com nutrição e treino trabalhando juntos.</p>
+      <div class="esp__cards">
+        {especialidades.map((e, i) => (
+          <article class="esp-card">
+            <span class="esp-card__ico" aria-hidden="true">
+              {icones[i % icones.length] === 'flame' && (
+                <svg viewBox="0 0 24 24"><path d="M12 2c1 3.5 5 5.5 5 10a5 5 0 0 1-10 0c0-2 1-3.5 2-4.5 0 2 1 3 2 3 0-3-1-5.5 1-8.5Z"/></svg>
+              )}
+              {icones[i % icones.length] === 'dumbbell' && (
+                <svg viewBox="0 0 24 24"><path d="M6.5 6.5v11M17.5 6.5v11M3.5 9v6M20.5 9v6M6.5 12h11"/></svg>
+              )}
+              {icones[i % icones.length] === 'route' && (
+                <svg viewBox="0 0 24 24"><circle cx="6" cy="19" r="2"/><circle cx="18" cy="5" r="2"/><path d="M8 19h7.5a3.5 3.5 0 0 0 0-7h-7a3.5 3.5 0 0 1 0-7H16"/></svg>
+              )}
+            </span>
+            <h3 class="h3">{e}</h3>
+            <p class="t2">{textosEspecialidade[e.toLowerCase()] ?? `Estratégia individual de nutrição e treino focada em ${e.toLowerCase()}.`}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    {produtos.length > 0 && (
+      <section class="prog" id="programas">
+        <h2 class="h2 prog__title">Escolha como evoluir</h2>
+        <p class="t2 prog__lead">Do acompanhamento completo ao guia para começar sozinho.</p>
+        <div class="prog__cards">
+          {produtos.map((p, i) => (
+            <article class:list={['prog-card', { 'prog-card--featured': i === 0 }]}>
+              {p.tag && <span class="prog-card__tag">{p.tag}</span>}
+              <h3 class="h3">{p.titulo}</h3>
+              <p class="t2 prog-card__txt">{p.descricao}</p>
+              {(p.link ?? contatoHref) && (
+                <a class:list={['btn', 'prog-card__btn', { 'btn--raised': i !== 0 }]} href={p.link ?? contatoHref}>Quero saber mais</a>
+              )}
+            </article>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <section class="metodo" id="metodo">
+      <h2 class="h2 metodo__title">Como funciona</h2>
+      <p class="t2 metodo__lead">Ciência aplicada à sua rotina, em quatro etapas.</p>
+      <ol class="metodo__steps">
+        {passos.map((p, i) => (
+          <li class="metodo-step">
+            <span class="metodo-step__n">{String(i + 1).padStart(2, '0')}</span>
+            <h3 class="h3">{p.titulo}</h3>
+            <p class="t2 metodo-step__txt">{p.texto}</p>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    {locais.length > 0 && (
+      <section class="local" id="atendimento">
+        <h2 class="h2 local__title">Onde atendo</h2>
+        <ul class="local__list">
+          {locais.map((l) => (
+            <li class:list={['local__item', { 'local__item--online': l === 'Online' }]}>
+              <span class="h3">{l}</span>
+              <span class="t3">{l === 'Online' ? 'Para qualquer cidade do Brasil' : 'Consultas presenciais'}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+  </main>
+
+  <footer class="footer" id="contato">
+    {contatoHref && (
+      <>
+        <h2 class="h2">Sua evolução<br class="br-m" /> começa aqui</h2>
+        <a class="btn" href={contatoHref}>{contatoLabel}</a>
+      </>
+    )}
+    <div class="footer__cols">
+      <div class="footer-col">
+        <h3 class="h3">{clinica.nome}{clinica.assinatura && ` | ${clinica.assinatura}`}</h3>
+        {clinica.marca && <span class="lnk">{clinica.marca}{clinica.area && ` · ${clinica.area}`}</span>}
+        {instagramHref && <a class="lnk" href={instagramHref}>Instagram @{handle}</a>}
+        {whatsappHref && <a class="lnk" href={whatsappHref}>WhatsApp {clinica.whatsapp}</a>}
+        {telefoneHref && <a class="lnk" href={telefoneHref}>Telefone {clinica.telefone}</a>}
+        {locaisTexto && <span class="lnk">{locaisTexto}</span>}
+      </div>
+    </div>
+    <div class="footer__legal">
+      <p class="t3">© {ano} {clinica.nome}</p>
+    </div>
+  </footer>
+
+</div>

@@ -1,0 +1,19 @@
+---
+import { getCollection } from 'astro:content';
+import DemoLayout from '../../layouts/DemoLayout.astro';
+import Lavanda from '../../templates/lavanda/Lavanda.astro';
+import Grafite from '../../templates/grafite/Grafite.astro';
+import { corDoSlug } from '../../lib/cor';
+
+export async function getStaticPaths() {
+  const clinicas = await getCollection('clinicas');
+  return clinicas.map((c) => ({ params: { slug: c.id }, props: { clinica: c.data, slug: c.id } }));
+}
+
+const templates = { lavanda: Lavanda, grafite: Grafite };
+const { clinica, slug } = Astro.props;
+const Template = templates[clinica.estilo];
+---
+<DemoLayout clinica={clinica} cor={corDoSlug(slug)}>
+  <Template clinica={clinica} />
+</DemoLayout>
