@@ -9,7 +9,8 @@
 import Pagina from './Pagina.astro';
 import SectionHead from './componentes/SectionHead.astro';
 import Icone from './componentes/Icone.astro';
-import { a } from './arquivos';
+import { getImage } from 'astro:assets';
+import { a, img } from './arquivos';
 import { slug, etapasPadrao, montarRotas } from './navegacao';
 import { montarContato, arroba } from './contato';
 
@@ -23,9 +24,12 @@ const { whatsappHref, telefoneHref, emailHref, endereco, mapaHref, instagramHref
 
 // ---------- identidade ----------
 const marca = clinica.marca ?? clinica.nome;
-const cidade = clinica.cidades?.[0];
 const descricao =
   clinica.descricao ?? 'Formando cidadãos preparados para os desafios do futuro com excelência, valores e amor à educação.';
+
+// ---------- propósito ----------
+// PNG transparente em alta (1024px); vai como WebP com 2x a largura exibida (440px).
+const fotoProposito = await getImage({ src: img('mentes-do-amanha.png'), format: 'webp', width: 880 });
 
 // ---------- etapas ----------
 // Fotos por posição (literais completos para o prune). Fund. I usa a foto do evento
@@ -107,10 +111,6 @@ const parceiros = [
     <section class="hero" id="inicio">
       <div class="container hero__grid">
         <div class="hero__copy">
-          <p class="badge">
-            <span class="badge__dot" aria-hidden="true"></span>
-            {marca.toUpperCase()}{cidade && <> <span class="badge__sep">|</span> {cidade.toUpperCase()}</>}
-          </p>
           <p class="h3 h3--red hero__eyebrow">ENSINO COM</p>
           <h1 class="h1 h1--red hero__title">AMOR</h1>
           <p class="t2 hero__text">Formamos cidadãos preparados para os desafios do futuro com excelência e valores.</p>
@@ -161,7 +161,7 @@ const parceiros = [
             : <a class="lnk lnk--arrow" href="#etapas">Conheça os cursos <Icone nome="seta" classe="lnk__ico" /></a>}
         </div>
         <div class="purpose__media">
-          <img class="purpose__photo" src={a('aluna-coracao.jpg')} alt={`Aluna do ${clinica.nome} dentro de um coração vermelho`} />
+          <img class="purpose__photo" src={fotoProposito.src} width="880" height={Math.round(880 * 922 / 1024)} loading="lazy" alt={`Aluna do ${clinica.nome} dentro de um coração vermelho`} />
         </div>
       </div>
     </section>
@@ -230,11 +230,61 @@ const parceiros = [
         <SectionHead eyebrow={marca.toUpperCase()} titulo="EVENTOS">
           Muito além da sala de aula, nossos eventos incentivam a convivência, a criatividade e o desenvolvimento integral dos estudantes.
         </SectionHead>
-        <ul class="events__grid">
-          {eventos.map((ev) => (
-            <li class="event"><img class="event__img" src={a(ev.img)} alt={ev.nome} loading="lazy" /><p class="t3 event__name">{ev.nome}</p></li>
-          ))}
-        </ul>
+        <div class="carousel" data-carousel>
+          <button class="carousel__btn carousel__btn--prev" type="button" aria-label="Eventos anteriores" data-prev>
+            <Icone nome="seta" classe="carousel__ico carousel__ico--prev" />
+          </button>
+          <ul class="carousel__track" data-track aria-label="Eventos">
+            {eventos.map((ev) => (
+              <li class="event"><img class="event__img" src={a(ev.img)} alt={ev.nome} loading="lazy" /><p class="t3 event__name">{ev.nome}</p></li>
+            ))}
+          </ul>
+          <button class="carousel__btn carousel__btn--next" type="button" aria-label="Próximos eventos" data-next>
+            <Icone nome="seta" classe="carousel__ico" />
+          </button>
+          <div class="carousel__dots" data-dots></div>
+        </div>
+        <!-- inline: só vai para a página que renderiza a seção (não entra no bundle das outras demos).
+             Sem JS a faixa continua rolável no toque/trackpad; o script liga setas e pontos. -->
+        <script is:inline>
+          document.querySelectorAll('[data-carousel]').forEach((c) => {
+            const track = c.querySelector('[data-track]');
+            const prev = c.querySelector('[data-prev]');
+            const next = c.querySelector('[data-next]');
+            const dots = c.querySelector('[data-dots]');
+            // uma página = largura visível + o gap que separa o último card da próxima página
+            const gap = () => parseFloat(getComputedStyle(track).columnGap) || 0;
+            const passo = () => track.clientWidth + gap();
+            const paginas = () => Math.max(1, Math.round((track.scrollWidth + gap()) / passo()));
+            const pagina = () => Math.round(track.scrollLeft / passo());
+            const ir = (i) => track.scrollTo({ left: i * passo(), behavior: 'smooth' });
+            const montarDots = () => {
+              dots.innerHTML = '';
+              for (let i = 0; i < paginas(); i++) {
+                const b = document.createElement('button');
+                b.type = 'button';
+                b.className = 'carousel__dot';
+                b.setAttribute('aria-label', `Página ${i + 1}`);
+                b.addEventListener('click', () => ir(i));
+                dots.appendChild(b);
+              }
+            };
+            const atualizar = () => {
+              const fim = track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
+              prev.disabled = track.scrollLeft <= 4;
+              next.disabled = fim;
+              const atual = fim ? paginas() - 1 : pagina();
+              dots.querySelectorAll('.carousel__dot').forEach((d, i) => d.classList.toggle('is-ativo', i === atual));
+            };
+            prev.addEventListener('click', () => ir(Math.max(0, pagina() - 1)));
+            next.addEventListener('click', () => ir(Math.min(paginas() - 1, pagina() + 1)));
+            track.addEventListener('scroll', atualizar, { passive: true });
+            addEventListener('resize', () => { montarDots(); atualizar(); });
+            montarDots();
+            atualizar();
+            c.classList.add('is-pronto');
+          });
+        </script>
         {(blogHref || instagramHref) && (
           <div class="events__more">
             <a class="btn btn--outline" href={blogHref ?? instagramHref!}>{blogHref ? 'Ver as novidades no blog' : 'Ver todos no Instagram'}</a>

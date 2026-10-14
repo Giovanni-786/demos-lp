@@ -20,8 +20,6 @@ const { clinica, slug: slugPagina } = Astro.props;
 const concurso = clinica.concurso!;
 const { home } = montarRotas(clinica, slugPagina);
 const { temContato, cta, whatsappHref } = montarContato(clinica);
-const marca = clinica.marca ?? clinica.nome;
-const cidade = clinica.cidades?.[0];
 
 // Arquivos disponíveis (literais para o prune_assets.py); o JSON escolhe pelo nome.
 const banners = ['concurso/banner-concurso-bolsas.png'];
@@ -59,10 +57,6 @@ const coresFato = ['orange', 'blue', 'red'] as const;
     <section class="hero contest-hero">
       <div class="container hero__grid">
         <div class="hero__copy">
-          <p class="badge">
-            <span class="badge__dot" aria-hidden="true"></span>
-            {marca.toUpperCase()}{cidade && <> <span class="badge__sep">|</span> {cidade.toUpperCase()}</>}
-          </p>
           <p class="h3 h3--red hero__eyebrow">{eyebrow}</p>
           <h1 class="h1 h1--red hero__title">{ano ?? concurso.chamada}</h1>
           {abertura && <p class="t2 hero__text" set:html={negrito(abertura)} />}
