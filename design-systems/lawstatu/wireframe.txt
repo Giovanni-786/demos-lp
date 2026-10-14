@@ -1,0 +1,145 @@
+LawStatu — Law Firm Landing Page  (reference.png, 1 coluna, fundo escuro)
+Tags: h1 h2 h3 = títulos | t1 t2 t3 = textos | eyebrow = rótulo pequeno laranja
+      btn = botão | lnk = link | ico = ícone | img = imagem | av = avatar | inp = campo
+      *texto* = trecho em laranja dentro do título
+
++-- page ---------------------------------------------------------------------------+
+|                                                                                   |
+| +-- nav --------------------------------------------------------------------------+
+| | [ico:logo-pilar] [logo:LawStatu]        [lnk:Home] [lnk:Cases Highlights]        |
+| |                                         [lnk:Team] [lnk:Values] [lnk:Contact]    |
+| |                                         [ico:cart]                               |
+| +---------------------------------------------------------------------------------+
+|                                                                                   |
+| +-- hero -------------------------------------------------------------------------+
+| | [img:hero-statue                    ]   [ico:badge-martelo]                       |
+| | [  estátua da justiça, sangra        ]   [h1:Expert Legal Solutions]              |
+| | [  pela borda esquerda              ]   [t2:Lorem ipsum dolor sit amet ... ]      |
+| | [                                   ]   [btn:Learn More]                          |
+| +---------------------------------------------------------------------------------+
+|                                                                                   |
+| +-- section.cases ----------------------------------------------------------------+
+| |                    [h2:*Cases* Highlights]                                       |
+| | +-- case-card ---------+ +-- case-card ---------+ +-- case-card ---------+       |
+| | | [img:case-accident ] | | [img:case-contract ] | | [img:case-custody  ] |       |
+| | | [eyebrow:Personal    | | [eyebrow:Corporate   | | [eyebrow:Family Law] |       |
+| | |   Injury]            | |   Law]               | | [h3:Child custody    |       |
+| | | [h3:Automobile       | | [h3:Breach of        | |   dispute]           |       |
+| | |   accident]          | |   contract]          | +----------------------+       |
+| | +----------------------+ +----------------------+                                |
+| | +-- case-card ---------+ +-- case-card ---------+   +-- cases-more ----+         |
+| | | [img:case-dui      ] | | [img:case-property ] |   | (círculo laranja)|         |
+| | | [eyebrow:Personal    | | [eyebrow:Real Estate |   | [lnk:View all    |         |
+| | |   Injury]            | |   Law]               |   |   cases ↗]       |         |
+| | | [h3:DUI charge]      | | [h3:Property boundary|   +------------------+         |
+| | +----------------------+ |   dispute]           |                                |
+| |                          +----------------------+                                |
+| +---------------------------------------------------------------------------------+
+|                                                                                   |
+| +-- section.team -----------------------------------------------------------------+
+| |              [h2:Legal *experts* working for your justice]                       |
+| |              [t3:Lorem ipsum dolor sit amet ... ultrices.]                        |
+| | +-- team-card ---------+ +-- team-card ---------+ +-- team-card ---------+       |
+| | | [img:team-maria    ] | | [img:team-jake     ] | | [img:team-ariana   ] |       |
+| | | (fundo pêssego)      | | (fundo pêssego)      | | (fundo pêssego)      |       |
+| | | +-- team-label ----+ | | +-- team-label ----+ | | +-- team-label ----+ |       |
+| | | |[h3:Maria Lvanova]| | | |[h3:Jake Nichol]  | | | |[h3:Ariana John]  | |       |
+| | | |[t3:Senior Advisor| | | |[t3:Senior        | | | |[t3:Senior        | |       |
+| | | +------------------+ | | |  Attorney]       | | | |  Attorney]       | |       |
+| | +----------------------+ | +------------------+ | | +------------------+ |       |
+| |                          +----------------------+ +----------------------+       |
+| +---------------------------------------------------------------------------------+
+|                                                                                   |
+| +-- section.reviews --------------------------------------------------------------+
+| |              [h2:Reviews and *testimonials* from our clients]                    |
+| | ---------------------------------------------------------- (divisor)            |
+| | [btn:‹ prev]   [t1:Lorem ipsum dolor sit amet ... feugiat id vel.]   [btn:next ›]|
+| |                [av:jhon] [h3:Jhon D.] [t3:Founder, Law Firm]                     |
+| | ---------------------------------------------------------- (divisor)            |
+| +---------------------------------------------------------------------------------+
+|                                                                                   |
+| +-- section.values ---------------------------------------------------------------+
+| |                      [h2:Our Success *Story*]                                    |
+| | +-- value-item ------+ +-- value-item ------+ +-- value-item ------+             |
+| | | [num:1] [h3:Excel- | | [num:2] [h3:Integ- | | [num:3] [h3:Exper- |             |
+| | |   lence]           | |   rity]            | |   tise]            |             |
+| | | ------------------ | | ------------------ | | ------------------ |             |
+| | | [t2:Delivering     | | [t2:Commitment to  | | [t2:Deecades of    |             |
+| | |  top-tier legal..] | |  ethical practices]| |  combined exper..] |             |
+| | | [t3:Lorem ipsum..] | | [t3:Lorem ipsum..] | | [t3:Lorem ipsum..] |             |
+| | +--------------------+ +--------------------+ +--------------------+             |
+| | +-- value-item ------+ +-- value-item ------+ +-- value-item ------+             |
+| | | [num:4] Innovation | | [num:5] Innovation | | [num:6] Trust      |             |
+| | | [t2:Modern sol..]  | | [t2:Client-focus..]| | [t2:Building last.]|             |
+| | | [t3:Lorem ipsum..] | | [t3:Lorem ipsum..] | | [t3:Lorem ipsum..] |             |
+| | +--------------------+ +--------------------+ +--------------------+             |
+| +---------------------------------------------------------------------------------+
+|                                                                                   |
+| +-- section.pricing --------------------------------------------------------------+
+| |              [h2:Transparent *pricing* for our legal services]                   |
+| |              [t3:Lorem ipsum dolor sit amet ... egestas.]                         |
+| | +-- price-card ------+ +-- price-card ------+ +-- price-card ------+             |
+| | | +-- price-top ---+ | | +-- price-top ---+ | | +-- price-top ---+ |             |
+| | | |[h3:Basic       | | | |[h3:Advance     | | | |[h3:Premium     | |             |
+| | | |  Package]      | | | |  Package]      | | | |  Package]      | |             |
+| | | |[t3:Lorem ...]  | | | |[t3:Lorem ...]  | | | |[t3:Lorem ...]  | |             |
+| | | |[price:$750     | | | |[price:$2,500   | | | |[price:$5,000   | |             |
+| | | |  USD/month]    | | | |  USD/month]    | | | |  USD/month]    | |             |
+| | | |[btn:Contact us]| | | |[btn:Contact us]| | | |[btn:Contact us]| |             |
+| | | +----------------+ | | +----------------+ | | +----------------+ |             |
+| | | +-- price-feat --+ | | +-- price-feat --+ | | +-- price-feat --+ |             |
+| | | |[ico:check] Up  | | | | (mesmos 3      | | | | (mesmos 3      | |             |
+| | | | to 5 Hours ... | | | |  itens)        | | | |  itens)        | |             |
+| | | |[ico:check]     | | | |                | | | |                | |             |
+| | | | Detailed Case..| | | |                | | | |                | |             |
+| | | |[ico:check]     | | | |                | | | |                | |             |
+| | | | Drafting of ...| | | |                | | | |                | |             |
+| | | +----------------+ | | +----------------+ | | +----------------+ |             |
+| | +--------------------+ +--------------------+ +--------------------+             |
+| +---------------------------------------------------------------------------------+
+|                                                                                   |
+| +-- section.blog -----------------------------------------------------------------+
+| |              [h2:Stay in formed with our *legal blog*]                           |
+| |              [t3:Lorem ipsum dolor sit amet ... ornare.]                          |
+| | +-- blog-list -------------------------+ +-- blog-feature -----------+            |
+| | | +-- blog-item ---------------------+ | | [img:blog-attorney      ] |            |
+| | | |[img:blog-1] [t3:September 8,2025]| | | (foto ocupa o card,      |            |
+| | | |  [h3:Fliing a Claim against a    | | |  gradiente na base)      |            |
+| | | |   Crulse Ship Contractual]       | | | [t3:September 11, 2025]  |            |
+| | | |  [lnk:Read more ↗]               | | | [h3:Domestic Violence In |            |
+| | | +----------------------------------+ | |  California - How a can  |            |
+| | | +-- blog-item ---------------------+ | |  Help]                   |            |
+| | | |[img:blog-2] [t3:September 9,2025]| | +---------------------------+            |
+| | | |  [h3:The Advantages of Using a   | |                                          |
+| | | |   Public Defender] [lnk:Read more↗]|                                          |
+| | | +----------------------------------+ |                                          |
+| | | +-- blog-item ---------------------+ |                                          |
+| | | |[img:blog-3] [t3:September 10,2025] |                                          |
+| | | |  [h3:Day Care Responsibility to  | |                                          |
+| | | |   Protect Childen] [lnk:Read more↗]|                                          |
+| | | +----------------------------------+ |                                          |
+| | +--------------------------------------+                                          |
+| +---------------------------------------------------------------------------------+
+|                                                                                   |
+| +-- section.consult --------------------------------------------------------------+
+| | [h2:Request A *Free Consultation*]         [img:consult-map          ]           |
+| | [t3:Lorem ipsum dolor sit amet ... ]       [ (globo/mapa, cantos      ]           |
+| | +-- subscribe ---------------------+       [   arredondados)          ]           |
+| | | [inp:Enter your email] [btn:→]   |                                              |
+| | +----------------------------------+                                              |
+| +---------------------------------------------------------------------------------+
+|                                                                                   |
+| +-- footer -----------------------------------------------------------------------+
+| | [ico:logo-pilar] [logo:LawStatu]   [h2:Hire one of our professional legal        |
+| |                                         experts this very day]                    |
+| |                                    +-- footer-col ----+ +-- footer-col ------+    |
+| | [t2:Contact]                       | [eyebrow:Company]| | [eyebrow:Contact]  |    |
+| | [btn:☎ 202-555-0167] (outline)     | [lnk:Home]       | | [lnk:Facebook]     |    |
+| | [btn:▣ Free Consultation] (laranja)| [lnk:Cases highl.| | [lnk:Twitter]      |    |
+| |                                    | [lnk:Team]       | | [lnk:Lawstatu@     |    |
+| |                                    | [lnk:Values]     | |   gmail.com]       |    |
+| |                                    | [lnk:Pricing]    | +--------------------+    |
+| |                                    | [lnk:Blog]       |                           |
+| |                                    +------------------+                           |
+| +---------------------------------------------------------------------------------+
++-----------------------------------------------------------------------------------+

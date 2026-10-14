@@ -1,0 +1,389 @@
+{
+  "nome": "Colégio GBI Bauru",
+  "estilo": "primarias",
+  "marca": "Colégio GBI",
+  "logo": "logo.png",
+  "cidades": [
+    "Bauru (SP)"
+  ],
+  "descricao": "Formando cidadãos preparados para os desafios do futuro com excelência, valores e amor à educação.",
+  "telefone": "(14) 3203-8488",
+  "email": "contato@colegiogbi.com.br",
+  "endereco": "Rua Sebastião Pregnolato, 7-40, Jd Auri Verde - 17047-145 - Bauru - SP",
+  "bairro": "Jardim Auri Verde",
+  "atalhos": [
+    {
+      "titulo": "Atividades Complementares",
+      "cor": "orange"
+    },
+    {
+      "titulo": "Calendário Escolar",
+      "link": "#calendario"
+    },
+    {
+      "titulo": "Regimento Escolar"
+    },
+    {
+      "titulo": "Contrato 2027"
+    }
+  ],
+  "etapas": [
+    {
+      "nome": "Educação Infantil",
+      "faixa": "Maternal ao Pré",
+      "descricao": "Brincar, conviver e descobrir o mundo com afeto e segurança."
+    },
+    {
+      "nome": "Ensino Fund. I",
+      "faixa": "1º ao 5º ano",
+      "descricao": "Alfabetização sólida e curiosidade que vira aprendizado."
+    },
+    {
+      "nome": "Ensino Fund. II",
+      "faixa": "6º ao 9º ano",
+      "descricao": "Autonomia, novas disciplinas e projetos em equipe."
+    },
+    {
+      "nome": "Ensino Médio",
+      "faixa": "1ª à 3ª série",
+      "descricao": "Preparação para o ENEM, os vestibulares e as escolhas do futuro."
+    }
+  ],
+  "diferenciais": [
+    {
+      "titulo": "Sistema de Ensino COC",
+      "descricao": "Material didático e avaliações alinhados ao ENEM e aos principais vestibulares."
+    },
+    {
+      "titulo": "Atividades Complementares",
+      "descricao": "Esportes, artes e cultura no contraturno, para ir além da sala de aula."
+    },
+    {
+      "titulo": "Olimpíadas do conhecimento",
+      "descricao": "Participação em olimpíadas como a OBA, que estimulam raciocínio e disciplina."
+    },
+    {
+      "titulo": "Eventos com a família",
+      "descricao": "Festa Junina, Chá dos Avós e Dia da Família aproximam a escola de casa."
+    },
+    {
+      "titulo": "Aulões preparatórios",
+      "descricao": "Revisões intensivas para o ENEM com os professores do Ensino Médio."
+    },
+    {
+      "titulo": "Acompanhamento próximo",
+      "descricao": "Coordenação e secretaria disponíveis para orientar alunos e responsáveis."
+    }
+  ],
+  "destaque": {
+    "eyebrow": "Concurso de Bolsas",
+    "titulo": "2027",
+    "texto": "Bolsas de estudo de até 70% para quem vai cursar do 6º ao 9º ano ou a 1ª série do Ensino Médio em 2027."
+  },
+  "calendario": {
+    "ano": "2026",
+    "pdf": "calendario-escolar-2026.pdf",
+    "nota": "Homologado pela Diretoria de Ensino. Calendário sujeito a alterações.",
+    "observacao": "Período de reconsideração (Del. 155/2017, alterada pela 161/18): contra avaliação durante o ano letivo, até 5 dias após a divulgação dos resultados; resultado da avaliação final, até 10 dias após a divulgação.",
+    "meses": [
+      {
+        "mes": "Janeiro",
+        "datas": [
+          {
+            "dia": "26",
+            "titulo": "Início das aulas",
+            "tipo": "letivo"
+          }
+        ]
+      },
+      {
+        "mes": "Fevereiro",
+        "datas": [
+          {
+            "dia": "16 a 18",
+            "titulo": "Carnaval (atividades suspensas)",
+            "tipo": "suspensa"
+          }
+        ]
+      },
+      {
+        "mes": "Abril",
+        "datas": [
+          {
+            "dia": "03",
+            "titulo": "Sexta-feira Santa",
+            "tipo": "feriado"
+          },
+          {
+            "dia": "20",
+            "titulo": "Atividades suspensas",
+            "tipo": "suspensa"
+          },
+          {
+            "dia": "21",
+            "titulo": "Tiradentes",
+            "tipo": "feriado"
+          },
+          {
+            "dia": "25",
+            "titulo": "Dia dedicado ao esporte",
+            "tipo": "evento"
+          }
+        ]
+      },
+      {
+        "mes": "Maio",
+        "datas": [
+          {
+            "dia": "01",
+            "titulo": "Feriado nacional",
+            "tipo": "feriado"
+          },
+          {
+            "dia": "16",
+            "titulo": "Reunião de pais (1º trimestre)",
+            "tipo": "reuniao"
+          }
+        ]
+      },
+      {
+        "mes": "Junho",
+        "datas": [
+          {
+            "dia": "04",
+            "titulo": "Feriado religioso",
+            "tipo": "feriado"
+          },
+          {
+            "dia": "05",
+            "titulo": "Atividades suspensas",
+            "tipo": "suspensa"
+          },
+          {
+            "dia": "13",
+            "titulo": "Festa Junina",
+            "tipo": "evento"
+          },
+          {
+            "dia": "27",
+            "titulo": "Chá dos Avós (4ºs anos)",
+            "tipo": "evento"
+          }
+        ]
+      },
+      {
+        "mes": "Julho",
+        "datas": [
+          {
+            "dia": "01 a 30",
+            "titulo": "Férias escolares",
+            "tipo": "suspensa"
+          },
+          {
+            "dia": "31",
+            "titulo": "Atividades suspensas",
+            "tipo": "suspensa"
+          }
+        ]
+      },
+      {
+        "mes": "Agosto",
+        "datas": [
+          {
+            "dia": "01",
+            "titulo": "Feriado municipal",
+            "tipo": "feriado"
+          },
+          {
+            "dia": "03",
+            "titulo": "Volta às aulas (2º semestre)",
+            "tipo": "letivo"
+          }
+        ]
+      },
+      {
+        "mes": "Setembro",
+        "datas": [
+          {
+            "dia": "07",
+            "titulo": "Independência do Brasil",
+            "tipo": "feriado"
+          },
+          {
+            "dia": "12",
+            "titulo": "Reunião de pais (2º trimestre)",
+            "tipo": "reuniao"
+          },
+          {
+            "dia": "19",
+            "titulo": "Festa da Família",
+            "tipo": "evento"
+          }
+        ]
+      },
+      {
+        "mes": "Outubro",
+        "datas": [
+          {
+            "dia": "12",
+            "titulo": "Feriado religioso",
+            "tipo": "feriado"
+          },
+          {
+            "dia": "16",
+            "titulo": "Dia dos Professores (atividades suspensas)",
+            "tipo": "suspensa"
+          },
+          {
+            "dia": "24",
+            "titulo": "Feira Multicultural",
+            "tipo": "evento"
+          }
+        ]
+      },
+      {
+        "mes": "Novembro",
+        "datas": [
+          {
+            "dia": "02",
+            "titulo": "Finados",
+            "tipo": "feriado"
+          },
+          {
+            "dia": "15",
+            "titulo": "Proclamação da República",
+            "tipo": "feriado"
+          },
+          {
+            "dia": "20",
+            "titulo": "Dia da Consciência Negra",
+            "tipo": "feriado"
+          }
+        ]
+      },
+      {
+        "mes": "Dezembro",
+        "datas": [
+          {
+            "dia": "15",
+            "titulo": "Término do ano letivo",
+            "tipo": "letivo"
+          },
+          {
+            "dia": "15",
+            "titulo": "Reunião de pais (3º trimestre)",
+            "tipo": "reuniao"
+          },
+          {
+            "dia": "17, 18 e 21",
+            "titulo": "Recuperação final",
+            "tipo": "letivo"
+          }
+        ]
+      }
+    ]
+  },
+  "concurso": {
+    "menu": "Bolsas 2027",
+    "titulo": "Concurso de Bolsas 2027",
+    "chamada": "Bolsas de até 70%",
+    "paragrafos": [
+      "O **Colégio GBI** oferece bolsa de estudo de até **70%** por intermédio do **Concurso de Bolsas**.",
+      "São oferecidas vagas para alunos que cursarão – **em 2027** – as turmas do Fundamental II – **Anos Finais (6º ao 9º ano)** e da **1ª série do Ensino Médio**.",
+      "As vagas oferecidas para estas bolsas são para o **período da tarde**, **exceto o Ensino Médio**, que funciona **apenas no período da manhã**."
+    ],
+    "destaques": [
+      {
+        "valor": "Até 70%",
+        "texto": "de bolsa de estudo"
+      },
+      {
+        "valor": "6º ao 9º ano",
+        "texto": "e 1ª série do Ensino Médio, em 2027"
+      },
+      {
+        "valor": "Período da tarde",
+        "texto": "Ensino Médio apenas pela manhã"
+      }
+    ],
+    "botoesTitulo": "Confira suas respostas:",
+    "botoes": [
+      "Edital",
+      "Gabarito"
+    ],
+    "banner": "banner-concurso-bolsas.png",
+    "logo": "concurso-bolsas-logo.png"
+  },
+  "posts": [
+    {
+      "titulo": "Projeto Literário: “Um Menino Igual a Todo Mundo”",
+      "categoria": "2º ano",
+      "data": "2026-10-05",
+      "imagem": "projeto-literario.svg",
+      "resumo": "A turma do 2º ano mergulhou na leitura do livro e conversou sobre respeito, diferenças e amizade."
+    },
+    {
+      "titulo": "Um dia de descobertas no zoológico!",
+      "categoria": "Passeios",
+      "data": "2026-09-28",
+      "imagem": "zoologico.svg",
+      "resumo": "Nossos alunos conheceram de perto os animais e aprenderam sobre os cuidados com cada espécie."
+    },
+    {
+      "titulo": "Projeto A Margarida Friorenta",
+      "categoria": "Educação Infantil",
+      "data": "2026-09-25",
+      "imagem": "margarida-friorenta.svg",
+      "resumo": "Contação de história, música e arte para falar de cuidado e acolhimento com os pequenos."
+    },
+    {
+      "titulo": "Projeto de Vida – 9º ano",
+      "categoria": "9º ano",
+      "data": "2026-09-09",
+      "imagem": "projeto-de-vida.svg",
+      "resumo": "Rodas de conversa sobre sonhos, escolhas e os próximos passos rumo ao Ensino Médio."
+    },
+    {
+      "titulo": "Culinária Saudável: Suco de Laranja com Cenoura",
+      "categoria": "Culinária",
+      "data": "2026-09-03",
+      "imagem": "culinaria-saudavel.svg",
+      "resumo": "Mãos na massa para aprender sobre alimentação saudável preparando uma receita deliciosa."
+    },
+    {
+      "titulo": "Uma aula especial sobre o mundo animal com o 4º ano",
+      "categoria": "4º ano",
+      "data": "2026-09-03",
+      "imagem": "mundo-animal.svg",
+      "resumo": "Observação, curiosidade e muitas perguntas em uma aula prática de Ciências."
+    },
+    {
+      "titulo": "Exposição sobre o Meio Ambiente!",
+      "categoria": "Meio Ambiente",
+      "data": "2026-06-30",
+      "imagem": "meio-ambiente.svg",
+      "resumo": "Trabalhos dos alunos mostraram atitudes simples para cuidar do planeta todos os dias."
+    },
+    {
+      "titulo": "Conclusão do Projeto Horta Pedagógica – Pré III",
+      "categoria": "Educação Infantil",
+      "data": "2026-06-30",
+      "imagem": "horta-pedagogica.svg",
+      "resumo": "Do plantio à colheita: a turma do Pré III acompanhou cada etapa da nossa horta."
+    },
+    {
+      "titulo": "Nossa Aventura por Bauru: Missão Cumprida",
+      "categoria": "Passeios",
+      "data": "2026-06-26",
+      "imagem": "aventura-por-bauru.svg",
+      "resumo": "Um passeio pelos pontos marcantes da cidade para conhecer a história de Bauru."
+    },
+    {
+      "titulo": "Festa Junina 2026: obrigado, famílias!",
+      "categoria": "Eventos",
+      "data": "2026-06-20",
+      "imagem": "festa-junina.svg",
+      "resumo": "Quadrilhas, comidas típicas e muita alegria em uma noite que reuniu toda a comunidade escolar."
+    }
+  ]
+}

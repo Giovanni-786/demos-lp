@@ -1,0 +1,20 @@
+---
+// Página do concurso de bolsas do estilo "primarias": /demo/<slug>/concurso-de-bolsas/.
+// Só é gerada para colégios desse estilo que tenham `concurso` no JSON.
+import { getCollection } from 'astro:content';
+import DemoLayout from '../../../layouts/DemoLayout.astro';
+import PrimariasConcurso from '../../../templates/primarias/PrimariasConcurso.astro';
+import { corDoSlug } from '../../../lib/cor';
+
+export async function getStaticPaths() {
+  const clinicas = await getCollection('clinicas');
+  return clinicas
+    .filter((c) => c.data.estilo === 'primarias' && c.data.concurso)
+    .map((c) => ({ params: { slug: c.id }, props: { clinica: c.data, slug: c.id } }));
+}
+
+const { clinica, slug } = Astro.props;
+---
+<DemoLayout clinica={{ ...clinica, nome: `${clinica.concurso!.titulo} | ${clinica.nome}` }} cor={corDoSlug(slug)}>
+  <PrimariasConcurso clinica={clinica} slug={slug} />
+</DemoLayout>

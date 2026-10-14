@@ -1,0 +1,156 @@
+---
+// Estilo "primarias" — página de blog (/demo/<slug>/blog/), totalmente estática.
+// Estrutura da referência do blog do GBI (faixa "Notícias e Dia a Dia", grade de
+// posts com pílula de categoria e data) no visual da refatoração da home.
+// Banners são ilustrações fictícias em SVG (assets/blog/), uma por post.
+// O filtro por categoria funciona sem JS: radios + :has(), com as regras geradas
+// num <style is:inline> desta página (não entra no bundle das outras demos).
+import Pagina from './Pagina.astro';
+import SectionHead from './componentes/SectionHead.astro';
+import { a } from './arquivos';
+import { slug, montarRotas } from './navegacao';
+import { montarContato } from './contato';
+
+const { clinica, slug: slugPagina } = Astro.props;
+const { home } = montarRotas(clinica, slugPagina);
+const { temContato, cta, whatsappHref } = montarContato(clinica);
+const marca = clinica.marca ?? clinica.nome;
+
+// ---------- posts ----------
+// Banners disponíveis (literais completos para o prune_assets.py).
+const banners = [
+  'blog/projeto-literario.svg',
+  'blog/zoologico.svg',
+  'blog/margarida-friorenta.svg',
+  'blog/projeto-de-vida.svg',
+  'blog/culinaria-saudavel.svg',
+  'blog/mundo-animal.svg',
+  'blog/meio-ambiente.svg',
+  'blog/horta-pedagogica.svg',
+  'blog/aventura-por-bauru.svg',
+  'blog/festa-junina.svg',
+];
+const cores = ['blue', 'orange', 'red'] as const;
+const dataLonga = new Intl.DateTimeFormat('pt-BR', { day: '2-digit', month: 'long', year: 'numeric', timeZone: 'UTC' });
+const dataCurta = new Intl.DateTimeFormat('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric', timeZone: 'UTC' });
+
+const categorias = [...new Set((clinica.posts ?? []).map((p) => p.categoria))].map((nome, i) => ({
+  nome,
+  id: slug(nome),
+  cor: cores[i % cores.length],
+}));
+const corDa = (cat: string) => categorias.find((c) => c.nome === cat)!.cor;
+
+const posts = [...(clinica.posts ?? [])]
+  .sort((x, y) => y.data.localeCompare(x.data))
+  .map((p, i) => {
+    const banner = banners.find((b) => b === `blog/${p.imagem}`) ?? banners[i % banners.length];
+    return {
+      ...p,
+      banner: a(banner),
+      cat: slug(p.categoria),
+      cor: corDa(p.categoria),
+      dataLonga: dataLonga.format(new Date(`${p.data}T00:00:00Z`)),
+      dataCurta: dataCurta.format(new Date(`${p.data}T00:00:00Z`)),
+    };
+  });
+const [destaque, ...demais] = posts;
+
+// Uma regra por categoria: com o radio dela marcado, esconde os posts das outras.
+const filtroCss = categorias
+  .map((c) => `.blog:has(#cat-${c.id}:checked) [data-cat]:not([data-cat="${c.id}"]){display:none}`)
+  .join('\n');
+---
+<Pagina clinica={clinica} slug={slugPagina} ativo="Blog">
+  <style is:inline slot="head" set:html={filtroCss}></style>
+
+  <main class="blog">
+    <!-- ===== faixa do topo ===== -->
+    <section class="blog-hero">
+      <img class="deco blog-hero__swirl" src={a('deco-swirl-azul.png')} alt="" />
+      <img class="deco blog-hero__heart" src={a('deco-coracao.png')} alt="" />
+      <div class="container">
+        <nav class="crumbs" aria-label="Você está em">
+          <a href={home}>Início</a><span aria-hidden="true">/</span><span>Blog</span>
+        </nav>
+        <p class="h3 blog-hero__eyebrow">NOSSO BLOG</p>
+        <h1 class="h1 blog-hero__title">Notícias e Dia a Dia</h1>
+        <p class="t2 blog-hero__text">
+          Acompanhe as últimas notícias, eventos, conquistas e um pouquinho do que se passa diariamente aqui no <strong>{marca}</strong>.
+        </p>
+      </div>
+    </section>
+
+    <!-- ===== filtros ===== -->
+    <div class="container">
+      <div class="filters" role="radiogroup" aria-label="Filtrar por categoria">
+        <input class="filters__radio" type="radio" name="categoria" id="cat-todos" checked />
+        <label class="chip" for="cat-todos">Todos</label>
+        {categorias.map((c) => (
+          <>
+            <input class="filters__radio" type="radio" name="categoria" id={`cat-${c.id}`} />
+            <label class:list={['chip', `chip--${c.cor}`]} for={`cat-${c.id}`}>{c.nome}</label>
+          </>
+        ))}
+      </div>
+    </div>
+
+    <!-- ===== destaque ===== -->
+    {destaque && (
+      <section class="container featured-wrap" aria-label="Post em destaque">
+        <article class="featured" data-cat={destaque.cat}>
+          <div class="featured__media">
+            <img class="featured__img" src={destaque.banner} alt="" />
+            <span class:list={['pill', `pill--${destaque.cor}`]}>{destaque.categoria}</span>
+          </div>
+          <div class="featured__body">
+            <p class="eyebrow featured__label">Mais recente</p>
+            <h2 class="featured__title">{destaque.titulo}</h2>
+            {destaque.resumo && <p class="t2 featured__text">{destaque.resumo}</p>}
+            <time class="post__date" datetime={destaque.data}>{destaque.dataLonga}</time>
+          </div>
+        </article>
+      </section>
+    )}
+
+    <!-- ===== grade de posts ===== -->
+    {demais.length > 0 && (
+      <section class="section posts">
+        <div class="container">
+          <ul class="posts__grid">
+            {demais.map((p) => (
+              <li class="post" data-cat={p.cat}>
+                <div class="post__media">
+                  <img class="post__img" src={p.banner} alt="" loading="lazy" />
+                  <span class:list={['pill', `pill--${p.cor}`]}>{p.categoria}</span>
+                </div>
+                <div class="post__body">
+                  <h3 class="post__title">{p.titulo}</h3>
+                  {p.resumo && <p class="t3 post__text">{p.resumo}</p>}
+                </div>
+                <time class="post__date post__date--foot" datetime={p.data}>{p.dataCurta}</time>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    )}
+
+    <!-- ===== chamada final ===== -->
+    <section class="band band--navy blog-cta">
+      <div class="container highlight">
+        <div class="highlight__copy">
+          <SectionHead eyebrow="VENHA NOS VISITAR" titulo={`Conheça o ${marca} de perto`} tom="light">
+            Agende uma visita e descubra como cada etapa é pensada para o desenvolvimento pleno do aluno.
+          </SectionHead>
+        </div>
+        {cta && (
+          <a class:list={['btn', 'btn--lg', whatsappHref ? 'btn--green' : 'btn--light']} href={temContato ? `${home}#contato` : cta.href}>
+            Agende uma visita
+          </a>
+        )}
+      </div>
+    </section>
+  </main>
+
+</Pagina>

@@ -1,0 +1,56 @@
+---
+// Moldura comum das páginas do estilo "primarias" (home, blog, concurso):
+// CSS, header e rodapé montados a partir da mesma navegação.
+// CSS como URL, não como import: o [slug].astro importa todos os templates, e um
+// import de CSS entraria no bundle de TODAS as páginas. Com ?url, só a página que
+// renderiza este template carrega o arquivo. Por isso os componentes não têm <style>.
+import cssUrl from './assets/styles.css?url';
+import Header from './componentes/Header.astro';
+import Footer from './componentes/Footer.astro';
+import { a } from './arquivos';
+import { montarNavegacao, montarRotas, etapasPadrao } from './navegacao';
+import { montarContato } from './contato';
+
+interface Props {
+  clinica: any;
+  slug?: string;
+  // true na home: os links das seções viram âncoras locais (#etapas)
+  naHome?: boolean;
+  ativo?: string;
+}
+const { clinica, slug, naHome = false, ativo } = Astro.props;
+
+// Logos disponíveis na pasta (literais para o prune_assets.py não apagá-los).
+const logos = ['logo.png'];
+const logoSrc = clinica.logo && logos.includes(clinica.logo) ? a(clinica.logo) : null;
+
+const rotas = montarRotas(clinica, slug);
+const home = naHome ? '' : rotas.home;
+const { instagramHref, tiktokHref, temContato, cta } = montarContato(clinica);
+
+const { header, rodape } = montarNavegacao({
+  home,
+  blog: rotas.blog,
+  concurso: rotas.concurso,
+  etapas: clinica.etapas?.length ? clinica.etapas : etapasPadrao,
+  atalhos: clinica.atalhos ?? [],
+  destaque: clinica.destaque,
+  temDiferenciais: Boolean(clinica.diferenciais?.length),
+  temCalendario: Boolean(clinica.calendario),
+  temContato,
+});
+const social = [
+  ...(instagramHref ? [{ href: instagramHref, label: 'Instagram', ico: a('ico-instagram.svg') }] : []),
+  ...(tiktokHref ? [{ href: tiktokHref, label: 'TikTok', ico: a('ico-tiktok.svg') }] : []),
+];
+const inicio = naHome ? '#inicio' : rotas.home;
+const descricao =
+  clinica.descricao ?? 'Formando cidadãos preparados para os desafios do futuro com excelência, valores e amor à educação.';
+---
+<link rel="stylesheet" href={cssUrl} />
+<slot name="head" />
+<div class="page">
+  <Header nome={clinica.nome} inicio={inicio} ativo={ativo} logoSrc={logoSrc} nav={header} cta={cta} />
+  <slot />
+  <Footer nome={clinica.nome} inicio={inicio} logoSrc={logoSrc} descricao={descricao} cidade={clinica.cidades?.[0]} rodape={rodape} social={social} />
+</div>

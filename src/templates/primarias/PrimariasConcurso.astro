@@ -1,0 +1,148 @@
+---
+// Estilo "primarias" — página do concurso de bolsas (/demo/<slug>/concurso-de-bolsas/).
+// Mesmo vocabulário da home refatorada: hero em duas colunas (copy + mídia emoldurada),
+// Acesso rápido com tiles em gradiente, seção "Como funciona" em pares eyebrow + título
+// e faixa final de contato. O banner e a logo do concurso são do próprio colégio.
+// Edital e Gabarito ainda não têm ação (button type="button").
+import Pagina from './Pagina.astro';
+import SectionHead from './componentes/SectionHead.astro';
+import Icone from './componentes/Icone.astro';
+import { a } from './arquivos';
+import { montarRotas } from './navegacao';
+import { montarContato } from './contato';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  clinica: CollectionEntry<'clinicas'>['data'];
+  slug: string;
+}
+const { clinica, slug: slugPagina } = Astro.props;
+const concurso = clinica.concurso!;
+const { home } = montarRotas(clinica, slugPagina);
+const { temContato, cta, whatsappHref } = montarContato(clinica);
+const marca = clinica.marca ?? clinica.nome;
+const cidade = clinica.cidades?.[0];
+
+// Arquivos disponíveis (literais para o prune_assets.py); o JSON escolhe pelo nome.
+const banners = ['concurso/banner-concurso-bolsas.png'];
+const logosConcurso = ['concurso/concurso-bolsas-logo.png'];
+const escolher = (lista: string[], nome?: string) => {
+  const achado = lista.find((p) => p === `concurso/${nome}`);
+  return achado ? a(achado) : null;
+};
+const bannerSrc = escolher(banners, concurso.banner);
+const logoSrc = escolher(logosConcurso, concurso.logo);
+
+// "Concurso de Bolsas 2027" → eyebrow "CONCURSO DE BOLSAS" + título "2027"
+const ano = concurso.titulo.match(/\d{4}$/)?.[0];
+const eyebrow = (ano ? concurso.titulo.slice(0, -ano.length).trim() : concurso.titulo).toUpperCase();
+
+// **negrito** → <strong>, com o resto do texto escapado.
+const escapar = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const negrito = (s: string) => escapar(s).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+const [abertura, ...demaisParagrafos] = concurso.paragrafos;
+
+// Acesso rápido da página: documentos do concurso (sem ação por enquanto) + atalhos reais.
+type Tile = { titulo: string; cor: 'orange' | 'blue' | 'red'; icone: 'regimento' | 'contrato' | 'calendario' | 'estrela'; href?: string };
+const iconesDoc = ['regimento', 'contrato'] as const;
+const tiles: Tile[] = [
+  ...(concurso.botoes ?? []).map((b, i) => ({ titulo: b, cor: 'blue' as const, icone: iconesDoc[i % 2] })),
+  ...(clinica.calendario ? [{ titulo: 'Calendário Escolar', cor: 'orange' as const, icone: 'calendario' as const, href: `${home}#calendario` }] : []),
+  ...(temContato ? [{ titulo: 'Fale com a secretaria', cor: 'red' as const, icone: 'estrela' as const, href: `${home}#contato` }] : []),
+];
+
+const coresFato = ['orange', 'blue', 'red'] as const;
+---
+<Pagina clinica={clinica} slug={slugPagina} ativo={concurso.menu}>
+  <main class="contest">
+    <!-- ===== hero ===== -->
+    <section class="hero contest-hero">
+      <div class="container hero__grid">
+        <div class="hero__copy">
+          <p class="badge">
+            <span class="badge__dot" aria-hidden="true"></span>
+            {marca.toUpperCase()}{cidade && <> <span class="badge__sep">|</span> {cidade.toUpperCase()}</>}
+          </p>
+          <p class="h3 h3--red hero__eyebrow">{eyebrow}</p>
+          <h1 class="h1 h1--red hero__title">{ano ?? concurso.chamada}</h1>
+          {abertura && <p class="t2 hero__text" set:html={negrito(abertura)} />}
+          <div class="hero__actions">
+            {cta && <a class="btn btn--red btn--lg" href={temContato ? `${home}#contato` : cta.href}>Quero participar</a>}
+            <a class="btn btn--outline btn--lg" href="#como-funciona">Como funciona</a>
+          </div>
+        </div>
+        <div class="hero__media">
+          <div class="hero__frame contest-hero__frame">
+            {bannerSrc
+              ? <img class="hero__img contest-hero__img" src={bannerSrc} alt={concurso.titulo} />
+              : logoSrc && <img class="contest-hero__logo" src={logoSrc} alt={concurso.titulo} />}
+          </div>
+          <img class="deco deco--heart" src={a('deco-coracao.png')} alt="" />
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== acesso rápido ===== -->
+    {tiles.length > 0 && (
+      <section class="section quick">
+        <div class="container">
+          <p class="h3 h3--navy quick__title">ACESSO RÁPIDO</p>
+          <ul class="quick__grid" style={`--qtd: ${tiles.length}`}>
+            {tiles.map((t) => (
+              <li>
+                {t.href
+                  ? (
+                    <a class:list={['tile', `tile--${t.cor}`]} href={t.href}>
+                      <Icone nome={t.icone} classe="tile__ico" />
+                      <span class="t1">{t.titulo}</span>
+                    </a>
+                  )
+                  : (
+                    <button class:list={['tile', `tile--${t.cor}`]} type="button">
+                      <Icone nome={t.icone} classe="tile__ico" />
+                      <span class="t1">{t.titulo}</span>
+                    </button>
+                  )}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    )}
+
+    <!-- ===== como funciona ===== -->
+    <section class="section purpose contest-how" id="como-funciona">
+      <div class="container purpose__grid">
+        <div class="purpose__copy">
+          <SectionHead eyebrow="COMO FUNCIONA" titulo={concurso.chamada} tom="red" />
+          {demaisParagrafos.map((p) => <p class="t2 purpose__text" set:html={negrito(p)} />)}
+          {logoSrc && <img class="contest-how__logo" src={logoSrc} alt={concurso.titulo} />}
+        </div>
+        {(concurso.destaques?.length ?? 0) > 0 && (
+          <ul class="contest-facts">
+            {concurso.destaques!.map((d, i) => (
+              <li class:list={['fact', `fact--${coresFato[i % coresFato.length]}`]}>
+                <span class="fact__valor">{d.valor}</span>
+                <span class="fact__texto">{d.texto}</span>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </section>
+
+    <!-- ===== chamada final ===== -->
+    <section class="band band--navy">
+      <div class="container highlight">
+        <SectionHead eyebrow="FICOU COM ALGUMA DÚVIDA?" titulo="Fale com a secretaria" tom="light">
+          Tire suas dúvidas sobre inscrição, datas da prova e documentos necessários.
+        </SectionHead>
+        {cta && (
+          <a class:list={['btn', 'btn--lg', whatsappHref ? 'btn--green' : 'btn--light']} href={temContato ? `${home}#contato` : cta.href}>
+            Falar com a secretaria
+          </a>
+        )}
+      </div>
+    </section>
+  </main>
+</Pagina>

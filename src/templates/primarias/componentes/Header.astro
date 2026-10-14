@@ -1,0 +1,55 @@
+---
+// [header] — lê a mesma lista de navegação que o rodapé (montada no Primarias.astro).
+// Dropdowns e menu do celular só com CSS (:hover/:focus-within e <details>), sem JS.
+import Icone from './Icone.astro';
+import type { ItemNav } from '../navegacao';
+
+interface Props {
+  nome: string;
+  inicio: string;
+  ativo?: string;
+  logoSrc: string | null;
+  nav: ItemNav[];
+  cta: { href: string; texto: string; cor: 'green' | 'red' } | null;
+}
+const { nome, inicio, ativo, logoSrc, nav, cta } = Astro.props;
+---
+<header class="header">
+  <div class="container header__inner">
+    <a class="header__brand" href={inicio}>
+      {logoSrc ? <img class="logo" src={logoSrc} alt={nome} /> : <span class="wordmark">{nome}</span>}
+    </a>
+
+    <nav class="header__nav" aria-label="Principal">
+      <ul class="menu">
+        {nav.map((item) => (
+          <li class:list={['menu__item', { 'menu__item--drop': item.filhos }]}>
+            <a class:list={['lnk', 'lnk--nav', { 'lnk--ativo': item.titulo === ativo }]} href={item.href} aria-current={item.titulo === ativo ? 'page' : undefined}>
+              {item.titulo}
+              {item.filhos && <svg class="caret" viewBox="0 0 10 6" aria-hidden="true"><path d="M0 0h10L5 6z" /></svg>}
+            </a>
+            {item.filhos && (
+              <ul class="dropdown">
+                {item.filhos.map((f) => <li><a class="dropdown__lnk" href={f.href}>{f.titulo}</a></li>)}
+              </ul>
+            )}
+          </li>
+        ))}
+      </ul>
+      {cta && <a class:list={['btn', `btn--${cta.cor}`, 'header__cta']} href={cta.href}>{cta.texto}</a>}
+    </nav>
+
+    <details class="mnav">
+      <summary class="mnav__btn" aria-label="Abrir menu"><Icone nome="menu" /></summary>
+      <div class="mnav__painel">
+        {nav.map((item) => (
+          <div class="mnav__grupo">
+            <a class="mnav__lnk" href={item.href}>{item.titulo}</a>
+            {item.filhos?.map((f) => <a class="mnav__sub" href={f.href}>{f.titulo}</a>)}
+          </div>
+        ))}
+        {cta && <a class:list={['btn', `btn--${cta.cor}`]} href={cta.href}>{cta.texto}</a>}
+      </div>
+    </details>
+  </div>
+</header>

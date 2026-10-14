@@ -1,0 +1,375 @@
+---
+// Estilo "primarias" — home de colégio. Identidade visual do colegio-gbi-home
+// (cores, gradientes, tipografia, fotos com moldura orgânica) organizada no modelo
+// de seções do Colégio Lancer: uma seção = um assunto.
+// Fotos são do próprio colégio da demo; logo só com o campo `logo` do JSON.
+// Todo caminho de imagem fica neste arquivo (o prune_assets.py só lê o .astro da raiz);
+// os componentes recebem a URL pronta.
+// Header, rodapé e CSS ficam no Pagina.astro (compartilhado com blog e concurso).
+import Pagina from './Pagina.astro';
+import SectionHead from './componentes/SectionHead.astro';
+import Icone from './componentes/Icone.astro';
+import { a } from './arquivos';
+import { slug, etapasPadrao, montarRotas } from './navegacao';
+import { montarContato, arroba } from './contato';
+
+const { clinica, slug: slugPagina } = Astro.props;
+// Blog e concurso são páginas próprias, só quando o JSON tem o conteúdo.
+const { blog: blogHref, concurso } = montarRotas(clinica, slugPagina);
+
+// ---------- contato ----------
+const { whatsappHref, telefoneHref, emailHref, endereco, mapaHref, instagramHref, tiktokHref, temContato, cta } =
+  montarContato(clinica);
+
+// ---------- identidade ----------
+const marca = clinica.marca ?? clinica.nome;
+const cidade = clinica.cidades?.[0];
+const descricao =
+  clinica.descricao ?? 'Formando cidadãos preparados para os desafios do futuro com excelência, valores e amor à educação.';
+
+// ---------- etapas ----------
+// Fotos por posição (literais completos para o prune). Fund. I usa a foto do evento
+// das Olimpíadas até o colégio mandar uma foto própria da etapa.
+const fotosEtapa = ['jornada-infantil.jpg', 'ev-08.jpg', 'jornada-fund.jpg', 'jornada-medio.jpg'];
+const coresEtapa = ['orange', 'blue', 'red', 'blue'] as const;
+const etapas = (clinica.etapas?.length ? clinica.etapas : etapasPadrao).slice(0, 4).map((e, i) => ({
+  ...e,
+  id: `etapa-${slug(e.nome)}`,
+  foto: a(fotosEtapa[i]),
+  cor: coresEtapa[i],
+}));
+
+// ---------- acesso rápido ----------
+const iconesAtalho = ['atividades', 'calendario', 'regimento', 'contrato'] as const;
+type Atalho = { titulo: string; cor: 'orange' | 'blue' | 'red'; icone: (typeof iconesAtalho)[number] | 'estrela'; href: string };
+const atalhos: Atalho[] = (clinica.atalhos ?? []).slice(0, 4).map((at, i) => ({
+  titulo: at.titulo,
+  cor: at.cor ?? (i === 0 ? 'orange' : 'blue'),
+  icone: iconesAtalho[i],
+  href: at.link ?? (temContato ? '#contato' : '#inicio'),
+}));
+// O concurso de bolsas (página própria) entra como último card, em vermelho,
+// como era o tile "Concurso de Bolsas 2027" do site original.
+if (concurso) atalhos.push({ titulo: clinica.concurso!.titulo, cor: 'red', icone: 'estrela', href: concurso.href });
+
+// ---------- calendário escolar (opcional) ----------
+// PDFs em assets/docs/ viram URL do build (?url); o JSON escolhe um pelo nome.
+const documentos = import.meta.glob<string>('./assets/docs/*.pdf', { eager: true, query: '?url', import: 'default' });
+const calendario = clinica.calendario;
+const calendarioPdf = calendario?.pdf ? documentos[`./assets/docs/${calendario.pdf}`] : undefined;
+if (calendario?.pdf && !calendarioPdf) throw new Error(`[primarias] PDF não encontrado: assets/docs/${calendario.pdf}`);
+const tiposCalendario = [
+  { tipo: 'letivo', nome: 'Letivo' },
+  { tipo: 'evento', nome: 'Eventos' },
+  { tipo: 'reuniao', nome: 'Reunião de pais' },
+  { tipo: 'feriado', nome: 'Feriados' },
+  { tipo: 'suspensa', nome: 'Sem aulas' },
+] as const;
+// No celular os meses viram sanfona; abre o mês corrente (data do build) ou o primeiro.
+const nomesMes = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+const mesAtual = nomesMes[new Date().getMonth()];
+const mesAberto = calendario?.meses.some((m) => m.mes === mesAtual) ? mesAtual : calendario?.meses[0]?.mes;
+const tiposUsados = tiposCalendario.filter((t) => calendario?.meses.some((m) => m.datas.some((d) => d.tipo === t.tipo)));
+
+// ---------- diferenciais (opcional) ----------
+const diferenciais = clinica.diferenciais ?? [];
+const formas = ['forma--meia', 'forma--quadrado', 'forma--gota'];
+
+// ---------- eventos e parceiros (fotos e logos do próprio colégio) ----------
+const eventos = [
+  { img: 'ev-01.jpg', nome: 'Festa Junina' },
+  { img: 'ev-02.jpg', nome: 'Chá dos Avós' },
+  { img: 'ev-03.jpg', nome: 'Dia da Família' },
+  { img: 'ev-04.jpg', nome: 'Aulão ENEM' },
+  { img: 'ev-05.jpg', nome: 'Interclasse' },
+  { img: 'ev-06.jpg', nome: 'Semana da Criança' },
+  { img: 'ev-07.jpg', nome: 'Feira Multicultural' },
+  { img: 'ev-08.jpg', nome: 'Olimpíadas OBA' },
+  { img: 'ev-09.jpg', nome: 'Dia Feliz' },
+  { img: 'ev-10.jpg', nome: 'Torneio Interno' },
+];
+const parceiros = [
+  { img: 'lg-sorri.jpg', nome: 'Sorri Bauru' },
+  { img: 'lg-bb.jpg', nome: 'Banco do Brasil' },
+  { img: 'lg-cabesp.jpg', nome: 'Cabesp' },
+  { img: 'lg-concilig.jpg', nome: 'Concilig' },
+  { img: 'lg-dae.jpg', nome: 'DAE Bauru' },
+  { img: 'lg-famesp.jpg', nome: 'Famesp' },
+  { img: 'lg-finch.jpg', nome: 'Finch Soluções' },
+  { img: 'lg-jbm.jpg', nome: 'JBM' },
+];
+
+---
+<Pagina clinica={clinica} slug={slugPagina} naHome>
+
+  <main>
+    <!-- ===== hero ===== -->
+    <section class="hero" id="inicio">
+      <div class="container hero__grid">
+        <div class="hero__copy">
+          <p class="badge">
+            <span class="badge__dot" aria-hidden="true"></span>
+            {marca.toUpperCase()}{cidade && <> <span class="badge__sep">|</span> {cidade.toUpperCase()}</>}
+          </p>
+          <p class="h3 h3--red hero__eyebrow">ENSINO COM</p>
+          <h1 class="h1 h1--red hero__title">AMOR</h1>
+          <p class="t2 hero__text">Formamos cidadãos preparados para os desafios do futuro com excelência e valores.</p>
+          <div class="hero__actions">
+            {cta && <a class="btn btn--red btn--lg" href={temContato ? '#contato' : cta.href}>Agende uma visita</a>}
+            <a class="btn btn--outline btn--lg" href="#etapas">Conheça os cursos</a>
+          </div>
+        </div>
+        <div class="hero__media">
+          <div class="hero__frame">
+            <img class="hero__img" src={a('fachada.png')} alt={`Fachada do ${clinica.nome}`} />
+          </div>
+          <img class="deco deco--heart" src={a('deco-coracao.png')} alt="" />
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== acesso rápido ===== -->
+    {atalhos.length > 0 && (
+      <section class="section quick" id="acesso-rapido">
+        <div class="container">
+          <p class="h3 h3--navy quick__title">ACESSO RÁPIDO</p>
+          <ul class="quick__grid" style={`--qtd: ${atalhos.length}`}>
+            {atalhos.map((at) => (
+              <li>
+                <a class:list={['tile', `tile--${at.cor}`]} href={at.href}>
+                  <Icone nome={at.icone} classe="tile__ico" />
+                  <span class="t1">{at.titulo}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    )}
+
+    <!-- ===== propósito ===== -->
+    <section class="section purpose" id="proposito">
+      <div class="container purpose__grid">
+        <div class="purpose__copy">
+          <p class="h3 h3--navy">NOSSO PROPÓSITO</p>
+          <h2 class="h1 h1--red purpose__title">MENTES</h2>
+          <p class="h2 purpose__sub">DO AMANHÃ</p>
+          <p class="t2 purpose__text">Educação por meio de um método único e completo que vai além da sala de aula.</p>
+          <p class="t2 purpose__text">{descricao}</p>
+          {diferenciais.length > 0
+            ? <a class="lnk lnk--arrow" href="#diferenciais">Conheça o colégio <Icone nome="seta" classe="lnk__ico" /></a>
+            : <a class="lnk lnk--arrow" href="#etapas">Conheça os cursos <Icone nome="seta" classe="lnk__ico" /></a>}
+        </div>
+        <div class="purpose__media">
+          <img class="purpose__photo" src={a('aluna-coracao.jpg')} alt={`Aluna do ${clinica.nome} dentro de um coração vermelho`} />
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== etapas ===== -->
+    <section class="section stages" id="etapas">
+      <div class="container">
+        <SectionHead eyebrow="JORNADA DE APRENDIZADO" titulo="COMPLETA">
+          Da <strong>Educação Infantil</strong> ao <strong>Ensino Médio</strong>, cada etapa é pensada para o desenvolvimento pleno do aluno.
+        </SectionHead>
+        <ul class="stages__grid">
+          {etapas.map((e) => (
+            <li class:list={['stage', `stage--${e.cor}`]} id={e.id}>
+              <div class="stage__media"><img class="stage__img" src={e.foto} alt={`Aluno do ${e.nome}`} /></div>
+              <div class="stage__body">
+                {e.faixa && <p class="eyebrow stage__range">{e.faixa}</p>}
+                <h3 class="h4 stage__title">{e.nome}</h3>
+                {e.descricao && <p class="t2 stage__text">{e.descricao}</p>}
+                {temContato && <a class="lnk lnk--arrow stage__lnk" href="#contato">Quero conhecer <Icone nome="seta" classe="lnk__ico" /></a>}
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===== diferenciais (opcional, faixa navy) ===== -->
+    {diferenciais.length > 0 && (
+      <section class="band band--navy" id="diferenciais">
+        <div class="container">
+          <SectionHead eyebrow={`POR QUE O ${marca.toUpperCase()}`} titulo="DIFERENCIAIS" tom="light" />
+          <ul class="perks">
+            {diferenciais.slice(0, 6).map((d, i) => (
+              <li class="perk">
+                <span class:list={['forma', formas[i % formas.length], `forma--${coresEtapa[i % coresEtapa.length]}`]} aria-hidden="true"></span>
+                <h3 class="h4 perk__title">{d.titulo}</h3>
+                <p class="t3 perk__text">{d.descricao}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    )}
+
+    <!-- ===== destaque (concurso de bolsas) ===== -->
+    {clinica.destaque && (
+      <section class="band band--red" id="destaque">
+        <div class="container highlight">
+          <div class="highlight__copy">
+            <p class="h3 highlight__eyebrow">{clinica.destaque.eyebrow.toUpperCase()}</p>
+            <p class="h1 highlight__title">{clinica.destaque.titulo}</p>
+            {clinica.destaque.texto && <p class="t2 highlight__text">{clinica.destaque.texto}</p>}
+          </div>
+          {(concurso || clinica.destaque.link || cta) && (
+            <a class="btn btn--light btn--lg" href={concurso?.href ?? clinica.destaque.link ?? cta!.href}>
+              {concurso || clinica.destaque.link ? 'Saiba mais' : 'Quero participar'}
+            </a>
+          )}
+        </div>
+      </section>
+    )}
+
+    <!-- ===== eventos ===== -->
+    <section class="section events" id="eventos">
+      <div class="container">
+        <SectionHead eyebrow={marca.toUpperCase()} titulo="EVENTOS">
+          Muito além da sala de aula, nossos eventos incentivam a convivência, a criatividade e o desenvolvimento integral dos estudantes.
+        </SectionHead>
+        <ul class="events__grid">
+          {eventos.map((ev) => (
+            <li class="event"><img class="event__img" src={a(ev.img)} alt={ev.nome} loading="lazy" /><p class="t3 event__name">{ev.nome}</p></li>
+          ))}
+        </ul>
+        {(blogHref || instagramHref) && (
+          <div class="events__more">
+            <a class="btn btn--outline" href={blogHref ?? instagramHref!}>{blogHref ? 'Ver as novidades no blog' : 'Ver todos no Instagram'}</a>
+          </div>
+        )}
+      </div>
+    </section>
+
+    <!-- ===== calendário escolar ===== -->
+    {calendario && (
+      <section class="section calendar" id="calendario">
+        <div class="container">
+          <div class="calendar__head">
+            <SectionHead eyebrow="CALENDÁRIO ESCOLAR" titulo={calendario.ano}>
+              {calendario.nota ?? 'As principais datas do ano letivo, mês a mês.'}
+            </SectionHead>
+            {calendarioPdf && (
+              <div class="calendar__actions">
+                <a class="btn btn--red btn--lg" href={calendarioPdf} download={calendario.pdf}>
+                  <Icone nome="download" classe="btn__ico" /> Baixar calendário (PDF)
+                </a>
+                <a class="lnk lnk--arrow" href={calendarioPdf} target="_blank" rel="noopener">Abrir em nova aba <Icone nome="seta" classe="lnk__ico" /></a>
+              </div>
+            )}
+          </div>
+          <ul class="calendar__legend" aria-label="Legenda">
+            {tiposUsados.map((t) => <li class:list={['legend', `legend--${t.tipo}`]}>{t.nome}</li>)}
+          </ul>
+          <ol class="calendar__grid">
+            {calendario.meses.map((m, i) => (
+              <li class:list={['month', `month--${coresEtapa[i % coresEtapa.length]}`]}>
+                <h3 class="month__name">{m.mes}</h3>
+                <ul class="month__list">
+                  {m.datas.map((d) => (
+                    <li class:list={['date', `date--${d.tipo}`]}>
+                      <span class="date__day">{d.dia}</span>
+                      <span class="date__title">{d.titulo}</span>
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            ))}
+            {calendarioPdf && (
+              <li class="month month--cta">
+                <div>
+                  <h3 class="month__name">Calendário completo</h3>
+                  <p class="month__cta-text">Todos os dias letivos de {calendario.ano}, mês a mês, para imprimir ou salvar.</p>
+                </div>
+                <a class="btn btn--light" href={calendarioPdf} download={calendario.pdf}><Icone nome="download" classe="btn__ico" /> Baixar PDF</a>
+              </li>
+            )}
+          </ol>
+          <div class="agenda">
+            {calendario.meses.map((m, i) => (
+              <details class:list={['agenda__mes', `agenda__mes--${coresEtapa[i % coresEtapa.length]}`]} open={m.mes === mesAberto}>
+                <summary class="agenda__head">
+                  <span class="agenda__nome">{m.mes}</span>
+                  <span class="agenda__qtd">{m.datas.length} {m.datas.length === 1 ? 'data' : 'datas'}</span>
+                  <svg class="agenda__seta" viewBox="0 0 10 6" aria-hidden="true"><path d="M0 0h10L5 6z" /></svg>
+                </summary>
+                <ul class="month__list agenda__lista">
+                  {m.datas.map((d) => (
+                    <li class:list={['date', `date--${d.tipo}`]}>
+                      <span class="date__day">{d.dia}</span>
+                      <span class="date__title">{d.titulo}</span>
+                    </li>
+                  ))}
+                </ul>
+              </details>
+            ))}
+          </div>
+          {calendario.observacao && <p class="t4 calendar__obs">{calendario.observacao}</p>}
+        </div>
+      </section>
+    )}
+
+    <!-- ===== parceiros ===== -->
+    <section class="section partners">
+      <div class="container">
+        <SectionHead eyebrow="QUEM CAMINHA CONOSCO" titulo="PARCEIROS" />
+        <ul class="partners__grid">
+          {parceiros.map((p) => <li><img class="partners__logo" src={a(p.img)} alt={p.nome} loading="lazy" /></li>)}
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===== contato ===== -->
+    {temContato && (
+      <section class="section contact" id="contato">
+        <img class="deco deco--contact" src={a('deco-swirl-azul.png')} alt="" />
+        <div class="container">
+          <SectionHead eyebrow="CONTATO" titulo="Fale com a secretaria" tom="red" centro>
+            Agende uma visita e venha conhecer o {marca} de perto.
+          </SectionHead>
+          {cta && <div class="contact__cta"><a class:list={['btn', `btn--${cta.cor}`, 'btn--lg']} href={cta.href}>{whatsappHref ? 'Chamar no WhatsApp' : `Ligar ${clinica.telefone}`}</a></div>}
+          <ul class="contact__grid">
+            {telefoneHref && (
+              <li class="ccard ccard--blue">
+                <img class="ccard__ico" src={a('ico-phone.svg')} alt="" />
+                <p class="eyebrow ccard__label">{whatsappHref ? 'TELEFONE E WHATSAPP' : 'TELEFONE'}</p>
+                <a class="ccard__value" href={telefoneHref}>{clinica.telefone}</a>
+                {whatsappHref && <a class="ccard__value" href={whatsappHref}>{clinica.whatsapp}</a>}
+              </li>
+            )}
+            {!telefoneHref && whatsappHref && (
+              <li class="ccard ccard--blue">
+                <img class="ccard__ico" src={a('ico-phone.svg')} alt="" />
+                <p class="eyebrow ccard__label">WHATSAPP</p>
+                <a class="ccard__value" href={whatsappHref}>{clinica.whatsapp}</a>
+              </li>
+            )}
+            {emailHref && (
+              <li class="ccard ccard--orange">
+                <img class="ccard__ico" src={a('ico-mail.svg')} alt="" />
+                <p class="eyebrow ccard__label">E-MAIL</p>
+                <a class="ccard__value" href={emailHref}>{clinica.email}</a>
+              </li>
+            )}
+            {endereco && (
+              <li class="ccard ccard--red">
+                <img class="ccard__ico" src={a('ico-pin.svg')} alt="" />
+                <p class="eyebrow ccard__label">ENDEREÇO</p>
+                {mapaHref ? <a class="ccard__value" href={mapaHref}>{endereco}</a> : <p class="ccard__value">{endereco}</p>}
+              </li>
+            )}
+          </ul>
+          {(instagramHref || tiktokHref) && (
+            <div class="contact__social">
+              {instagramHref && <a class="social" href={instagramHref}><img src={a('ico-instagram.svg')} alt="" />@{arroba(clinica.instagram!)}</a>}
+              {tiktokHref && <a class="social" href={tiktokHref}><img src={a('ico-tiktok.svg')} alt="" />@{arroba(clinica.tiktok!)}</a>}
+            </div>
+          )}
+        </div>
+      </section>
+    )}
+  </main>
+
+</Pagina>

@@ -1,0 +1,96 @@
+colegio-gbi-home — wireframe ASCII tipado
+reference: reference.jpg (1056 x 3053, captura full-page)
+ignorado: cursor, botões flutuantes de acessibilidade (esq.), vão branco antes do rodapé
+
++--[nav]-------------------------------------------------------------------------+
+| [img:logo]          [lnk:O Colégio ▾]  [lnk:Cursos ▾]  [lnk:Blog]              |
+|                                            [btn.red:Contato] [btn.green:WhatsApp]|
++--------------------------------------------------------------------------------+
++--[hero]------------------------------------------------------------------------+
+| [ico:prev]          [img:hero-fachada]  (foto + arte decorativa)      [ico:next]|
+|                                                                                |
+|  +--[tile.orange]-+ +--[tile.blue]--+ +--[tile.red]---+ +--[tile.blue]--+      |
+|  | [t1:Educação   | | [t1:Ensino    | | [t1:Ensino    | | [t1:Ensino    |      |
+|  |  Infantil]     | |  Fund. I]     | |  Fund. II]    | |  Médio]       |      |
+|  +----------------+ +---------------+ +---------------+ +---------------+      |
+|  +--[tile.orange]-+ +--[tile.red]---+   (6 tiles em linha, metade sobre a foto)|
+|  | [t1:Atividades | | [t1:Concurso  |                                          |
+|  |  Complem.]     | |  de Bolsas    |                                          |
+|  |                | |  2027]        |                                          |
+|  +----------------+ +---------------+                                          |
++--------------------------------------------------------------------------------+
++--[docs]------------------------------------------------------------------------+
+|  [btn.outline:Calendário Escolar] [btn.outline:Regimento Escolar]              |
+|                                   [btn.outline:Contrato 2027]                  |
++--------------------------------------------------------------------------------+
++--[intro]-----------------------------------------------------------------------+
+| +--[pitch]-------------+   [img:aluna-coracao]   +--[pitch]-------------+      |
+| | [h3:ENSINO COM]      |                         | [h1:MENTES]          |      |
+| | [h1:AMOR]            |                         | [h2:DO]              |      |
+| | [t2:Formamos cidadãos|                         | [h2:AMANHÃ]          |      |
+| |  preparados para os  |                         | [t2:Educação por meio|      |
+| |  desafios do futuro  |                         |  de um método único e|      |
+| |  com excelência e    |                         |  completo que vai    |      |
+| |  valores.]           |                         |  além da sala de     |      |
+| +----------------------+                         |  aula.]              |      |
+|                                                  +----------------------+      |
++--------------------------------------------------------------------------------+
++--[jornada]---------------------------------------------------------------------+
+| +--[shead]---------------------------------------------------+                 |
+| | [h3:JORNADA DE APRENDIZADO]                                |                 |
+| | [h1:COMPLETA]                                              |                 |
+| | [t2:Do **Maternal** ao **Ensino Médio**, cada etapa é      |                 |
+| |  pensada para o desenvolvimento pleno do aluno.]           |                 |
+| +------------------------------------------------------------+                 |
+|   [img:jornada-infantil]   [img:jornada-fund]   [img:jornada-medio]            |
++--------------------------------------------------------------------------------+
++--[eventos]---------------------------------------------------------------------+
+| +--[shead]---------------------------------------------------+                 |
+| | [h3:COLÉGIO GBI]                                           |                 |
+| | [h1:EVENTOS]                                               |                 |
+| | [t2:Muito além da sala de aula, nossos eventos incentivam  |                 |
+| |  a convivência, a criatividade e o desenvolvimento         |                 |
+| |  integral dos estudantes.]                                 |                 |
+| +------------------------------------------------------------+                 |
+| +--[evento]-------+ +--[evento]-------+ +--[evento]-------+ (grid 5 x 2)       |
+| | [img:ev-01]     | | [img:ev-02]     | | [img:ev-03]     |                    |
+| | [t3:Festa       | | [t3:Chá dos     | | [t3:Dia da      |                    |
+| |  Junina]        | |  Avós]          | |  Família]       |                    |
+| +-----------------+ +-----------------+ +-----------------+                    |
+|  [evento] [img:ev-04] [t3:Aulão ENEM]                                          |
+|  [evento] [img:ev-05] [t3:Interclasse]                                         |
+|  [evento] [img:ev-06] [t3:Semana da Criança]                                   |
+|  [evento] [img:ev-07] [t3:Feira Multicultural]                                 |
+|  [evento] [img:ev-08] [t3:Olimpíadas OBA]                                      |
+|  [evento] [img:ev-09] [t3:Dia Feliz]                                           |
+|  [evento] [img:ev-10] [t3:Torneio Interno]                                     |
++--------------------------------------------------------------------------------+
++--[parceiros]-------------------------------------------------------------------+
+| ------------------------------------------------------- (linha vermelha)       |
+| [img:lg-sorri] [img:lg-bb] [img:lg-cabesp] [img:lg-concilig] [img:lg-dae]      |
+| [img:lg-famesp] [img:lg-finch] [img:lg-jbm]                                    |
++--------------------------------------------------------------------------------+
++--[footer]----------------------------------------------------------------------+
+| +--[fbrand]-------------+ +--[fcol]------+ +--[fcol]---------+ +--[fcontact]--+|
+| | [img:logo]            | | [h4:O Colégio]| | [h4:Cursos]     | | [h4:Contato] ||
+| | [t4:Formando cidadãos | | [lnk:Sobre]  | | [lnk:Educ.      | | [ico:phone]  ||
+| |  preparados para os   | | [lnk:Equipe] | |  Infantil]      | | [t4:(14)     ||
+| |  desafios do futuro   | | [lnk:Secre-  | | [lnk:Ens.       | |  3203-8488]  ||
+| |  com excelência,      | |  taria]      | |  Fundamental]   | | [ico:mail]   ||
+| |  valores e amor à     | |              | | [lnk:Ens.       | | [t4:contato@ ||
+| |  educação.]           | |              | |  Médio]         | |  colegiogbi. ||
+| | [ico:instagram]       | |              | |                 | |  com.br]     ||
+| | [ico:tiktok]          | |              | |                 | | [ico:pin]    ||
+| |                       | |              | |                 | | [t4:Rua      ||
+| |                       | |              | |                 | |  Sebastião   ||
+| |                       | |              | |                 | |  Pregnolato, ||
+| |                       | |              | |                 | |  7-40, Jd    ||
+| |                       | |              | |                 | |  Auri Verde -||
+| |                       | |              | |                 | |  17047-145 - ||
+| |                       | |              | |                 | |  Bauru - SP] ||
+| +-----------------------+ +--------------+ +-----------------+ +--------------+|
++--------------------------------------------------------------------------------+
++--[legal]-----------------------------------------------------------------------+
+| [lnk:Política de Privacidade]              [t4:Desenvolvido por Gálata         |
+|                                             Tecnologia.]                       |
++--------------------------------------------------------------------------------+

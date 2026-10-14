@@ -1,0 +1,46 @@
+---
+// [footer] + [legal] — usado pela home e pelo blog. Colunas vêm do navegacao.ts.
+import type { ItemNav } from '../navegacao';
+
+interface Props {
+  nome: string;
+  inicio: string;
+  logoSrc: string | null;
+  descricao: string;
+  cidade?: string;
+  rodape: { colegio: ItemNav[]; cursos: ItemNav[]; institucional: ItemNav[] };
+  social: { href: string; label: string; ico: string }[];
+}
+const { nome, inicio, logoSrc, descricao, cidade, rodape, social } = Astro.props;
+const ano = new Date().getFullYear();
+const colunas = [
+  { titulo: 'O Colégio', links: rodape.colegio },
+  { titulo: 'Cursos', links: rodape.cursos },
+  { titulo: 'Institucional', links: rodape.institucional },
+].filter((c) => c.links.length > 0);
+---
+<footer class="footer">
+  <div class="container footer__grid">
+    <div class="fbrand">
+      <a href={inicio}>
+        {logoSrc ? <img class="logo logo--footer" src={logoSrc} alt={nome} /> : <span class="wordmark wordmark--footer">{nome}</span>}
+      </a>
+      <p class="t4">{descricao}</p>
+      {social.length > 0 && (
+        <div class="fbrand__social">
+          {social.map((s) => <a class="ico--social" href={s.href} aria-label={s.label}><img src={s.ico} alt="" /></a>)}
+        </div>
+      )}
+    </div>
+    {colunas.map((c) => (
+      <div class="fcol">
+        <h4 class="h4">{c.titulo}</h4>
+        <ul>{c.links.map((l) => <li><a class="lnk lnk--footer" href={l.href}>{l.titulo}</a></li>)}</ul>
+      </div>
+    ))}
+  </div>
+  <div class="container legal">
+    <p class="t4 t4--legal">© {ano} {nome}</p>
+    {cidade && <p class="t4 t4--legal">{cidade}</p>}
+  </div>
+</footer>

@@ -1,0 +1,15 @@
+---
+// [shead] — par sobretítulo pequeno em caixa alta + título grande, padrão de toda seção.
+interface Props {
+  eyebrow: string;
+  titulo: string;
+  tom?: 'blue' | 'red' | 'light';
+  centro?: boolean;
+}
+const { eyebrow, titulo, tom = 'blue', centro = false } = Astro.props;
+---
+<div class:list={['shead', { 'shead--centro': centro, 'shead--light': tom === 'light' }]}>
+  <p class="h3 shead__eyebrow">{eyebrow}</p>
+  <h2 class:list={['h1', `h1--${tom === 'light' ? 'light' : tom}`]}>{titulo}</h2>
+  {Astro.slots.has('default') && <p class="t2 shead__texto"><slot /></p>}
+</div>

@@ -1,0 +1,23 @@
+{
+  "nome": "Silva Advocacia Criminal",
+  "estilo": "cobre",
+  "area": "Advocacia Criminal",
+  "slogan": "Defesa técnica • Sigilo • Agilidade",
+  "descricao": "Defesa criminal em todas as fases: do inquérito policial ao julgamento e recursos. Atendimento sigiloso em Bauru/SP e região, também online.",
+  "oab": "OAB/SP 000.000",
+  "whatsapp": "(14) 99999-0000",
+  "whatsappMensagem": "Olá, vim pelo site e gostaria de agendar um atendimento",
+  "telefone": "(14) 3000-0000",
+  "instagram": "silvaadvocaciacriminal",
+  "emergencia24h": true,
+  "online": true,
+  "cidades": ["Bauru/SP", "Agudos/SP", "Piratininga/SP"],
+  "especialidades": [
+    "Inquérito policial",
+    "Prisão em flagrante",
+    "Tribunal do Júri",
+    "Crimes de trânsito",
+    "Habeas corpus",
+    "Recursos criminais"
+  ]
+}

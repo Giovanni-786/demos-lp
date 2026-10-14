@@ -1,0 +1,20 @@
+---
+// Segunda página do estilo "primarias": blog estático em /demo/<slug>/blog/.
+// Só é gerada para colégios desse estilo que tenham `posts` no JSON.
+import { getCollection } from 'astro:content';
+import DemoLayout from '../../../layouts/DemoLayout.astro';
+import PrimariasBlog from '../../../templates/primarias/PrimariasBlog.astro';
+import { corDoSlug } from '../../../lib/cor';
+
+export async function getStaticPaths() {
+  const clinicas = await getCollection('clinicas');
+  return clinicas
+    .filter((c) => c.data.estilo === 'primarias' && c.data.posts?.length)
+    .map((c) => ({ params: { slug: c.id }, props: { clinica: c.data, slug: c.id } }));
+}
+
+const { clinica, slug } = Astro.props;
+---
+<DemoLayout clinica={{ ...clinica, nome: `Blog | ${clinica.nome}` }} cor={corDoSlug(slug)}>
+  <PrimariasBlog clinica={clinica} slug={slug} />
+</DemoLayout>

@@ -1,0 +1,209 @@
+---
+// Estilo "cobre" — convertido do img-to-html (lawstatu) e adaptado para
+// landing de escritório de advocacia com foco em direito criminal.
+// Removidos: logo/wordmark do mock, fotos de pessoas, depoimento, preços
+// (vedados pelo Código de Ética da OAB), blog e mapa. Só a estátua do hero ficou.
+// Pastas: assets/styles.css, assets/hero.jpg, assets/icons/
+// CSS como URL, não como import: o [slug].astro importa todos os templates, e um
+// import de CSS entraria no bundle de TODAS as páginas. Com ?url, só a página que
+// renderiza este template carrega o arquivo.
+import cssUrl from './assets/styles.css?url';
+
+const { clinica } = Astro.props;
+
+const arquivos = import.meta.glob<{ default: ImageMetadata }>(
+  './assets/**/*.{svg,png,jpg,jpeg,webp}',
+  { eager: true }
+);
+const a = (path: string) => {
+  const mod = arquivos[`./assets/${path}`];
+  if (!mod) throw new Error(`[cobre] asset não encontrado: assets/${path}`);
+  return mod.default.src;
+};
+
+// Contato: WhatsApp tem prioridade, telefone é o fallback. Sem nenhum dos dois,
+// botões, círculo de contato e seção de consulta não renderizam.
+const digitos = (s: string) => s.replace(/\D/g, '');
+const whatsappHref = clinica.whatsapp
+  ? `https://wa.me/55${digitos(clinica.whatsapp)}${clinica.whatsappMensagem ? `?text=${encodeURIComponent(clinica.whatsappMensagem)}` : ''}`
+  : null;
+const telefoneHref = clinica.telefone ? `tel:+55${digitos(clinica.telefone)}` : null;
+const contatoHref = whatsappHref ?? telefoneHref;
+const contatoTexto = whatsappHref ? 'Falar no WhatsApp' : 'Ligar agora';
+
+const area = clinica.area ?? 'Advocacia Criminal';
+const cidades = clinica.cidades?.length ? clinica.cidades.join(', ') : null;
+const descricao =
+  clinica.descricao ??
+  `Defesa criminal com atendimento sigiloso${cidades ? ` em ${cidades}` : ''}${clinica.online ? ' e online' : ''}.`;
+
+// Áreas de atuação (cards do antigo "Cases Highlights").
+const areasPadrao = [
+  'Inquérito policial',
+  'Prisão em flagrante',
+  'Tribunal do Júri',
+  'Crimes de trânsito',
+  'Habeas corpus',
+  'Recursos criminais',
+];
+const areas: string[] = clinica.especialidades?.length ? clinica.especialidades : areasPadrao;
+
+// "Como atuamos": cada item só existe se o dado que o sustenta existir.
+type Item = { titulo: string; lead: string; texto: string };
+const itens: Item[] = [
+  {
+    titulo: 'Sigilo',
+    lead: 'Seu caso tratado com total confidencialidade',
+    texto: 'O sigilo profissional é dever do advogado e protege tudo o que você compartilhar conosco.',
+  },
+  {
+    titulo: 'Orientação',
+    lead: 'Cada etapa explicada com clareza',
+    texto: 'Você entende seus direitos e o andamento do processo em linguagem simples.',
+  },
+];
+if (clinica.emergencia24h)
+  itens.push({
+    titulo: 'Plantão 24h',
+    lead: 'Atendimento a qualquer hora',
+    texto: 'Plantão para situações urgentes, inclusive em fins de semana e feriados.',
+  });
+if (clinica.online)
+  itens.push({
+    titulo: 'Online',
+    lead: 'Atendimento por videochamada',
+    texto: 'Reuniões online para quem está em outra cidade ou prefere não se deslocar.',
+  });
+if (cidades)
+  itens.push({ titulo: 'Onde atendemos', lead: cidades, texto: 'Atendimento presencial com agendamento prévio.' });
+if (contatoHref)
+  itens.push({
+    titulo: 'Contato direto',
+    lead: 'Fale diretamente com o advogado',
+    texto: [clinica.whatsapp && `WhatsApp ${clinica.whatsapp}`, clinica.telefone && `Telefone ${clinica.telefone}`]
+      .filter(Boolean)
+      .join(' · '),
+  });
+const itensVisiveis = itens.slice(0, 6);
+
+const instagramHref = clinica.instagram ? `https://instagram.com/${clinica.instagram.replace(/^@/, '')}` : null;
+const ano = new Date().getFullYear();
+---
+<link rel="stylesheet" href={cssUrl} />
+<div class="demo-cobre">
+
+  <header class="nav">
+    <div class="container nav__inner">
+      <a class="logo" href="#inicio">
+        <span class="logo__text">{clinica.nome}</span>
+      </a>
+      <nav class="nav__links">
+        <a class="lnk" href="#inicio">Início</a>
+        <a class="lnk" href="#atuacao">Áreas de atuação</a>
+        <a class="lnk" href="#como-atuamos">Como atuamos</a>
+        {contatoHref && <a class="lnk" href="#contato">Contato</a>}
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero" id="inicio">
+    <img class="hero__media" src={a('hero.jpg')} alt="Estátua da Justiça" />
+    <div class="container hero__inner">
+      <div class="hero__content">
+        <span class="hero__badge"><img class="ico ico--gavel" src={a('icons/gavel.svg')} alt="" /></span>
+        {clinica.emergencia24h && <span class="hero__plantao">Plantão 24h</span>}
+        {clinica.slogan && <span class="eyebrow">{clinica.slogan}</span>}
+        <h1 class="h1">{area}</h1>
+        <p class="t2">{descricao}</p>
+        {contatoHref && <a class="btn" href={contatoHref}>{contatoTexto}</a>}
+        {clinica.oab && <p class="t3 hero__oab">{clinica.oab}</p>}
+      </div>
+    </div>
+  </section>
+
+  <section class="section cases" id="atuacao">
+    <div class="container">
+      <h2 class="h2 section__title"><em>Áreas</em> de atuação</h2>
+      <div class="cases__grid">
+        {areas.map((item) => (
+          <article class="case-card">
+            <img class="ico case-card__ico" src={a('icons/gavel.svg')} alt="" />
+            <span class="eyebrow">{area}</span>
+            <h3 class="h3">{item}</h3>
+          </article>
+        ))}
+        {contatoHref && (
+          <div class="cases-more">
+            <a class="cases-more__circle" href={contatoHref}>Fale com um advogado <img class="ico ico--arrow" src={a('icons/arrow-up-right-dark.svg')} alt="" /></a>
+          </div>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <section class="section values" id="como-atuamos">
+    <div class="container">
+      <h2 class="h2 section__title">Como <em>atuamos</em></h2>
+      <div class="grid3 values__grid">
+        {itensVisiveis.map((item, i) => (
+          <div class="value-item">
+            <div class="value-item__head"><span class="num">{i + 1}</span><h3 class="h3">{item.titulo}</h3></div>
+            <h4 class="t2 value-item__lead">{item.lead}</h4>
+            <p class="t3">{item.texto}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {contatoHref && (
+    <section class="section consult" id="contato">
+      <div class="container consult__grid">
+        <div class="consult__content">
+          <h2 class="h2">Fale com um <em>advogado</em></h2>
+          <p class="t3">Explique sua situação e agende um atendimento. Todas as informações são tratadas com sigilo.</p>
+          <a class="btn" href={contatoHref}>{contatoTexto}</a>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <footer class="footer">
+    <div class="container footer__grid">
+      <div class="footer__left">
+        <a class="logo" href="#inicio">
+          <span class="logo__text">{clinica.nome}</span>
+        </a>
+        {contatoHref && (
+          <div class="footer__contact">
+            <span class="footer__label">Contato</span>
+            {telefoneHref && <a class="btn btn--outline btn--block" href={telefoneHref}><img class="ico ico--phone" src={a('icons/phone.svg')} alt="" />{clinica.telefone}</a>}
+            {whatsappHref && <a class="btn btn--block btn--sm" href={whatsappHref}><img class="ico ico--cal" src={a('icons/calendar.svg')} alt="" />Agendar atendimento</a>}
+          </div>
+        )}
+      </div>
+      <div class="footer__right">
+        <h2 class="h2 footer__title">Defesa técnica e<br />atendimento sigiloso</h2>
+        <div class="footer__cols">
+          <div class="footer-col">
+            <span class="eyebrow">Navegação</span>
+            <a class="lnk" href="#inicio">Início</a>
+            <a class="lnk" href="#atuacao">Áreas de atuação</a>
+            <a class="lnk" href="#como-atuamos">Como atuamos</a>
+            {contatoHref && <a class="lnk" href="#contato">Contato</a>}
+          </div>
+          <div class="footer-col">
+            <span class="eyebrow">{clinica.nome}</span>
+            {whatsappHref && <a class="lnk" href={whatsappHref}>WhatsApp {clinica.whatsapp}</a>}
+            {telefoneHref && <a class="lnk" href={telefoneHref}>Telefone {clinica.telefone}</a>}
+            {instagramHref && <a class="lnk" href={instagramHref}>Instagram @{clinica.instagram!.replace(/^@/, '')}</a>}
+            {cidades && <span class="lnk">{cidades}{clinica.online ? ' · online' : ''}</span>}
+            {clinica.oab && <span class="lnk">{clinica.oab}</span>}
+            <span class="lnk">© {ano} {clinica.nome}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</div>
