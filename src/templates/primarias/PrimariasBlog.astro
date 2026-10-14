@@ -7,6 +7,7 @@
 // num <style is:inline> desta página (não entra no bundle das outras demos).
 import Pagina from './Pagina.astro';
 import SectionHead from './componentes/SectionHead.astro';
+import Icone from './componentes/Icone.astro';
 import { a } from './arquivos';
 import { slug, montarRotas } from './navegacao';
 import { montarContato } from './contato';
@@ -81,19 +82,54 @@ const filtroCss = categorias
       </div>
     </section>
 
-    <!-- ===== filtros ===== -->
+    <!-- ===== filtros (carrossel de categorias) ===== -->
     <div class="container">
-      <div class="filters" role="radiogroup" aria-label="Filtrar por categoria">
-        <input class="filters__radio" type="radio" name="categoria" id="cat-todos" checked />
-        <label class="chip" for="cat-todos">Todos</label>
-        {categorias.map((c) => (
-          <>
-            <input class="filters__radio" type="radio" name="categoria" id={`cat-${c.id}`} />
-            <label class:list={['chip', `chip--${c.cor}`]} for={`cat-${c.id}`}>{c.nome}</label>
-          </>
-        ))}
+      <div class="chips" data-chips>
+        <button class="chips__btn chips__btn--prev" type="button" aria-label="Categorias anteriores" data-prev>
+          <Icone nome="seta" classe="chips__ico chips__ico--prev" />
+        </button>
+        <div class="filters" role="radiogroup" aria-label="Filtrar por categoria" data-track>
+          <input class="filters__radio" type="radio" name="categoria" id="cat-todos" checked />
+          <label class="chip" for="cat-todos">Todos</label>
+          {categorias.map((c) => (
+            <>
+              <input class="filters__radio" type="radio" name="categoria" id={`cat-${c.id}`} />
+              <label class:list={['chip', `chip--${c.cor}`]} for={`cat-${c.id}`}>{c.nome}</label>
+            </>
+          ))}
+        </div>
+        <button class="chips__btn chips__btn--next" type="button" aria-label="Mais categorias" data-next>
+          <Icone nome="seta" classe="chips__ico" />
+        </button>
       </div>
     </div>
+    <!-- inline: só vai para esta página. Sem JS a faixa continua rolável no toque/trackpad;
+         o script liga as setas, o esmaecido das bordas e traz a categoria escolhida para a vista. -->
+    <script is:inline>
+      document.querySelectorAll('[data-chips]').forEach((c) => {
+        const track = c.querySelector('[data-track]');
+        const prev = c.querySelector('[data-prev]');
+        const next = c.querySelector('[data-next]');
+        const atualizar = () => {
+          const max = track.scrollWidth - track.clientWidth;
+          prev.disabled = track.scrollLeft <= 2;
+          next.disabled = track.scrollLeft >= max - 2;
+          c.classList.toggle('tem-antes', !prev.disabled);
+          c.classList.toggle('tem-depois', !next.disabled);
+        };
+        const rolar = (dir) => track.scrollBy({ left: dir * track.clientWidth * 0.7, behavior: 'smooth' });
+        prev.addEventListener('click', () => rolar(-1));
+        next.addEventListener('click', () => rolar(1));
+        track.addEventListener('scroll', atualizar, { passive: true });
+        track.addEventListener('change', (e) => {
+          const label = track.querySelector(`label[for="${e.target.id}"]`);
+          if (label) label.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+        });
+        addEventListener('resize', atualizar);
+        atualizar();
+        c.classList.add('is-pronto');
+      });
+    </script>
 
     <!-- ===== destaque ===== -->
     {destaque && (
