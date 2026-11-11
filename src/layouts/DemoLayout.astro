@@ -11,7 +11,6 @@ const { clinica, cor } = Astro.props;
     <meta property="og:description" content={clinica.descricao ?? `Clínica veterinária em ${clinica.bairro ?? 'Bauru'}`} />
   </head>
   <body style={`--primaria: ${cor}`}>
-    <slot />
-    <aside class="demo-faixa">Demonstração criada por Giovanni</aside>
+    <slot />    
   </body>
 </html>

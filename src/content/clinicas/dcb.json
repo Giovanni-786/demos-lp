@@ -1,7 +1,8 @@
 {
   "nome": "DCB Dream Car",
   "estilo": "esmeralda",
-  "marca": "D.C.B",
+  "tema": "pista",
+  "marca": "DCB",
   "descricao": "Desde 2017, a DCB Dream Car reúne apaixonados por carros, promove encontros, desenvolve experiências e aproxima pessoas e empresas através da cultura automotiva.",
   "slogan": "Criando conexões e momentos através do universo automotivo.",
   "bairro": "Bauru, SP",
@@ -108,6 +109,7 @@
     {
       "tipo": "convite",
       "id": "club",
+      "tema": "clube",
       "apoio": "DCB Dream Car Club",
       "titulo": "Sua paixão tem *lugar aqui.*",
       "textos": [
@@ -334,6 +336,7 @@
       "slug": "club",
       "menu": "Club",
       "titulo": "DCB Dream Car Club",
+      "tema": "clube",
       "secoes": [
         {
           "tipo": "capa",

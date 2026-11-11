@@ -87,7 +87,7 @@ const encerramentoBotoes = (encerramento?.ctas ?? [])
 const alvo = (h: string) => (ehExterno(h) ? { target: '_blank', rel: 'noopener' } : {});
 ---
 <link rel="stylesheet" href={cssUrl} />
-<div class="demo-esmeralda">
+<div class:list={['demo-esmeralda', clinica.tema && `tema-${clinica.tema}`, atual?.tema && `tema-${atual.tema}`]}>
 
   <header class="nav">
     <div class="wrap nav-inner">
@@ -136,10 +136,7 @@ const alvo = (h: string) => (ehExterno(h) ? { target: '_blank', rel: 'noopener' 
           </div>
         )}
       </div>
-      <div class="footer-mark" aria-hidden="true">
-        <span class="footer-mark-big" style={`--mark-em:${siglaEm}`}>{sigla}</span>
-        <span class="footer-mark-sub">{clinica.nome}</span>
-      </div>
+      
       <div class="footer-bottom">
         <p class="t4">© {clinica.nome} — Todos os direitos reservados.</p>
       </div>

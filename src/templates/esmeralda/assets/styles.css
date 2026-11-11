@@ -589,3 +589,167 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   .faq-q-txt { font-size: 16px; }
   .faq-a { padding-right: 0; }
 }
+
+/* ---------------------------------------------------------------------
+   temas (campo `tema` no JSON)
+   - pista: identidade da DCB (Instagram). Preto, prata e dourado, com o
+     prata (cromado, como o logo) como destaque principal: ênfase dos
+     títulos, rótulos, números, cards e menu. O dourado fica nos botões,
+     na barrinha dos rótulos e nos separadores. Barlow Condensed itálica
+     nos títulos e Barlow nos textos; barras inclinadas no lugar dos
+     losangos da referência.
+   - clube: sub-marca do Club (posts "Welcome to the club"): destaque em
+     dourado e ênfase em serifa itálica, numa página ou seção.
+   Os tokens mantêm os nomes do mock: --gold é a cor de destaque (prata no
+   pista, dourado no clube); --ouro é o dourado fixo dos botões.
+   --------------------------------------------------------------------- */
+@font-face { font-family: "Barlow Condensed"; font-style: normal; font-weight: 600; font-display: swap;
+  src: url("fonts/barlow-condensed-latin-600-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+2190-21FF; }
+@font-face { font-family: "Barlow Condensed"; font-style: normal; font-weight: 600; font-display: swap;
+  src: url("fonts/barlow-condensed-latin-ext-600-normal.woff2") format("woff2"); unicode-range: U+0100-02AF, U+1E00-1EFF; }
+@font-face { font-family: "Barlow Condensed"; font-style: normal; font-weight: 700; font-display: swap;
+  src: url("fonts/barlow-condensed-latin-700-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+2190-21FF; }
+@font-face { font-family: "Barlow Condensed"; font-style: normal; font-weight: 700; font-display: swap;
+  src: url("fonts/barlow-condensed-latin-ext-700-normal.woff2") format("woff2"); unicode-range: U+0100-02AF, U+1E00-1EFF; }
+@font-face { font-family: "Barlow Condensed"; font-style: italic; font-weight: 800; font-display: swap;
+  src: url("fonts/barlow-condensed-latin-800-italic.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+2190-21FF; }
+@font-face { font-family: "Barlow Condensed"; font-style: italic; font-weight: 800; font-display: swap;
+  src: url("fonts/barlow-condensed-latin-ext-800-italic.woff2") format("woff2"); unicode-range: U+0100-02AF, U+1E00-1EFF; }
+@font-face { font-family: "Barlow"; font-style: normal; font-weight: 400; font-display: swap;
+  src: url("fonts/barlow-latin-400-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+2190-21FF; }
+@font-face { font-family: "Barlow"; font-style: normal; font-weight: 400; font-display: swap;
+  src: url("fonts/barlow-latin-ext-400-normal.woff2") format("woff2"); unicode-range: U+0100-02AF, U+1E00-1EFF; }
+@font-face { font-family: "Barlow"; font-style: normal; font-weight: 500; font-display: swap;
+  src: url("fonts/barlow-latin-500-normal.woff2") format("woff2"); unicode-range: U+0000-00FF, U+2000-206F, U+2190-21FF; }
+@font-face { font-family: "Barlow"; font-style: normal; font-weight: 500; font-display: swap;
+  src: url("fonts/barlow-latin-ext-500-normal.woff2") format("woff2"); unicode-range: U+0100-02AF, U+1E00-1EFF; }
+
+/* fundo da página fora do template (body/html) */
+:root:has(.tema-pista) { --bg: #0a0a0b; }
+
+.tema-pista {
+  --bg: #0a0a0b;
+  --bg-2: #121214;
+  --card: rgba(255,255,255,.03);
+  --line: rgba(255,255,255,.1);
+  /* dourado: botões, barrinha dos rótulos e separadores */
+  --ouro: #d4a64a;
+  --ouro-metal: linear-gradient(180deg, #f3d589 0%, #d4a64a 52%, #a97d2c 100%);
+  --ouro-metal-hover: linear-gradient(180deg, #f8e2a6 0%, #e2b85e 52%, #b88b35 100%);
+  /* prata: cor de destaque (--gold do mock) e cromado */
+  --gold: #d3d6db;
+  --gold-light: #ffffff;
+  --line-gold: rgba(211,214,219,.4);
+  --cromado-texto: linear-gradient(180deg, #ffffff 0%, #e2e5e9 42%, #9ca1a9 58%, #f1f2f4 100%);
+  --brilho: rgba(255,255,255,.05);
+  --prata: #c5c9cf;
+  --prata-light: #eef0f3;
+  --line-prata: rgba(197,201,207,.4);
+  --gold-grad: linear-gradient(180deg, #ffffff 0%, #c9cdd3 44%, #858a92 56%, #eceef1 100%); /* números grandes: cromado */
+  /* texto */
+  --tinta-btn: #0a0a0b;
+  --text: #f2f3f5;
+  --muted: rgba(242,243,245,.62);
+  --muted-2: rgba(242,243,245,.4);
+  --display: "Barlow Condensed", "Arial Narrow", Arial, sans-serif;
+  --body: "Barlow", "Helvetica Neue", Arial, sans-serif;
+  background: var(--bg); color: var(--text); font-family: var(--body); font-weight: 400;
+}
+
+/* títulos: condensada, caixa-alta, itálica nos grandes */
+.tema-pista :is(.h1, .h2, .h3, .h4, .num, .rnum, .countries-list, .edition-n, .footer-mark-big, .faq-q-txt, .nav-logo--txt) { letter-spacing: 0; word-spacing: 0; }
+.tema-pista .h1 { font-size: 86px; line-height: .94; font-weight: 800; font-style: italic; text-transform: uppercase; }
+.tema-pista .h2 { font-size: 64px; line-height: .98; font-weight: 800; font-style: italic; text-transform: uppercase; }
+.tema-pista .h3 { font-size: 38px; line-height: 1.02; font-weight: 700; text-transform: uppercase; }
+.tema-pista .h4 { font-size: 26px; line-height: 1.05; font-weight: 700; text-transform: uppercase; }
+.tema-pista .values-title { max-width: 460px; }
+.tema-pista :is(.h1 em, .h2 em, .presence em) {
+  font-family: var(--display); font-style: italic; font-weight: 800; font-size: 1em; line-height: inherit;
+  letter-spacing: 0; text-transform: uppercase; color: var(--gold);
+  background: var(--cromado-texto); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone; padding-right: .06em;
+}
+.tema-pista .nav-logo--txt { font-size: 28px; font-style: italic; }
+.tema-pista .faq-q-txt { font-size: 22px; font-weight: 600; }
+/* página atual no menu e no rodapé: dourado (em prata não se distingue dos outros links) */
+.tema-pista :is(.nav-links .lnk, .footer-cols a)[aria-current="page"] { color: var(--ouro); }
+
+/* rótulos, links e botões na condensada; rótulos em prata */
+.tema-pista :is(.eyb, .lnk, .btn, .cap, .tag, .explore, .hero-loc, .value-n, .benefit-n, .plan-tag, .ticker-track span) { font-family: var(--display); font-weight: 600; }
+.tema-pista .eyb { font-size: 14px; letter-spacing: .18em; color: var(--prata); }
+.tema-pista .lnk { font-size: 14px; letter-spacing: .12em; }
+.tema-pista .lnk--under { font-size: 14px; letter-spacing: .14em; border-bottom-color: var(--line-prata); }
+.tema-pista .btn { font-size: 15px; font-weight: 700; letter-spacing: .12em; }
+.tema-pista .btn--gold { background: var(--ouro-metal); color: var(--tinta-btn); padding-inline: 30px; clip-path: polygon(12px 0, 100% 0, calc(100% - 12px) 100%, 0 100%); }
+.tema-pista .btn--gold:hover { background: var(--ouro-metal-hover); }
+.tema-pista .btn--outline { border-color: var(--line-prata); }
+.tema-pista .btn--outline:hover { border-color: var(--prata); color: var(--prata-light); }
+.tema-pista .plan-tag { background: var(--ouro-metal); color: var(--tinta-btn); }
+.tema-pista :is(.tag, .hero-loc, .explore) { font-size: 13px; letter-spacing: .16em; }
+.tema-pista .ticker-track span { font-size: 18px; font-weight: 800; font-style: italic; letter-spacing: .06em; color: var(--prata); }
+.tema-pista :is(.value-n, .benefit-n) { font-size: 16px; font-weight: 800; font-style: italic; letter-spacing: .04em; }
+
+/* números: itálica pesada; os grandes em cromado */
+.tema-pista :is(.num, .rnum, .edition-n, .footer-mark-big) { font-weight: 800; font-style: italic; }
+.tema-pista .rnum { font-size: 120px; line-height: .95; padding-right: .08em; }
+.tema-pista .rnum--txt { font-size: 40px; line-height: 1; height: 114px; }
+.tema-pista .edition-n { font-size: 84px; }
+.tema-pista .countries-list { font-size: 44px; line-height: 1.08; font-weight: 800; font-style: italic; text-transform: uppercase; color: var(--prata); }
+.tema-pista .countries-list i { color: var(--ouro); }
+.tema-pista .footer-mark-big { font-size: min(460px, calc(var(--mark-fit) * 1.45)); }
+
+/* barras inclinadas no lugar dos losangos: prata nos rótulos, dourado nos itens */
+.tema-pista .dia { width: 14px; height: 3px; transform: skewX(-30deg); background: var(--prata); }
+.tema-pista .dia--line { width: 22px; height: 2px; background: var(--line); box-shadow: none; }
+.tema-pista .eyb::before { width: 22px; height: 3px; opacity: 1; transform: skewX(-30deg); background: var(--ouro); }
+.tema-pista .eyb--dia::before { width: 14px; height: 3px; transform: translateY(-50%) skewX(-30deg); }
+.tema-pista .ticker-track span::after { width: 18px; height: 4px; transform: skewX(-30deg); background: var(--ouro); }
+.tema-pista .plan-list li::before { width: 12px; height: 3px; transform: skewX(-30deg); box-shadow: none; background: var(--gold); }
+.tema-pista .faq-ico { width: 16px; height: 3px; transform: skewX(-30deg); box-shadow: none; background: var(--line-prata); }
+.tema-pista .faq-item[open] .faq-ico { background: var(--gold); }
+
+/* véus e fundos sem o verde da referência */
+.tema-pista .values::before { display: none; }
+.tema-pista .values { background-image: radial-gradient(ellipse 70% 60% at 75% 20%, var(--brilho), transparent 70%); }
+.tema-pista .about-media .tag { background: rgba(10,10,11,.6); }
+.tema-pista .plan { background: rgba(10,10,11,.55); }
+.tema-pista .plan--featured { background: var(--brilho); }
+.tema-pista :is(.hero-text, .presence-text) { color: rgba(242,243,245,.86); }
+.tema-pista .plan-list li { color: rgba(242,243,245,.8); }
+.tema-pista .hero--escuro::after { background: linear-gradient(90deg, rgba(10,10,11,.9) 0%, rgba(10,10,11,.55) 55%, rgba(10,10,11,.2) 100%), linear-gradient(0deg, var(--bg) 0%, transparent 35%); }
+.tema-pista .presence::before { background: linear-gradient(0deg, rgba(10,10,11,.88) 0%, rgba(10,10,11,.35) 45%, transparent 75%); }
+
+/* clube: destaque dourado, ênfase em serifa itálica e números em dourado (depois do pista para prevalecer) */
+.tema-clube {
+  --gold: #d4a64a;
+  --gold-light: #f0cb7c;
+  --line-gold: rgba(212,166,74,.45);
+  --brilho: rgba(212,166,74,.08);
+  --gold-grad: linear-gradient(180deg, #f3d589 0%, #d4a64a 55%, #a97d2c 100%);
+}
+.tema-clube :is(.h1 em, .h2 em, .presence em) {
+  font-family: var(--serif); font-weight: 400; font-size: 1.12em; text-transform: none; letter-spacing: -0.01em; color: var(--gold);
+  background: none; -webkit-text-fill-color: currentColor; padding-right: 0;
+}
+.tema-clube .countries-list { color: var(--gold); }
+.tema-clube .countries-list i { color: var(--prata); }
+
+@media (max-width: 1240px) {
+  .tema-pista .rnum { font-size: 9vw; }
+  .tema-pista .rnum--txt { font-size: min(40px, 3.4vw); height: 9vw; }
+}
+@media (max-width: 768px) {
+  .tema-pista .h1 { font-size: 52px; }
+  .tema-pista .h2 { font-size: 40px; }
+  .tema-pista .h3 { font-size: 28px; }
+  .tema-pista .h4 { font-size: 22px; }
+  .tema-pista .rnum { font-size: 64px; }
+  .tema-pista .rnum--txt { font-size: 30px; height: auto; }
+  .tema-pista .edition-n { font-size: 56px; }
+  .tema-pista .countries-list { font-size: 28px; }
+  .tema-pista .eyb { font-size: 12px; }
+  .tema-pista .nav-logo--txt { font-size: 22px; }
+  .tema-pista .nav-links { background: rgba(10,10,11,.97); }
+  .tema-pista .ticker-track span { font-size: 14px; }
+  .tema-pista .faq-q-txt { font-size: 18px; }
+}

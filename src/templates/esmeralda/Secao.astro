@@ -27,7 +27,7 @@ const a = (path: string) => {
 // enxergar: foto nova na pasta assets/ precisa entrar aqui também.
 const fotos: Record<string, string> = {
   'hero.jpg': a('hero.jpg'),
-  'about.jpg': a('about.jpg'),
+  'apresentacao-porsche-718.jpg': a('apresentacao-porsche-718.jpg'),
   'presence.jpg': a('presence.jpg'),
   'banner.jpg': a('banner.jpg'),
   'invite.jpg': a('invite.jpg'),
@@ -63,7 +63,7 @@ const galeria = [
 ];
 const padrao: Partial<Record<Secao['tipo'], string>> = {
   capa: 'hero.jpg',
-  apresentacao: 'about.jpg',
+  apresentacao: 'apresentacao-porsche-718.jpg',
   presenca: 'presence.jpg',
   banner: 'banner.jpg',
   convite: 'invite.jpg',
@@ -75,6 +75,8 @@ const botoes = (ctas?: Cta[]) =>
     .filter((c): c is { texto: string; href: string } => Boolean(c.href));
 
 const ctas = botoes(s.ctas);
+// tema da seção (ex.: destaque do Club com a ênfase em serifa)
+const tema = s.tema && `tema-${s.tema}`;
 const itens = (s.itens ?? []).filter((i) => !i.rascunho);
 const textos = s.textos ?? [];
 const nomeFoto = s.foto ?? padrao[s.tipo];
@@ -97,7 +99,7 @@ const lista = itens.filter((i) => !i.marco);
 ---
 
 {s.tipo === 'capa' && (
-  <section class={fotoPropria || videoUrl ? 'hero hero--escuro' : 'hero'} id={s.id}>
+  <section class:list={['hero', (fotoPropria || videoUrl) && 'hero--escuro', tema]} id={s.id}>
     <video class="hero-video" autoplay muted loop playsinline preload="auto" poster={fotoUrl}>
       {videoUrl && <source src={videoUrl} type="video/mp4" />}
     </video>
@@ -113,7 +115,7 @@ const lista = itens.filter((i) => !i.marco);
 )}
 
 {s.tipo === 'faixa' && ticker.length > 0 && (
-  <div class="ticker" aria-hidden="true" id={s.id}>
+  <div class:list={['ticker', tema]} aria-hidden="true" id={s.id}>
     <div class="ticker-track">
       {ticker.map((t) => <span>{t}</span>)}
       {ticker.map((t) => <span>{t}</span>)}
@@ -122,7 +124,7 @@ const lista = itens.filter((i) => !i.marco);
 )}
 
 {s.tipo === 'apresentacao' && (
-  <section class="about" id={s.id}>
+  <section class:list={['about', tema]} id={s.id}>
     <div class="wrap">
       <div class="about-grid">
         <div>
@@ -143,7 +145,7 @@ const lista = itens.filter((i) => !i.marco);
 )}
 
 {s.tipo === 'presenca' && (
-  <section class="presence bg-section" id={s.id} style={`background-image: url(${fotoUrl})`}>
+  <section class:list={['presence bg-section', tema]} id={s.id} style={`background-image: url(${fotoUrl})`}>
     <div class="wrap presence-content">
       {s.apoio && <p class="eyb">{s.apoio}</p>}
       {s.titulo && <h2 class="h2"><Enfase texto={s.titulo} /></h2>}
@@ -154,7 +156,7 @@ const lista = itens.filter((i) => !i.marco);
 )}
 
 {s.tipo === 'valores' && (
-  <section class="values bg-section" id={s.id}>
+  <section class:list={['values bg-section', tema]} id={s.id}>
     <div class="wrap">
       {s.apoio && <p class="eyb">{s.apoio}</p>}
       {s.titulo && <h2 class="h2 values-title"><Enfase texto={s.titulo} /></h2>}
@@ -177,14 +179,14 @@ const lista = itens.filter((i) => !i.marco);
 )}
 
 {s.tipo === 'banner' && (
-  <figure class="banner" id={s.id}>
+  <figure class:list={['banner', tema]} id={s.id}>
     <img src={fotoUrl} alt={s.legenda ?? ''} loading="lazy" />
     {s.legenda && <figcaption class="tag"><span class="dia"></span> {s.legenda}</figcaption>}
   </figure>
 )}
 
 {s.tipo === 'experiencias' && (
-  <section class="editions" id={s.id}>
+  <section class:list={['editions', tema]} id={s.id}>
     <div class="wrap">
       {(s.apoio || s.titulo || textos.length > 0) && (
         <header class="editions-head">
@@ -216,7 +218,7 @@ const lista = itens.filter((i) => !i.marco);
 )}
 
 {s.tipo === 'galeria' && (
-  <section class={s.titulo ? 'gallery gallery--head' : 'gallery'} aria-label={s.titulo ? undefined : 'Galeria'} id={s.id}>
+  <section class:list={['gallery', s.titulo && 'gallery--head', tema]} aria-label={s.titulo ? undefined : 'Galeria'} id={s.id}>
     {(s.apoio || s.titulo) && (
       <div class="wrap editions-head gallery-head">
         {s.apoio && <p class="eyb">{s.apoio}</p>}
@@ -232,7 +234,7 @@ const lista = itens.filter((i) => !i.marco);
 )}
 
 {s.tipo === 'alcance' && (
-  <section class="reach bg-section" id={s.id} style={s.foto ? `--foto: url(${fotoUrl})` : undefined}>
+  <section class:list={['reach bg-section', tema]} id={s.id} style={s.foto ? `--foto: url(${fotoUrl})` : undefined}>
     <div class="wrap reach-content">
       {s.apoio && <p class="eyb">{s.apoio}</p>}
       {s.titulo && <h2 class="h2"><Enfase texto={s.titulo} /></h2>}
@@ -265,7 +267,7 @@ const lista = itens.filter((i) => !i.marco);
 )}
 
 {s.tipo === 'parceiros' && (
-  <section class={itens.length ? 'partners' : 'partners partners--so-head'} id={s.id}>
+  <section class:list={['partners', !itens.length && 'partners--so-head', tema]} id={s.id}>
     <div class="wrap">
       <div class="partners-head">
         <div>
@@ -296,7 +298,7 @@ const lista = itens.filter((i) => !i.marco);
 )}
 
 {s.tipo === 'convite' && (
-  <section class="invite bg-section" id={s.id} style={fotoPropria ? `background-image: url(${fotoUrl})` : undefined}>
+  <section class:list={['invite bg-section', tema]} id={s.id} style={fotoPropria ? `background-image: url(${fotoUrl})` : undefined}>
     <div class="wrap invite-content">
       {s.apoio && <p class="eyb eyb--center">{s.apoio}</p>}
       {s.titulo && <h2 class="h2"><Enfase texto={s.titulo} /></h2>}
@@ -320,7 +322,7 @@ const lista = itens.filter((i) => !i.marco);
 )}
 
 {s.tipo === 'faq' && (
-  <section class="faq" id={s.id}>
+  <section class:list={['faq', tema]} id={s.id}>
     <div class="wrap faq-grid">
       <div class="faq-head">
         {s.apoio && <p class="eyb">{s.apoio}</p>}

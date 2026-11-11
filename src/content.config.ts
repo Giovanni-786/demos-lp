@@ -9,6 +9,9 @@ import { glob } from 'astro/loaders';
 // src/templates/esmeralda/assets/ (cada tipo tem uma foto padrão).
 // `link` aceita: "/pagina", "/pagina#ancora", "/#ancora" (início), "#ancora",
 // "wa" (WhatsApp com whatsappMensagem), "wa:<chave>" (whatsappMensagens) ou URL completa.
+// `tema`: "pista" (preto, prata e dourado, Barlow Condensed) no site inteiro;
+// "clube" (serifa itálica dourada na ênfase) numa página ou seção, por cima do pista.
+const temaEsmeralda = z.enum(['pista', 'clube']);
 const ctaEsmeralda = z.object({ texto: z.string(), link: z.string() });
 const itemEsmeralda = z.object({
   titulo: z.string(),
@@ -56,6 +59,7 @@ const secaoEsmeralda = z.object({
   // a imagem de espera enquanto o vídeo carrega
   video: z.string().optional(),
   ctas: z.array(ctaEsmeralda).optional(),
+  tema: temaEsmeralda.optional(),
 });
 
 const clinicas = defineCollection({
@@ -166,6 +170,7 @@ const clinicas = defineCollection({
     facebook: z.string().optional(),
     youtube: z.string().optional(),
     navCta: ctaEsmeralda.optional(),
+    tema: temaEsmeralda.optional(),
     inicio: z.array(secaoEsmeralda).optional(),
     paginas: z
       .array(
@@ -173,6 +178,7 @@ const clinicas = defineCollection({
           slug: z.string().regex(/^[a-z0-9-]+$/),
           menu: z.string(),
           titulo: z.string(),
+          tema: temaEsmeralda.optional(),
           secoes: z.array(secaoEsmeralda),
         })
       )
