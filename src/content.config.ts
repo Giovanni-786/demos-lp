@@ -8,7 +8,7 @@ const clinicas = defineCollection({
   }),
   schema: z.object({
     nome: z.string(),
-    estilo: z.enum(['lavanda', 'grafite', 'cobre', 'primarias']),
+    estilo: z.enum(['lavanda', 'grafite', 'primarias', 'dourado']),
     bairro: z.string().optional(),
     whatsapp: z.string().optional(),
     // texto pré-preenchido na conversa do WhatsApp (wa.me/?text=)
@@ -26,7 +26,7 @@ const clinicas = defineCollection({
     area: z.string().optional(),
     slogan: z.string().optional(),
     instagram: z.string().optional(),
-    // registro profissional (estilo cobre: advocacia), ex. "OAB/SP 123.456"
+    // registro profissional (estilo dourado: advocacia), ex. "OAB/SP 123.456"
     oab: z.string().optional(),
     // estilo primarias (colégio): arquivo de logo em src/templates/primarias/assets/
     logo: z.string().optional(),

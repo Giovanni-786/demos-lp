@@ -1,0 +1,238 @@
+---
+// Estilo "dourado" — convertido do img-to-html (ads-assessoria-juridica) e adaptado
+// para landing de escritório de advocacia, em preto e dourado.
+// Removidos: foto da fundadora e depoimento, avatares e "40+ advogados", colagem de
+// fotos recortadas da referência, estátua de bronze (virou fundo com banner.png; no hero, foto da equipe),
+// newsletter (virou caixa de contato) e redes sociais que não vêm do JSON.
+// Pastas: assets/styles.css, assets/fonts/, assets/logo.png, assets/banner.png, assets/equipe1.jpg
+// CSS como URL, não como import: o [slug].astro importa todos os templates, e um
+// import de CSS entraria no bundle de TODAS as páginas. Com ?url, só a página que
+// renderiza este template carrega o arquivo.
+import cssUrl from './assets/styles.css?url';
+
+const { clinica } = Astro.props;
+
+const arquivos = import.meta.glob<{ default: ImageMetadata }>(
+  './assets/**/*.{svg,png,jpg,jpeg,webp}',
+  { eager: true }
+);
+const a = (path: string) => {
+  const mod = arquivos[`./assets/${path}`];
+  if (!mod) throw new Error(`[dourado] asset não encontrado: assets/${path}`);
+  return mod.default.src;
+};
+
+// Logo só com o campo `logo` do JSON, e só entre os arquivos conhecidos desta pasta.
+const logos: Record<string, string> = {
+  'logo.png': a('logo.png'),
+  'ads-logo.png': a('ads-logo.png'),
+};
+const logoSrc = clinica.logo ? logos[clinica.logo] : undefined;
+if (clinica.logo && !logoSrc) throw new Error(`[dourado] logo desconhecido: ${clinica.logo}`);
+
+// Contato: WhatsApp tem prioridade, telefone é o fallback. Sem nenhum dos dois,
+// os botões de conversa não renderizam.
+const digitos = (s: string) => s.replace(/\D/g, '');
+const whatsappHref = clinica.whatsapp
+  ? `https://wa.me/55${digitos(clinica.whatsapp)}${clinica.whatsappMensagem ? `?text=${encodeURIComponent(clinica.whatsappMensagem)}` : ''}`
+  : null;
+const telefoneHref = clinica.telefone ? `tel:+55${digitos(clinica.telefone)}` : null;
+const emailHref = clinica.email ? `mailto:${clinica.email}` : null;
+const contatoHref = whatsappHref ?? telefoneHref;
+
+const descricao =
+  clinica.descricao ??
+  'Oferecemos orientação jurídica transparente, ética e próxima. Acompanhamos cada caso com clareza, explicando seus direitos e os próximos passos em linguagem simples.';
+const chamada = clinica.slogan ?? 'Estamos ao seu lado em cada passo rumo à segurança jurídica.';
+
+// Selos do hero: OAB e diferenciais do JSON primeiro, textos genéricos completam até 3.
+const selos = [
+  clinica.oab,
+  clinica.emergencia24h && 'Plantão 24h',
+  clinica.online && 'Atendimento online',
+  'Sigilo profissional',
+  'Atendimento personalizado',
+].filter((x): x is string => Boolean(x)).slice(0, 3);
+
+// Áreas de atuação: só com dado real; sem lista, o bloco não aparece.
+const areas: string[] = (clinica.especialidades?.length ? clinica.especialidades : clinica.servicos ?? []).slice(0, 10);
+
+// Cartões no lugar da colagem: dados reais primeiro, depois textos genéricos
+// verdadeiros para qualquer escritório, até completar os 4 espaços.
+type Card = { titulo: string; texto: string };
+const cidades = clinica.cidades?.length ? clinica.cidades.join(', ') : null;
+const cards: Card[] = [
+  { titulo: 'Sigilo profissional', texto: 'Tudo o que você compartilhar conosco é tratado com total confidencialidade.' },
+];
+if (clinica.emergencia24h)
+  cards.push({ titulo: 'Plantão 24h', texto: 'Atendimento para situações urgentes, inclusive em fins de semana e feriados.' });
+if (clinica.online)
+  cards.push({ titulo: 'Atendimento online', texto: 'Reuniões por videochamada para quem está em outra cidade ou prefere não se deslocar.' });
+if (cidades) cards.push({ titulo: 'Onde atendemos', texto: cidades });
+const contatos = [
+  clinica.whatsapp && `WhatsApp ${clinica.whatsapp}`,
+  clinica.telefone && `Telefone ${clinica.telefone}`,
+].filter((x): x is string => Boolean(x));
+if (contatos.length) cards.push({ titulo: 'Contato direto', texto: contatos.join(' · ') });
+cards.push(
+  { titulo: 'Orientação clara', texto: 'Seus direitos e o andamento do caso explicados em linguagem simples.' },
+  { titulo: 'Atendimento personalizado', texto: 'Cada caso analisado individualmente, de acordo com a sua situação.' }
+);
+const cardsVisiveis = cards.slice(0, 4);
+
+// Seção de contato: endereço e/ou caixa de contato; sem nada disso, some.
+const mapaHref = clinica.endereco
+  ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(clinica.endereco)}`
+  : null;
+const caixa = whatsappHref
+  ? { linha: `WhatsApp ${clinica.whatsapp}`, href: whatsappHref, texto: 'Chame no WhatsApp e conversaremos com calma sobre o seu caso.' }
+  : telefoneHref
+    ? { linha: `Telefone ${clinica.telefone}`, href: telefoneHref, texto: 'Ligue para o escritório e conversaremos com calma sobre o seu caso.' }
+    : emailHref
+      ? { linha: clinica.email, href: emailHref, texto: 'Envie um e-mail e conversaremos com calma sobre o seu caso.' }
+      : null;
+const temContato = Boolean(clinica.endereco || caixa);
+
+const instagramHref = clinica.instagram ? `https://instagram.com/${clinica.instagram.replace(/^@/, '')}` : null;
+const [nomeInicio, ...nomeResto] = clinica.nome.trim().split(/\s+/);
+const ano = new Date().getFullYear();
+---
+<link rel="stylesheet" href={cssUrl} />
+<div class="page demo-dourado">
+
+  <header class="nav">
+    <a class="brand" href="#inicio">
+      {logoSrc && <img class="brand-logo" src={logoSrc} alt="" />}
+      <span class="t2 brand-name">{clinica.nome}</span>
+    </a>
+    <nav class="nav-links" aria-label="Principal">
+      <a class="lnk" href="#sobre">Sobre Nós</a>
+      <span class="nav-sep" aria-hidden="true"></span>
+      <a class="lnk" href="#atuacao">Atuação</a>
+      {temContato && <span class="nav-sep" aria-hidden="true"></span>}
+      {temContato && <a class="lnk" href="#contato">Contato</a>}
+    </nav>
+    {contatoHref && <a class="btn btn--soft" href={contatoHref}>Fale Conosco</a>}
+  </header>
+
+  <section class="hero" id="inicio">
+    <img class="hero-foto" src={a('equipe1.jpg')} alt={`Equipe de advogados da ${clinica.nome}`} />
+    <div class="hero-texto">
+      <p class="hero-eyebrow">Advocacia e Assessoria Jurídica</p>
+      <h1 class="h1 hero-title">Iluminando a Justiça,<br />Protegendo Seus<br /><em>Direitos.</em></h1>
+      <p class="t2 hero-chamada">{chamada}</p>
+      <div class="hero-acoes">
+        {contatoHref && <a class="btn" href={contatoHref}>Vamos Conversar <span class="arr" aria-hidden="true">↗</span></a>}
+        <a class="btn btn--outline" href="#atuacao">Nossa atuação</a>
+      </div>
+      <ul class="hero-selos">
+        {selos.map((selo) => <li>{selo}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="motto" id="sobre">
+    <h2 class="h2 motto-title">“Fiat Justitia Ruat Caelum” - Faça-se justiça,<br />ainda que os céus desabem.</h2>
+    <div class="motto-row">
+      <span class="t3 motto-label">Sobre Nós</span>
+      <span class="slash slash--lg" aria-hidden="true">/</span>
+      <span class="circles" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      <p class="t2 motto-text">{descricao}</p>
+      <a class="btn-round" href="#atuacao" aria-label="Ver áreas de atuação"><span class="arr">↗</span></a>
+    </div>
+  </section>
+
+  <section class="practice" id="atuacao">
+    <div class="practice-panel">
+      <h2 class="h2 practice-title">Definindo a Justiça<br />com Ética<br />e Compromisso</h2>
+      <p class="t3 practice-text">
+        {clinica.area ? `Em ${clinica.area}, atuamos` : 'Atuamos'} com ética e estratégia em cada caso, trazendo clareza e segurança às decisões de quem confia em nós.
+      </p>
+    </div>
+    <div class="practice-img practice-media" role="img" aria-label="Estátua dourada da Justiça"></div>
+    {areas.length > 0 && (
+      <ul class="practice-list">
+        {areas.map((item) => <li class="t2">{item}</li>)}
+      </ul>
+    )}
+  </section>
+
+  <section class="experts">
+    <div class="experts-copy">
+      <h2 class="h2">Perto de Você,<br />do Primeiro Contato<br />à Solução</h2>
+      <p class="t3 experts-text">Você fala diretamente com quem cuida do seu caso. Explicamos cada etapa com clareza, mantemos você informado sobre o andamento e conduzimos tudo com sigilo profissional.</p>
+      {clinica.oab && (
+        <div class="experts-meta">
+          <span class="t3">{clinica.oab}</span>
+          <span class="slash" aria-hidden="true">/</span>
+          <span class="t3">Inscrição na Ordem dos<br />Advogados do Brasil</span>
+        </div>
+      )}
+      <div class="experts-btns">
+        {contatoHref && <a class="btn" href={contatoHref}>Vamos Conversar <span class="arr" aria-hidden="true">↗</span></a>}
+        <a class="btn btn--outline" href={areas.length ? '#atuacao' : '#sobre'}>{areas.length ? 'Áreas de Atuação' : 'Sobre Nós'} <span class="arr" aria-hidden="true">↗</span></a>
+      </div>
+    </div>
+    <div class="collage">
+      {cardsVisiveis.map((card, i) => (
+        <article class={`info-card collage-${i + 1}`}>
+          <span class="info-card__pix" aria-hidden="true"></span>
+          <h3 class="t2 info-card__titulo">{card.titulo}</h3>
+          <p class="t3">{card.texto}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="band">
+    <h2 class="h2 band-title">“Ex Aequo et Bono”</h2>
+    <p class="t3 band-text">Fazemos justiça não apenas pela letra da lei, mas com equidade e bom senso. Cada caso é conduzido com integridade, ética e respeito a quem confia em nós.</p>
+  </section>
+
+  {temContato && (
+    <section class={`office${clinica.endereco ? '' : ' office--sem-endereco'}${caixa ? '' : ' office--sem-caixa'}`} id="contato">
+      {clinica.endereco
+        ? <h2 class="h2 office-title">Onde a Justiça Encontra<br />Seu “Lar”</h2>
+        : <h2 class="h2 office-title">Fale com o<br />Escritório</h2>}
+      {clinica.endereco && (
+        <div class="office-row">
+          <div class="office-addr">
+            <p class="t2 office-name">{clinica.nome} – Escritório</p>
+            <p class="t3">{clinica.endereco}</p>
+            <a class="btn" href={mapaHref} target="_blank" rel="noopener">Abrir no Mapa <span class="arr" aria-hidden="true">↗</span></a>
+          </div>
+          <span class="slash slash--lg" aria-hidden="true">/</span>
+          <p class="t3 office-text">Nosso escritório é um lugar de confiança e escuta. Aqui você é recebido com atenção, sigilo e orientação jurídica clara.</p>
+        </div>
+      )}
+      {caixa && (
+        <div class="newsletter">
+          <a class="inp contato-linha" href={caixa.href}>{caixa.linha}</a>
+          <a class="btn-square" href={caixa.href} aria-label="Entrar em contato"><span class="arr">↗</span></a>
+          <p class="t3 newsletter-text">{caixa.texto}</p>
+        </div>
+      )}
+    </section>
+  )}
+
+  <footer class="footer">
+    <div class="footer-brand">
+      {logoSrc && <img class="footer-logo" src={logoSrc} alt="" />}
+      <p class="wordmark">{nomeInicio}{nomeResto.length > 0 && <span>{nomeResto.join(' ')}</span>}</p>
+    </div>
+    <p class="t3 footer-text">Temos o compromisso de atuar com integridade, precisão e dedicação. Fale conosco para orientação jurídica e representação de confiança. Seus direitos, nossa prioridade.</p>
+    <div class="footer-media" role="img" aria-label="Estátua dourada da Justiça"></div>
+    <div class="footer-bottom">
+      {(instagramHref || whatsappHref || emailHref) && (
+        <div class="socials">
+          {instagramHref && <a class="btn btn--outline btn--sm" href={instagramHref} target="_blank" rel="noopener">Instagram</a>}
+          {whatsappHref && <a class="btn btn--outline btn--sm" href={whatsappHref}>WhatsApp</a>}
+          {emailHref && <a class="btn btn--outline btn--sm" href={emailHref}>E-mail</a>}
+        </div>
+      )}
+      {clinica.endereco && <p class="t2 footer-addr">{clinica.endereco}</p>}
+      <p class="t3 footer-legal">© {ano} {clinica.nome}{clinica.oab ? ` · ${clinica.oab}` : ''}</p>
+    </div>
+  </footer>
+
+</div>

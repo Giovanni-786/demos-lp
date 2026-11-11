@@ -1,0 +1,71 @@
+ARUNIKA & CO — wireframe ASCII tipado (752 x 3579, desktop estreito)
+Tags: [h1..h3] títulos · [t1..t3] textos · [btn:] botão · [lnk:] link · [ico:] ícone
+      [img:] imagem · [av:] avatar · [inp:] campo · [deco:] decoração
+
++-- nav ---------------------------------------------------------------------+
+| [img:logo] [t2:Arunika & Co]   [lnk:About Us] ▪ [lnk:People] ▪ [lnk:Office]|
+|                                                     [btn:Contact Us] (pill) |
++----------------------------------------------------------------------------+
++-- hero --------------------------------------------------------------------+
+| [h1:Illuminating Justice, Protecting Your Rights.]          [deco:pixels]  |
+|                       [t3:/] [t3:We stand by your side in every step       |
+|                              toward legal certainty.] [btn:Let's Discuss ↗]|
+| +-- hero-media (radius 16) ----------------------------------------------+ |
+| | [img:hero-bg]                                                          | |
+| +------------------------------------------------------------------------+ |
+| [deco:pixels]                                                              |
++----------------------------------------------------------------------------+
++-- motto -------------------------------------------------------------------+
+| [h2:"Fiat Justitia Ruat Caelum" - Let justice be done though the heavens   |
+|      fall.]                                                                |
+| [t3:About Us] [t3:/] [deco:circles x4]  [t2:we are dedicated to providing  |
+|  transparent, reliable, and ethical legal solutions. ... best outcomes.]   |
+|                                                         [btn:↗] (circle)   |
++----------------------------------------------------------------------------+
++-- practice (preto à direita, imagem à esquerda) ---------------------------+
+| [img:statue-bronze]      | [h2:Defining Justice Through Experience and      |
+|  (transborda acima)      |      Commitment]  (branco, alinhado à direita)  |
+|                          | [t3:At Arunika & Co, we uphold justice ...]     |
+|                          +-- practice-list (fundo branco) ---------------+ |
+|                          | ● [t2:Business Law]   ● [t2:Intellectual Prop.]| |
+|                          | ● [t2:Family Law]     ● [t2:Employment & Labor]| |
+|                          | ● [t2:Criminal Law]   ● [t2:Contract Law]      | |
+|                          | ● [t2:Corporate Law]  ● [t2:Tax Law]           | |
+|                          | ● [t2:Civil Law]      ● [t2:Real Estate & Prop]| |
++----------------------------------------------------------------------------+
++-- experts -----------------------------------------------------------------+
+|                         [deco:pixels]  +-- collage (2x2 desencontrado) ---+ |
+| [h2:Our Legal Experts, Your Trusted    | [img:c1] [img:c2]               | |
+|      Advocates]                        | [img:c3] [img:c4]               | |
+| [t3:At Arunika & Co, our seasoned ...] |                                 | |
+| [av:x4] [t3:40+] [t3:/] [t3:Seasoned Lawyers, Ready to Defend ...]       | |
+| [btn:Let's Discuss ↗] [btn:See Advocates ↗] (outline)                    | |
++----------------------------------------------------------------------------+
++-- testimonial -------------------------------------------------------------+
+| [img:founder] sobre bloco preto  | [ico:quote]                             |
+| [deco:pixels]                    | [t1:"Justice is not just a principle—   |
+|                                  |  it is a responsibility. ... serve"]    |
+|                                  | [t2:Sasha Arunika Cantika, S.H.,LL.M.]  |
+|                                  | [t3:Founder & Principal Lawyer]         |
++----------------------------------------------------------------------------+
++-- band (preto, full) ------------------------------------------------------+
+| [h2:"Ex Aequo et Bono"]          [t3:At Arunika & Co, we uphold justice    |
+|                                   not only by the letter of the law ...]   |
++----------------------------------------------------------------------------+
++-- office (centralizado) ---------------------------------------------------+
+|            [h2:Where Justice Finds Its "Home"]                             |
+| [t2:Arunika & Co – Australia Office]    [t3:/]  [t3:At Arunika & Co, our   |
+| [t3:120 Collins Street, Level 18, ...]           office is a place ...]    |
+| [btn:Open Maps ↗]                                                          |
+| +-- newsletter (caixa preta, radius 8) ---------------------------------+  |
+| | [inp:Your Email] [btn:↗] (quadrado)  [t3:Send an email if you're ...] |  |
+| +-----------------------------------------------------------------------+  |
++----------------------------------------------------------------------------+
++-- footer (preto) ----------------------------------------------------------+
+| [img:logo] [h1:Arunika & Co] (serif)                       [deco:pixels]   |
+| [t3:At Arunika & Co, we are committed to delivering ...]                   |
+| [deco:pixels]   +-- footer-media ----------------------------------------+ |
+|                 | [img:footer-bg]                                        | |
+| [btn:Instagram] [btn:Linkedin] [btn:Youtube] (outline)                   | |
+| [t2:120 Collins Street, Level 18, Melbourne, VIC 3000, Australia]        | |
++----------------------------------------------------------------------------+
