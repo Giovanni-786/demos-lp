@@ -1,0 +1,25 @@
+---
+// Subpáginas do estilo "esmeralda": /demo/<slug>/<pagina>/, uma para cada item de
+// `paginas` no JSON. Rotas fixas desta pasta (blog, concurso-de-bolsas) têm prioridade.
+import { getCollection } from 'astro:content';
+import DemoLayout from '../../../layouts/DemoLayout.astro';
+import EsmeraldaSite from '../../../templates/esmeralda/EsmeraldaSite.astro';
+import { corDoSlug } from '../../../lib/cor';
+
+export async function getStaticPaths() {
+  const clinicas = await getCollection('clinicas');
+  return clinicas
+    .filter((c) => c.data.estilo === 'esmeralda' && c.data.paginas?.length)
+    .flatMap((c) =>
+      c.data.paginas!.map((p) => ({
+        params: { slug: c.id, pagina: p.slug },
+        props: { clinica: c.data, slug: c.id, pagina: p.slug, titulo: p.titulo },
+      }))
+    );
+}
+
+const { clinica, slug, pagina, titulo } = Astro.props;
+---
+<DemoLayout clinica={{ ...clinica, nome: `${titulo} | ${clinica.nome}` }} cor={corDoSlug(slug)}>
+  <EsmeraldaSite clinica={clinica} slug={slug} pagina={pagina} />
+</DemoLayout>

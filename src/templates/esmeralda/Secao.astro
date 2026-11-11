@@ -1,0 +1,341 @@
+---
+// Uma seção do estilo esmeralda. Cada `tipo` reaproveita um bloco do mock com as
+// classes originais do styles.css; `faq` é o único bloco criado depois (estilos no
+// bloco "ajustes demos-vet"). `encerramento` não passa por aqui: vira o rodapé.
+import Acoes from './Acoes.astro';
+import Enfase from './Enfase.astro';
+import { pad, paragrafos, type Cta, type Resolver, type Secao } from './site';
+// Vídeos com import explícito (não glob): só o que está listado aqui vai para o build.
+import dcbMeet from './assets/dcb-meet.mp4?url';
+
+interface Props {
+  secao: Secao;
+  href: Resolver;
+  // id da próxima seção (link "Explorar" da capa)
+  proximo?: string;
+  local?: string;
+}
+const { secao: s, href, proximo, local } = Astro.props;
+
+const arquivos = import.meta.glob<{ default: ImageMetadata }>('./assets/**/*.{svg,png,jpg,jpeg,webp}', { eager: true });
+const a = (path: string) => {
+  const mod = arquivos[`./assets/${path}`];
+  if (!mod) throw new Error(`[esmeralda] asset não encontrado: assets/${path}`);
+  return mod.default.src;
+};
+// Fotos que o JSON pode escolher em `foto`. Caminhos literais para o prune_assets.py
+// enxergar: foto nova na pasta assets/ precisa entrar aqui também.
+const fotos: Record<string, string> = {
+  'hero.jpg': a('hero.jpg'),
+  'about.jpg': a('about.jpg'),
+  'presence.jpg': a('presence.jpg'),
+  'banner.jpg': a('banner.jpg'),
+  'invite.jpg': a('invite.jpg'),
+  'reach-src.jpg': a('reach-src.jpg'),
+  'g1.jpg': a('g1.jpg'),
+  'g2.jpg': a('g2.jpg'),
+  'ed-02.jpg': a('ed-02.jpg'),
+  'ed-03.jpg': a('ed-03.jpg'),
+  'ed-04.jpg': a('ed-04.jpg'),
+  'ed-05.jpg': a('ed-05.jpg'),
+  'dcb-meet-poster.jpg': a('dcb-meet-poster.jpg'),
+  'conteudo-golf-gti.jpg': a('conteudo-golf-gti.jpg'),
+  'conteudo-porsche-macan.jpg': a('conteudo-porsche-macan.jpg'),
+  'conteudo-chrysler-300c.jpg': a('conteudo-chrysler-300c.jpg'),
+};
+const videos: Record<string, string> = {
+  'dcb-meet.mp4': dcbMeet,
+};
+const foto = (nome: string) => {
+  const url = fotos[nome];
+  if (!url) throw new Error(`[esmeralda] foto desconhecida: ${nome} (adicione ao mapa fotos em Secao.astro)`);
+  return url;
+};
+// Fotos em pé: no recorte deitado, desce até o carro.
+const verticais = new Set(['g1.jpg', 'g2.jpg']);
+const fotosEdicoes = ['g1.jpg', 'ed-02.jpg', 'ed-03.jpg', 'ed-04.jpg', 'ed-05.jpg'];
+const galeria = [
+  { src: 'g1.jpg', alt: 'Lamborghini entre as árvores' },
+  { src: 'g2.jpg', alt: 'Corvette amarelo na pista' },
+  { src: 'ed-04.jpg', alt: 'Porsches estacionados lado a lado' },
+  { src: 'ed-03.jpg', alt: 'Encontro de super carros visto do alto' },
+  { src: 'ed-05.jpg', alt: 'Super esportivos na curva da pista' },
+];
+const padrao: Partial<Record<Secao['tipo'], string>> = {
+  capa: 'hero.jpg',
+  apresentacao: 'about.jpg',
+  presenca: 'presence.jpg',
+  banner: 'banner.jpg',
+  convite: 'invite.jpg',
+};
+
+const botoes = (ctas?: Cta[]) =>
+  (ctas ?? [])
+    .map((c) => ({ texto: c.texto, href: href(c.link) }))
+    .filter((c): c is { texto: string; href: string } => Boolean(c.href));
+
+const ctas = botoes(s.ctas);
+const itens = (s.itens ?? []).filter((i) => !i.rascunho);
+const textos = s.textos ?? [];
+const nomeFoto = s.foto ?? padrao[s.tipo];
+const fotoUrl = nomeFoto ? foto(nomeFoto) : undefined;
+const fotoPropria = Boolean(s.foto && s.foto !== padrao[s.tipo]);
+const videoUrl = s.video ? videos[s.video] : undefined;
+if (s.video && !videoUrl) throw new Error(`[esmeralda] vídeo desconhecido: ${s.video} (adicione ao mapa videos em Secao.astro)`);
+
+// faixa: repete até cobrir a largura da tela sem buraco no loop
+const ticker: string[] = [];
+if (s.tipo === 'faixa' && itens.length) while (ticker.length < 8) ticker.push(...itens.map((i) => i.titulo));
+
+// galeria: com `itens`, as fotos deles (`foto` + `titulo` como descrição); sem, a lista padrão
+if (s.tipo === 'galeria' && itens.some((i) => !i.foto)) throw new Error('[esmeralda] item de galeria sem `foto`');
+const fotosGaleria = s.tipo === 'galeria' && itens.length ? itens.map((i) => ({ src: i.foto!, alt: i.titulo })) : galeria;
+
+// alcance: itens com `marco` viram números grandes; os demais, a lista dourada
+const marcos = itens.filter((i) => i.marco);
+const lista = itens.filter((i) => !i.marco);
+---
+
+{s.tipo === 'capa' && (
+  <section class={fotoPropria || videoUrl ? 'hero hero--escuro' : 'hero'} id={s.id}>
+    <video class="hero-video" autoplay muted loop playsinline preload="auto" poster={fotoUrl}>
+      {videoUrl && <source src={videoUrl} type="video/mp4" />}
+    </video>
+    <div class="wrap hero-content">
+      {s.apoio && <p class="eyb">{s.apoio}</p>}
+      {s.titulo && <h1 class="h1"><Enfase texto={s.titulo} /></h1>}
+      {textos.map((t) => <p class="t1 hero-text">{t}</p>)}
+      <Acoes botoes={ctas} grande classe="hero-actions" />
+    </div>
+    {proximo && <a class="explore" href={`#${proximo}`}><span>Explorar</span></a>}
+    {local && <p class="hero-loc"><span class="dia"></span> {local}</p>}
+  </section>
+)}
+
+{s.tipo === 'faixa' && ticker.length > 0 && (
+  <div class="ticker" aria-hidden="true" id={s.id}>
+    <div class="ticker-track">
+      {ticker.map((t) => <span>{t}</span>)}
+      {ticker.map((t) => <span>{t}</span>)}
+    </div>
+  </div>
+)}
+
+{s.tipo === 'apresentacao' && (
+  <section class="about" id={s.id}>
+    <div class="wrap">
+      <div class="about-grid">
+        <div>
+          {s.apoio && <p class="eyb">{s.apoio}</p>}
+          {s.titulo && <h2 class="h2"><Enfase texto={s.titulo} classe="serif" /></h2>}
+        </div>
+        <div class="about-text">
+          {textos.map((t) => <p class="t1">{t}</p>)}
+          <Acoes botoes={ctas} />
+        </div>
+      </div>
+      <figure class="about-media">
+        <img src={fotoUrl} alt={s.legenda ?? ''} loading="lazy" />
+        {s.legenda && <figcaption class="tag"><span class="dia"></span> {s.legenda}</figcaption>}
+      </figure>
+    </div>
+  </section>
+)}
+
+{s.tipo === 'presenca' && (
+  <section class="presence bg-section" id={s.id} style={`background-image: url(${fotoUrl})`}>
+    <div class="wrap presence-content">
+      {s.apoio && <p class="eyb">{s.apoio}</p>}
+      {s.titulo && <h2 class="h2"><Enfase texto={s.titulo} /></h2>}
+      {textos.map((t) => <p class="t1 presence-text">{t}</p>)}
+      <Acoes botoes={ctas} />
+    </div>
+  </section>
+)}
+
+{s.tipo === 'valores' && (
+  <section class="values bg-section" id={s.id}>
+    <div class="wrap">
+      {s.apoio && <p class="eyb">{s.apoio}</p>}
+      {s.titulo && <h2 class="h2 values-title"><Enfase texto={s.titulo} /></h2>}
+      {textos.map((t) => <p class="t1 values-text">{t}</p>)}
+      {itens.length > 0 && (
+        <ol class="value-list">
+          {itens.map((v, i) => (
+            <li class="value">
+              <span class="value-n">{v.marco ?? pad(i + 1)}</span>
+              <h3 class="h3">{v.titulo}</h3>
+              {v.texto ? <p class="t3">{v.texto}</p> : <span></span>}
+              <span class="dia dia--line" aria-hidden="true"></span>
+            </li>
+          ))}
+        </ol>
+      )}
+      <Acoes botoes={ctas} />
+    </div>
+  </section>
+)}
+
+{s.tipo === 'banner' && (
+  <figure class="banner" id={s.id}>
+    <img src={fotoUrl} alt={s.legenda ?? ''} loading="lazy" />
+    {s.legenda && <figcaption class="tag"><span class="dia"></span> {s.legenda}</figcaption>}
+  </figure>
+)}
+
+{s.tipo === 'experiencias' && (
+  <section class="editions" id={s.id}>
+    <div class="wrap">
+      {(s.apoio || s.titulo || textos.length > 0) && (
+        <header class="editions-head">
+          {s.apoio && <p class="eyb">{s.apoio}</p>}
+          {s.titulo && <h2 class="h2"><Enfase texto={s.titulo} /></h2>}
+          {textos.map((t) => <p class="t1">{t}</p>)}
+          <Acoes botoes={ctas} />
+        </header>
+      )}
+      {itens.map((e, i) => {
+        const nome = e.foto ?? fotosEdicoes[i % fotosEdicoes.length];
+        return (
+          <article class={i % 2 ? 'edition edition--rev' : 'edition'}>
+            <div class="edition-media">
+              <img class={verticais.has(nome) ? 'foto-vertical' : undefined} src={foto(nome)} alt="" loading="lazy" />
+              <span class="edition-n">{pad(i + 1)}</span>
+            </div>
+            <div class="edition-copy">
+              {e.tag && <p class="eyb eyb--dia">{e.tag}</p>}
+              <h3 class="h3">{e.titulo}</h3>
+              {paragrafos(e.texto).map((p) => <p class="t3">{p}</p>)}
+              <Acoes botoes={botoes(e.ctas)} primeiro="lnk" />
+            </div>
+          </article>
+        );
+      })}
+    </div>
+  </section>
+)}
+
+{s.tipo === 'galeria' && (
+  <section class={s.titulo ? 'gallery gallery--head' : 'gallery'} aria-label={s.titulo ? undefined : 'Galeria'} id={s.id}>
+    {(s.apoio || s.titulo) && (
+      <div class="wrap editions-head gallery-head">
+        {s.apoio && <p class="eyb">{s.apoio}</p>}
+        {s.titulo && <h2 class="h2"><Enfase texto={s.titulo} /></h2>}
+        {textos.map((t) => <p class="t1">{t}</p>)}
+        <Acoes botoes={ctas} />
+      </div>
+    )}
+    <div class="gallery-track">
+      {fotosGaleria.map((g) => <img class="gallery-item" src={foto(g.src)} alt={g.alt} loading="lazy" />)}
+    </div>
+  </section>
+)}
+
+{s.tipo === 'alcance' && (
+  <section class="reach bg-section" id={s.id} style={s.foto ? `--foto: url(${fotoUrl})` : undefined}>
+    <div class="wrap reach-content">
+      {s.apoio && <p class="eyb">{s.apoio}</p>}
+      {s.titulo && <h2 class="h2"><Enfase texto={s.titulo} /></h2>}
+      {textos.map((t) => <p class="t1 reach-text">{t}</p>)}
+      {marcos.length > 0 && (
+        <div class="reach-stats">
+          {marcos.map((m) => (
+            <div class="rstat">
+              <p class={m.marco!.length > 4 ? 'rnum rnum--txt' : 'rnum'}>{m.marco}</p>
+              <p class="t2">{m.titulo}</p>
+              {m.texto && <p class="t4">{m.texto}</p>}
+            </div>
+          ))}
+        </div>
+      )}
+      {lista.length > 0 && (
+        <div class="countries">
+          {s.legenda && <p class="eyb eyb--dia">{s.legenda}</p>}
+          <p class="countries-list">
+            {lista.map((l, i) => (
+              <>{i > 0 && <>{' '}<i>·</i>{' '}</>}{l.titulo}</>
+            ))}
+          </p>
+        </div>
+      )}
+      {s.nota && <p class="t1 reach-text reach-nota">{s.nota}</p>}
+      <Acoes botoes={ctas} />
+    </div>
+  </section>
+)}
+
+{s.tipo === 'parceiros' && (
+  <section class={itens.length ? 'partners' : 'partners partners--so-head'} id={s.id}>
+    <div class="wrap">
+      <div class="partners-head">
+        <div>
+          {s.apoio && <p class="eyb">{s.apoio}</p>}
+          {s.titulo && <h2 class="h2"><Enfase texto={s.titulo} /></h2>}
+        </div>
+        <div class="partners-side">
+          {textos.map((t) => <p class="t1">{t}</p>)}
+          <Acoes botoes={ctas} primeiro="outline" />
+        </div>
+      </div>
+    </div>
+    {itens.length > 0 && (
+      <div class="wrap">
+        <div class={`benefits benefits--${Math.min(itens.length, 3)}`}>
+          {itens.map((b, i) => (
+            <div class="benefit">
+              <span class="benefit-n">{b.marco ?? pad(i + 1)}</span>
+              <h3 class="h4">{b.titulo}</h3>
+              {paragrafos(b.texto).map((p) => <p class="t3">{p}</p>)}
+              <Acoes botoes={botoes(b.ctas)} primeiro="lnk" />
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+  </section>
+)}
+
+{s.tipo === 'convite' && (
+  <section class="invite bg-section" id={s.id} style={fotoPropria ? `background-image: url(${fotoUrl})` : undefined}>
+    <div class="wrap invite-content">
+      {s.apoio && <p class="eyb eyb--center">{s.apoio}</p>}
+      {s.titulo && <h2 class="h2"><Enfase texto={s.titulo} /></h2>}
+      {textos.map((t) => <p class="t1 invite-text">{t}</p>)}
+      <Acoes botoes={ctas} classe="acoes acoes--centro" />
+      {itens.length > 0 && (
+        <div class="plans">
+          {itens.map((p, i) => (
+            <div class={i === 0 ? 'plan plan--featured' : 'plan'}>
+              {p.tag && <span class="plan-tag">{p.tag}</span>}
+              <h3 class="h3">{p.titulo}</h3>
+              {p.texto && <p class="t3">{p.texto}</p>}
+              {p.lista && <ul class="plan-list">{p.lista.map((l) => <li>{l}</li>)}</ul>}
+              <Acoes botoes={botoes(p.ctas)} primeiro={i === 0 ? 'gold' : 'outline'} bloco classe="plan-acoes" />
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+)}
+
+{s.tipo === 'faq' && (
+  <section class="faq" id={s.id}>
+    <div class="wrap faq-grid">
+      <div class="faq-head">
+        {s.apoio && <p class="eyb">{s.apoio}</p>}
+        {s.titulo && <h2 class="h2"><Enfase texto={s.titulo} /></h2>}
+        {textos.map((t) => <p class="t1">{t}</p>)}
+        <Acoes botoes={ctas} />
+      </div>
+      <div class="faq-list">
+        {itens.map((q) => (
+          <details class="faq-item">
+            <summary class="faq-q"><span class="faq-q-txt">{q.titulo}</span><span class="faq-ico" aria-hidden="true"></span></summary>
+            {paragrafos(q.texto).map((p) => <p class="t3 faq-a">{p}</p>)}
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+)}

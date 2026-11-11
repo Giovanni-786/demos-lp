@@ -1,0 +1,13 @@
+---
+// Estilo "esmeralda" — convertido do img-to-html (supercarros), landing de eventos
+// automotivos em verde-escuro e dourado. Esta é a home (/demo/<slug>/); as subpáginas
+// saem de `paginas` no JSON (src/pages/demo/[slug]/[pagina].astro).
+// Estrutura: EsmeraldaSite.astro (menu, rodapé), Secao.astro (um bloco do mock por
+// `tipo`), site.ts (links, home padrão). Removidos do mock: logo e wordmark da
+// referência, números do clube, logos de marcas reais, retrato de pessoas e fachada
+// com a marca da referência.
+import EsmeraldaSite from './EsmeraldaSite.astro';
+
+const { clinica, slug } = Astro.props;
+---
+<EsmeraldaSite clinica={clinica} slug={slug} pagina="" />

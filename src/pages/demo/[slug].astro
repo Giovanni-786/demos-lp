@@ -5,6 +5,7 @@ import Lavanda from '../../templates/lavanda/Lavanda.astro';
 import Grafite from '../../templates/grafite/Grafite.astro';
 import Primarias from '../../templates/primarias/Primarias.astro';
 import Dourado from '../../templates/dourado/Dourado.astro';
+import Esmeralda from '../../templates/esmeralda/Esmeralda.astro';
 import { corDoSlug } from '../../lib/cor';
 
 export async function getStaticPaths() {
@@ -12,7 +13,7 @@ export async function getStaticPaths() {
   return clinicas.map((c) => ({ params: { slug: c.id }, props: { clinica: c.data, slug: c.id } }));
 }
 
-const templates = { lavanda: Lavanda, grafite: Grafite, primarias: Primarias, dourado: Dourado };
+const templates = { lavanda: Lavanda, grafite: Grafite, primarias: Primarias, dourado: Dourado, esmeralda: Esmeralda };
 const { clinica, slug } = Astro.props;
 const Template = templates[clinica.estilo];
 ---

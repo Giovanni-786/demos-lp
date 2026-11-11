@@ -1,0 +1,150 @@
+---
+// Estrutura comum às páginas do estilo esmeralda: menu, seções e rodapé.
+// A home vem de `inicio` (ou da home padrão montada com os campos genéricos) e cada
+// item de `paginas` gera uma subpágina. A seção `encerramento` da página vira a
+// chamada do rodapé; sem ela, vale a da home.
+// CSS como URL, não como import: o [slug].astro importa todos os templates, e um
+// import de CSS entraria no bundle de TODAS as páginas.
+import cssUrl from './assets/styles.css?url';
+import Acoes from './Acoes.astro';
+import Enfase from './Enfase.astro';
+import Secao from './Secao.astro';
+import {
+  criarResolver,
+  ehExterno,
+  inicioPadrao,
+  redeUrl,
+  telefoneUrl,
+  whatsappUrl,
+  type Clinica,
+  type Secao as SecaoT,
+} from './site';
+
+interface Props {
+  clinica: Clinica;
+  slug: string;
+  // '' = home
+  pagina: string;
+}
+const { clinica, slug, pagina } = Astro.props;
+
+const base = `/demo/${slug}/`;
+const secoesInicio = clinica.inicio ?? inicioPadrao(clinica);
+const paginas = clinica.paginas ?? [];
+const atual = pagina ? paginas.find((p) => p.slug === pagina) : undefined;
+if (pagina && !atual) throw new Error(`[esmeralda] página inexistente: ${pagina}`);
+const secoes: SecaoT[] = atual ? atual.secoes : secoesInicio;
+const href = criarResolver(clinica, slug, pagina, secoesInicio);
+
+const encerramento = secoes.find((s) => s.tipo === 'encerramento') ?? secoesInicio.find((s) => s.tipo === 'encerramento');
+const corpo = secoes.filter((s) => s.tipo !== 'encerramento');
+const proximoId = (i: number) => corpo.slice(i + 1).find((s) => s.id)?.id;
+
+const lugares = clinica.cidades?.length ? clinica.cidades : clinica.bairro ? [clinica.bairro] : [];
+const local = clinica.bairro ?? lugares[0];
+
+// Menu: com `paginas`, as páginas; site de uma página só, as seções com `menu` e `id`.
+type Link = { href: string; label: string; atual?: boolean };
+const menu: Link[] = paginas.length
+  ? paginas.map((p) => ({ href: `${base}${p.slug}/`, label: p.menu, atual: p.slug === pagina }))
+  : secoesInicio.filter((s) => s.menu && s.id).map((s) => ({ href: `#${s.id}`, label: s.menu! }));
+const menuRodape: Link[] = paginas.length
+  ? [{ href: base, label: 'Início', atual: !pagina }, ...paginas.map((p) => ({ href: `${base}${p.slug}/`, label: p.titulo, atual: p.slug === pagina }))]
+  : menu;
+
+const navCta = clinica.navCta ?? { texto: 'Quero participar', link: 'wa' };
+const navHref = href(navCta.link);
+
+const whatsappHref = whatsappUrl(clinica, clinica.whatsappMensagem);
+const telefoneHref = telefoneUrl(clinica);
+const redes = [
+  { nome: 'Instagram', href: redeUrl(clinica.instagram, 'https://instagram.com/') },
+  { nome: 'Facebook', href: redeUrl(clinica.facebook, 'https://facebook.com/') },
+  { nome: 'TikTok', href: redeUrl(clinica.tiktok, 'https://www.tiktok.com/@') },
+  { nome: 'YouTube', href: redeUrl(clinica.youtube, 'https://youtube.com/@') },
+  { nome: 'WhatsApp', href: paginas.length ? whatsappHref : null },
+].filter((r): r is { nome: string; href: string } => Boolean(r.href));
+
+const temContato = Boolean(clinica.slogan && clinica.inicio) || Boolean(clinica.whatsapp || clinica.telefone || clinica.email || clinica.endereco || lugares.length);
+
+// Marca gigante do rodapé: `marca` do JSON ou as iniciais do nome (D.C.B).
+const ignorar = new Set(['de', 'da', 'do', 'das', 'dos', 'e']);
+const palavras = clinica.nome.split(/\s+/).filter((p) => p && !ignorar.has(p.toLowerCase()));
+const letras =
+  palavras.length > 1
+    ? palavras.slice(0, 4).map((p) => p.charAt(0))
+    : palavras[0].length <= 4
+      ? [...palavras[0]]
+      : [palavras[0].charAt(0)];
+const sigla = clinica.marca ?? letras.join('.').toUpperCase();
+// Largura aproximada da sigla em "em" (letra larga ~0,82, ponto ~0,32): o CSS usa
+// para reduzir a fonte até caber na largura, sem cortar a marca.
+const siglaEm = [...sigla].reduce((s, ch) => s + (ch === '.' ? 0.32 : 0.82), 0).toFixed(2);
+
+const encerramentoBotoes = (encerramento?.ctas ?? [])
+  .map((c) => ({ texto: c.texto, href: href(c.link) }))
+  .filter((c): c is { texto: string; href: string } => Boolean(c.href));
+const alvo = (h: string) => (ehExterno(h) ? { target: '_blank', rel: 'noopener' } : {});
+---
+<link rel="stylesheet" href={cssUrl} />
+<div class="demo-esmeralda">
+
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a class="nav-logo nav-logo--txt" href={paginas.length ? base : '#'} aria-label={clinica.nome}>{clinica.nome}</a>
+      <nav class="nav-links" id="menu" aria-label="Principal">
+        {menu.map((l) => <a class="lnk" href={l.href} aria-current={l.atual ? 'page' : undefined}>{l.label}</a>)}
+        {navHref && <a class="btn btn--gold nav-cta-mobile" href={navHref} {...alvo(navHref)}>{navCta.texto} <span class="arr">→</span></a>}
+      </nav>
+      {navHref && <a class="btn btn--gold nav-cta" href={navHref} {...alvo(navHref)}>{navCta.texto} <span class="arr">→</span></a>}
+      <button class="nav-toggle" type="button" aria-label="Abrir menu" aria-controls="menu" aria-expanded="false"><span></span><span></span></button>
+    </div>
+  </header>
+
+  {corpo.map((s, i) => <Secao secao={s} href={href} proximo={s.tipo === 'capa' ? proximoId(i) : undefined} local={local} />)}
+
+  <footer class="footer bg-section" id="rodape">
+    <div class="wrap">
+      {encerramento && (
+        <div class="footer-cta">
+          {encerramento.apoio && <p class="eyb">{encerramento.apoio}</p>}
+          {encerramento.titulo && <h2 class="h2"><Enfase texto={encerramento.titulo} classe="sans-gold" /></h2>}
+          {(encerramento.textos ?? []).map((t) => <p class="t1 footer-text">{t}</p>)}
+          <Acoes botoes={encerramentoBotoes} grande classe="acoes footer-acoes" />
+        </div>
+      )}
+      <div class="footer-cols">
+        {temContato && (
+          <div>
+            <p class="eyb eyb--plain">{paginas.length ? clinica.nome : 'Contato'}</p>
+            {clinica.slogan && clinica.inicio && <p class="t3 muted">{clinica.slogan}</p>}
+            {whatsappHref && <a class="t2" href={whatsappHref} target="_blank" rel="noopener">{clinica.whatsapp}</a>}
+            {telefoneHref && clinica.telefone !== clinica.whatsapp && <a class="t2" href={telefoneHref}>{clinica.telefone}</a>}
+            {clinica.email && <a class="t3" href={`mailto:${clinica.email}`}>{clinica.email}</a>}
+            {clinica.endereco && <p class="t3 muted">{clinica.endereco}</p>}
+            {!clinica.endereco && lugares.length > 0 && <p class="t3 muted">{lugares.join(' · ')}</p>}
+          </div>
+        )}
+        <nav aria-label="Rodapé">
+          <p class="eyb eyb--plain">Navegar</p>
+          {menuRodape.map((l) => <a class="t3" href={l.href} aria-current={l.atual ? 'page' : undefined}>{l.label}</a>)}
+        </nav>
+        {redes.length > 0 && (
+          <div>
+            <p class="eyb eyb--plain">Conecte-se</p>
+            {redes.map((r) => <a class="t3" href={r.href} target="_blank" rel="noopener">{r.nome}</a>)}
+          </div>
+        )}
+      </div>
+      <div class="footer-mark" aria-hidden="true">
+        <span class="footer-mark-big" style={`--mark-em:${siglaEm}`}>{sigla}</span>
+        <span class="footer-mark-sub">{clinica.nome}</span>
+      </div>
+      <div class="footer-bottom">
+        <p class="t4">© {clinica.nome} — Todos os direitos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./assets/app.js"></script>
+</div>

@@ -1,0 +1,32 @@
+---
+// Grupo de botões de uma seção: o primeiro é botão (dourado ou contorno, como no mock),
+// os demais viram link sublinhado. Links externos abrem em nova aba.
+import { ehExterno } from './site';
+
+interface Props {
+  botoes: { texto: string; href: string }[];
+  primeiro?: 'gold' | 'outline' | 'lnk';
+  grande?: boolean;
+  bloco?: boolean;
+  classe?: string;
+}
+const { botoes, primeiro = 'gold', grande = false, bloco = false, classe = 'acoes' } = Astro.props;
+const alvo = (h: string) => (ehExterno(h) ? { target: '_blank', rel: 'noopener' } : {});
+const btn = [
+  'btn',
+  primeiro === 'gold' ? 'btn--gold' : 'btn--outline',
+  grande && 'btn--lg',
+  bloco && 'btn--block',
+].filter(Boolean).join(' ');
+---
+{botoes.length > 0 && (
+  <div class={classe}>
+    {botoes.map((b, i) =>
+      i === 0 && primeiro !== 'lnk' ? (
+        <a class={btn} href={b.href} {...alvo(b.href)}>{b.texto} <span class="arr">→</span></a>
+      ) : (
+        <a class="lnk lnk--under" href={b.href} {...alvo(b.href)}>{b.texto}</a>
+      )
+    )}
+  </div>
+)}

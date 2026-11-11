@@ -1,0 +1,684 @@
+{
+  "nome": "DCB Dream Car",
+  "estilo": "esmeralda",
+  "marca": "D.C.B",
+  "descricao": "Desde 2017, a DCB Dream Car reúne apaixonados por carros, promove encontros, desenvolve experiências e aproxima pessoas e empresas através da cultura automotiva.",
+  "slogan": "Criando conexões e momentos através do universo automotivo.",
+  "bairro": "Bauru, SP",
+  "endereco": "Bauru · São Paulo · Brasil",
+  "whatsapp": "(14) 99126-6102",
+  "whatsappMensagem": "Olá! Acessei o site da DCB Dream Car e gostaria de tirar uma dúvida.",
+  "whatsappMensagens": {
+    "club": "Olá! Conheci o DCB Dream Car Club pelo site e gostaria de solicitar minha participação. Podem me orientar sobre o cadastro?",
+    "eventos": "Olá! Vi a página de eventos no site da DCB e gostaria de saber mais sobre os próximos encontros e como participar.",
+    "empresas": "Olá! Conheci os serviços da DCB pelo site e gostaria de conversar sobre divulgação para minha empresa.",
+    "corporativo": "Olá! Acessei o site da DCB e gostaria de conversar sobre a realização de um evento ou experiência automotiva para minha empresa.",
+    "parceria": "Olá! Gostaria de conhecer as oportunidades de parceria e patrocínio com a DCB Dream Car.",
+    "conteudo": "Olá! Acessei a área de conteúdo da DCB e gostaria de conversar sobre um veículo ou projeto automotivo.",
+    "club-duvidas": "Olá! Li as informações do DCB Dream Car Club no site e gostaria de tirar uma dúvida sobre a participação."
+  },
+  "instagram": "https://www.instagram.com/dcbdreamcar/",
+  "navCta": { "texto": "Quero fazer parte", "link": "wa:club" },
+
+  "inicio": [
+    {
+      "tipo": "capa",
+      "video": "dcb-meet.mp4",
+      "foto": "dcb-meet-poster.jpg",
+      "apoio": "DCB Dream Car · Desde 2017",
+      "titulo": "Muito *além dos* carros.",
+      "textos": [
+        "Uma comunidade formada por pessoas que compartilham a mesma paixão pelo universo automotivo.",
+        "Desde 2017, a DCB Dream Car reúne apaixonados por carros, promove encontros, desenvolve experiências e aproxima pessoas e empresas através da cultura automotiva."
+      ],
+      "ctas": [
+        { "texto": "Explore a DCB", "link": "/#apresentacao" },
+        { "texto": "Conheça o Dream Car Club", "link": "/club" }
+      ]
+    },
+    {
+      "tipo": "faixa",
+      "itens": [
+        { "titulo": "DCB Meet" },
+        { "titulo": "DCB Dream Car Club" },
+        { "titulo": "Eventos & Experiências" },
+        { "titulo": "Conteúdo Automotivo" },
+        { "titulo": "Marcas & Parcerias" },
+        { "titulo": "Desde 2017" }
+      ]
+    },
+    {
+      "tipo": "apresentacao",
+      "id": "apresentacao",
+      "apoio": "Apresentação",
+      "titulo": "A paixão que nos *conecta.*",
+      "textos": [
+        "O que começou com a produção de conteúdo automotivo em Bauru, interior de São Paulo, cresceu e ganhou novas formas.",
+        "Ao longo dos anos, a DCB passou a realizar encontros, desenvolver projetos com empresas e criar oportunidades para quem gosta de carros viver essa paixão de perto.",
+        "Hoje, seguimos reunindo pessoas, veículos e histórias, sempre buscando novas maneiras de fortalecer a comunidade automotiva."
+      ],
+      "ctas": [{ "texto": "Conheça nossa história", "link": "/sobre" }]
+    },
+    {
+      "tipo": "experiencias",
+      "id": "ecossistema",
+      "apoio": "Nosso ecossistema",
+      "titulo": "Conheça a DCB Dream Car.",
+      "itens": [
+        {
+          "titulo": "DCB Meet",
+          "texto": "Nossos encontros automotivos reúnem proprietários e entusiastas de diferentes estilos e categorias de veículos. Um espaço para conhecer projetos, encontrar amigos e compartilhar a paixão por carros.",
+          "ctas": [{ "texto": "Conheça os encontros", "link": "/eventos#dcb-meet" }]
+        },
+        {
+          "titulo": "DCB Dream Car Club",
+          "texto": "Uma comunidade para proprietários, com encontros, benefícios, oportunidades de networking e atividades especiais.",
+          "ctas": [{ "texto": "Conheça o Club", "link": "/club" }]
+        },
+        {
+          "titulo": "Eventos & Experiências",
+          "texto": "Desenvolvemos encontros, exposições, passeios e experiências automotivas para o público, empresas e marcas parceiras.",
+          "ctas": [{ "texto": "Explore as experiências", "link": "/eventos#experiencias" }]
+        },
+        {
+          "titulo": "Conteúdo Automotivo",
+          "texto": "Fotos, vídeos, matérias e histórias sobre veículos, projetos e pessoas que fazem parte do cenário automotivo.",
+          "ctas": [{ "texto": "Ver conteúdos", "link": "/conteudos" }]
+        },
+        {
+          "titulo": "Marcas & Parcerias",
+          "texto": "Projetos comerciais, divulgação, patrocínios e ações que aproximam empresas da comunidade automotiva.",
+          "ctas": [{ "texto": "Seja um parceiro", "link": "/empresas" }]
+        }
+      ]
+    },
+    {
+      "tipo": "presenca",
+      "id": "eventos",
+      "apoio": "Eventos",
+      "titulo": "Acontece na *DCB.*",
+      "textos": [
+        "Acompanhe nossos encontros, eventos e atividades. Confira as informações disponíveis e converse com nossa equipe para saber como participar."
+      ],
+      "ctas": [
+        { "texto": "Ver eventos & experiências", "link": "/eventos" },
+        { "texto": "Tirar dúvidas sobre eventos", "link": "wa:eventos" }
+      ]
+    },
+    {
+      "tipo": "convite",
+      "id": "club",
+      "apoio": "DCB Dream Car Club",
+      "titulo": "Sua paixão tem *lugar aqui.*",
+      "textos": [
+        "O DCB Dream Car Club foi criado para proprietários que gostam de compartilhar experiências, conhecer pessoas e participar de uma comunidade com interesses em comum.",
+        "Dos carros antigos aos esportivos, dos projetos personalizados aos veículos de competição, cada membro traz sua própria história.",
+        "A participação é gratuita, mediante cadastro e aprovação."
+      ],
+      "ctas": [
+        { "texto": "Conheça os benefícios", "link": "/club#beneficios" },
+        { "texto": "Quero fazer parte", "link": "wa:club" }
+      ]
+    },
+    {
+      "tipo": "galeria",
+      "id": "conteudo",
+      "apoio": "Conteúdo",
+      "titulo": "Carros, projetos e *histórias.*",
+      "textos": [
+        "Conheça alguns dos veículos e projetos que passaram pelas nossas câmeras. Fotos, vídeos e informações sobre diferentes modelos, preparações e histórias de seus proprietários."
+      ],
+      "ctas": [{ "texto": "Explorar conteúdos", "link": "/conteudos" }],
+      "itens": [
+        { "titulo": "Volkswagen Golf GTI preto", "foto": "conteudo-golf-gti.jpg" },
+        { "titulo": "Porsche Macan cinza", "foto": "conteudo-porsche-macan.jpg" },
+        { "titulo": "Chrysler 300C branco em um encontro", "foto": "conteudo-chrysler-300c.jpg" }
+      ]
+    },
+    {
+      "tipo": "parceiros",
+      "id": "empresas",
+      "apoio": "Empresas",
+      "titulo": "Sua marca também pode *fazer parte.*",
+      "textos": [
+        "A DCB desenvolve projetos de divulgação, eventos e parcerias comerciais para empresas que desejam se aproximar do público automotivo.",
+        "Conheça nossas possibilidades de atuação e converse com a equipe sobre uma proposta para sua empresa."
+      ],
+      "ctas": [
+        { "texto": "Conheça as soluções", "link": "/empresas" },
+        { "texto": "Fale com o comercial", "link": "wa:empresas" }
+      ]
+    },
+    {
+      "tipo": "alcance",
+      "id": "redes",
+      "apoio": "Redes sociais",
+      "titulo": "Acompanhe a DCB onde você *preferir.*",
+      "textos": [
+        "Os encontros, as novidades, os vídeos e os bastidores também estão nos nossos canais. Escolha onde quer acompanhar a DCB e fique por dentro dos próximos projetos."
+      ],
+      "legenda": "Nossos canais",
+      "itens": [
+        { "titulo": "Instagram" },
+        { "titulo": "Facebook" },
+        { "titulo": "TikTok" },
+        { "titulo": "YouTube" },
+        { "titulo": "WhatsApp" }
+      ],
+      "ctas": [
+        { "texto": "Ver todas as redes", "link": "/redes-sociais" },
+        { "texto": "Acessar Instagram", "link": "https://www.instagram.com/dcbdreamcar/" }
+      ]
+    },
+    {
+      "tipo": "encerramento",
+      "apoio": "DCB Dream Car",
+      "titulo": "Faça parte da nossa *história.*",
+      "textos": [
+        "Acompanhe nossos conteúdos, participe dos encontros e descubra tudo o que acontece na DCB Dream Car."
+      ],
+      "ctas": [
+        { "texto": "Acompanhe a DCB", "link": "/redes-sociais" },
+        { "texto": "Fale com a DCB", "link": "wa" }
+      ]
+    }
+  ],
+
+  "paginas": [
+    {
+      "slug": "sobre",
+      "menu": "Sobre",
+      "titulo": "Sobre a DCB",
+      "secoes": [
+        {
+          "tipo": "capa",
+          "foto": "banner.jpg",
+          "apoio": "Sobre a DCB Dream Car",
+          "titulo": "Nossa história *começou* em 2017.",
+          "textos": [
+            "A DCB Dream Car surgiu em Bauru, interior de São Paulo, com a proposta de compartilhar conteúdos sobre carros e aproximar pessoas que gostam do universo automotivo."
+          ],
+          "ctas": [{ "texto": "Conheça nossos projetos", "link": "/eventos" }]
+        },
+        {
+          "tipo": "apresentacao",
+          "id": "historia",
+          "apoio": "Nossa história",
+          "titulo": "Reunir pessoas através da *paixão por carros.*",
+          "textos": [
+            "O projeto começou nas redes sociais e, em 2018, passou a desenvolver encontros presenciais, reunindo veículos, proprietários e entusiastas da região.",
+            "Com o crescimento da comunidade, surgiram novas oportunidades de atuação. A DCB passou a desenvolver eventos, produzir conteúdos especializados e trabalhar em conjunto com empresas do setor automotivo e de outros segmentos.",
+            "Hoje, além dos encontros e das produções audiovisuais, a DCB conta com o Dream Car Club, uma comunidade voltada para proprietários que desejam participar de atividades e experiências exclusivas.",
+            "Continuamos com o mesmo propósito que deu origem ao projeto: reunir pessoas através da paixão por carros."
+          ]
+        },
+        {
+          "tipo": "alcance",
+          "id": "trajetoria",
+          "apoio": "Nossa trajetória",
+          "titulo": "Uma história construída com a *comunidade.*",
+          "itens": [
+            { "marco": "2017", "titulo": "O início", "texto": "Nascimento da DCB Dream Car e início da produção de conteúdo automotivo." },
+            { "marco": "2018", "titulo": "Primeiros encontros", "texto": "Expansão do projeto para encontros presenciais, aproximando proprietários e entusiastas." },
+            { "marco": "Ao longo dos anos", "titulo": "Novos projetos", "texto": "Desenvolvimento de eventos, parcerias comerciais, ações com empresas e experiências automotivas." },
+            { "marco": "2026", "titulo": "DCB Dream Car Club", "texto": "Estruturação de uma comunidade para proprietários, com encontros, benefícios e novas oportunidades de relacionamento." }
+          ]
+        },
+        {
+          "tipo": "valores",
+          "id": "o-que-fazemos",
+          "apoio": "O que fazemos",
+          "titulo": "Diferentes formas de atuar.",
+          "itens": [
+            { "titulo": "Produção de conteúdo automotivo" },
+            { "titulo": "Organização e gestão de encontros e eventos" },
+            { "titulo": "Desenvolvimento de experiências automotivas" },
+            { "titulo": "Projetos de divulgação e publicidade" },
+            { "titulo": "Ativações de marcas e ações comerciais" },
+            { "titulo": "Comunidade de proprietários através do DCB Dream Car Club" }
+          ],
+          "ctas": [{ "texto": "Conheça as soluções para empresas", "link": "/empresas" }]
+        },
+        {
+          "tipo": "presenca",
+          "id": "proposito",
+          "apoio": "Propósito",
+          "titulo": "O que nos *move.*",
+          "textos": [
+            "Criar conexões e momentos através do universo automotivo, valorizando as pessoas, seus veículos e suas histórias."
+          ],
+          "ctas": [{ "texto": "Acompanhe nossos canais", "link": "/redes-sociais" }]
+        }
+      ]
+    },
+    {
+      "slug": "eventos",
+      "menu": "Eventos",
+      "titulo": "Eventos & Experiências",
+      "secoes": [
+        {
+          "tipo": "capa",
+          "foto": "presence.jpg",
+          "apoio": "Eventos & Experiências",
+          "titulo": "Onde a paixão pelos carros *acontece.*",
+          "textos": [
+            "Desde 2018, a DCB desenvolve encontros e atividades que reúnem a comunidade automotiva em Bauru e região.",
+            "Ao longo dessa trajetória, os projetos passaram a incluir exposições, experiências com veículos, ações promocionais e eventos desenvolvidos em parceria com empresas.",
+            "Conheça os formatos de evento e alguns dos projetos que fazem parte dessa história."
+          ],
+          "ctas": [{ "texto": "Fale sobre os próximos eventos", "link": "wa:eventos" }]
+        },
+        {
+          "tipo": "apresentacao",
+          "id": "dcb-meet",
+          "apoio": "DCB Meet",
+          "titulo": "Nosso ponto de *encontro.*",
+          "textos": [
+            "O DCB Meet é um dos projetos que fazem parte da história da marca. Criado para reunir proprietários e entusiastas, é um espaço para conhecer veículos, conversar sobre projetos e encontrar pessoas com interesses em comum.",
+            "Carros antigos, esportivos, personalizados e diferentes estilos da cultura automotiva fazem parte dos encontros."
+          ],
+          "ctas": [{ "texto": "Quero saber do próximo Meet", "link": "wa:eventos" }]
+        },
+        {
+          "tipo": "presenca",
+          "id": "experiencias",
+          "foto": "banner.jpg",
+          "apoio": "Experiências",
+          "titulo": "Cada projeto, uma *proposta.*",
+          "textos": [
+            "Além dos encontros, a DCB desenvolve atividades como passeios, comboios, exposições, experiências off-road e ações com veículos.",
+            "Cada projeto é planejado de acordo com seu formato, o local, as condições de segurança e o público participante."
+          ],
+          "ctas": [{ "texto": "Conversar sobre experiências", "link": "wa:eventos" }]
+        },
+        {
+          "tipo": "parceiros",
+          "id": "eventos-para-empresas",
+          "apoio": "Eventos para empresas",
+          "titulo": "Eventos com a identidade da *sua marca.*",
+          "textos": [
+            "A DCB também atua no planejamento e na organização de experiências automotivas para empresas e parceiros.",
+            "Entre as possibilidades estão apresentações de veículos, test-drives, encontros de relacionamento, ações com convidados e eventos voltados para públicos específicos."
+          ],
+          "ctas": [{ "texto": "Planejar um evento", "link": "wa:corporativo" }]
+        },
+        {
+          "tipo": "galeria",
+          "id": "portfolio",
+          "apoio": "Portfólio",
+          "titulo": "Eventos que fizeram parte da nossa *história.*",
+          "textos": [
+            "Confira alguns registros de encontros e projetos já realizados pela DCB.",
+            "Cada edição reúne pessoas, veículos e histórias diferentes, que ajudam a contar a trajetória da marca."
+          ],
+          "ctas": [
+            { "texto": "Ver registros nas redes", "link": "/redes-sociais" },
+            { "texto": "Falar com a DCB", "link": "wa:eventos" }
+          ]
+        },
+        {
+          "tipo": "encerramento",
+          "apoio": "Próximos eventos",
+          "titulo": "Quer participar dos *próximos?*",
+          "textos": [
+            "As datas, os locais e as condições de participação são divulgados nos canais oficiais da DCB. Acompanhe nossas redes para não perder as próximas novidades."
+          ],
+          "ctas": [
+            { "texto": "Acompanhar a programação", "link": "/redes-sociais" },
+            { "texto": "Tirar uma dúvida", "link": "wa:eventos" }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "club",
+      "menu": "Club",
+      "titulo": "DCB Dream Car Club",
+      "secoes": [
+        {
+          "tipo": "capa",
+          "apoio": "DCB Dream Car Club · Driven by passion. Connected by DCB.",
+          "titulo": "Sua paixão tem *lugar* aqui.",
+          "textos": [
+            "O DCB Dream Car Club é uma comunidade criada para reunir proprietários que compartilham a paixão pelo universo automotivo.",
+            "O clube aproxima pessoas com diferentes estilos de veículos, histórias e experiências, criando oportunidades para novas amizades, encontros e atividades em grupo.",
+            "A participação é gratuita, mediante cadastro e aprovação."
+          ],
+          "ctas": [
+            { "texto": "Quero fazer parte", "link": "wa:club" },
+            { "texto": "Conheça os benefícios", "link": "#beneficios" }
+          ]
+        },
+        {
+          "tipo": "apresentacao",
+          "id": "experiencia-do-membro",
+          "apoio": "Experiência do membro",
+          "titulo": "Fazer parte é *participar.*",
+          "textos": [
+            "O clube vai além de um grupo de mensagens. A proposta é reunir proprietários em encontros regulares, compartilhar experiências, conhecer projetos de outros membros e criar oportunidades para aproveitar o universo automotivo junto de pessoas com interesses em comum.",
+            "Cada membro tem sua própria história. Aqui, o importante é a paixão pelos carros, o respeito entre os participantes e a vontade de fazer parte da comunidade."
+          ],
+          "ctas": [{ "texto": "Solicitar participação", "link": "wa:club" }]
+        },
+        {
+          "tipo": "valores",
+          "id": "beneficios",
+          "apoio": "Benefícios",
+          "titulo": "O que você encontra no Club.",
+          "itens": [
+            { "titulo": "Encontros entre membros", "texto": "Programação de encontros quinzenais para reunir proprietários, trocar experiências e fortalecer a comunidade." },
+            { "titulo": "Networking e novas conexões", "texto": "Contato com outros entusiastas, profissionais e empresários que participam da comunidade." },
+            { "titulo": "Benefícios com parceiros", "texto": "Condições especiais em empresas parceiras. As ofertas e regras atualizadas são informadas pelos canais oficiais do clube." },
+            { "titulo": "Identificação do membro", "texto": "Cada participante aprovado recebe um número DCBMember. O clube prevê cartão de identificação em PVC e materiais de boas-vindas, conforme as orientações de entrega." },
+            { "titulo": "Apresentação de boas-vindas", "texto": "A DCB pode apresentar a história e o veículo do novo integrante em seus canais, sempre com autorização prévia." },
+            { "titulo": "Experiências especiais", "texto": "Oportunidades de participar de passeios, viagens, atividades em pista e outras experiências organizadas ou divulgadas pelo clube. Algumas atividades podem ter custos próprios, comunicados antecipadamente." }
+          ],
+          "ctas": [
+            { "texto": "Quero conhecer o Club", "link": "wa:club-duvidas" },
+            { "texto": "Quero fazer parte", "link": "wa:club" }
+          ]
+        },
+        {
+          "tipo": "alcance",
+          "id": "categorias",
+          "apoio": "Categorias",
+          "titulo": "Quais veículos podem *participar?*",
+          "textos": [
+            "O DCB Dream Car Club é voltado para proprietários de veículos que se enquadram nos critérios de admissão do clube."
+          ],
+          "legenda": "Categorias aceitas",
+          "itens": [
+            { "titulo": "Carros antigos e clássicos" },
+            { "titulo": "Esportivos e superesportivos" },
+            { "titulo": "Esportivos de luxo" },
+            { "titulo": "Carros customizados e projetos especiais" },
+            { "titulo": "Veículos de competição — drift, arrancada e rally" },
+            { "titulo": "Carros populares com projeto montado" }
+          ],
+          "nota": "Cada solicitação é avaliada individualmente pela equipe DCB. Não é necessário possuir um superesportivo para solicitar participação.",
+          "ctas": [{ "texto": "Consultar meu veículo", "link": "wa:club-duvidas" }]
+        },
+        {
+          "tipo": "parceiros",
+          "id": "como-entrar",
+          "apoio": "Como entrar",
+          "titulo": "Como funciona a *participação.*",
+          "ctas": [{ "texto": "Quero fazer parte", "link": "wa:club" }],
+          "itens": [
+            { "titulo": "Entre em contato", "texto": "Clique em “Quero fazer parte” e converse com a equipe DCB pelo WhatsApp." },
+            { "titulo": "Envie seus dados", "texto": "Nossa equipe orientará o pré-cadastro e pedirá informações sobre você e seu veículo." },
+            { "titulo": "Conte sua história", "texto": "Queremos conhecer seu projeto, sua relação com o universo automotivo e os motivos que o trouxeram até aqui." },
+            { "titulo": "Análise e aprovação", "texto": "A solicitação será avaliada conforme os critérios do clube." },
+            { "titulo": "Boas-vindas", "texto": "Após a aprovação, você receberá sua identificação de membro e as orientações para participar da comunidade." }
+          ]
+        },
+        {
+          "tipo": "galeria",
+          "id": "membros",
+          "apoio": "Membros",
+          "titulo": "Conheça quem faz *parte.*",
+          "textos": [
+            "Por trás de cada carro existe um proprietário e uma história. Conheça alguns dos integrantes do DCB Dream Car Club, seus veículos e o que os trouxe até aqui."
+          ],
+          "ctas": [{ "texto": "Ver histórias dos membros", "link": "https://www.instagram.com/dcbdreamcar/" }]
+        },
+        {
+          "tipo": "faq",
+          "id": "duvidas",
+          "apoio": "Dúvidas frequentes",
+          "titulo": "Antes de entrar, tire suas *dúvidas.*",
+          "itens": [
+            { "titulo": "A participação é paga?", "texto": "Não. A entrada no DCB Dream Car Club é gratuita, mediante cadastro e aprovação. Algumas experiências especiais podem ser pagas." },
+            { "titulo": "Preciso ter um carro de luxo?", "texto": "Não. O clube aceita diferentes categorias, incluindo antigos, esportivos e projetos especiais. A equipe avalia cada veículo conforme os critérios de admissão." },
+            { "titulo": "Preciso morar em Bauru?", "texto": "Não necessariamente. A base do clube fica em Bauru, mas proprietários de outras cidades também podem solicitar participação." },
+            { "titulo": "É preciso ser proprietário?", "texto": "Sim. A admissão é destinada a proprietários de veículos enquadrados nas categorias aceitas." },
+            { "titulo": "Sou menor de idade. Posso participar?", "texto": "A participação de menores depende da autorização e do acompanhamento do responsável, conforme a atividade." },
+            { "titulo": "Preciso aparecer nas fotos?", "texto": "Não. A utilização de imagem pessoal e a publicação de conteúdos de apresentação dependem da sua autorização." },
+            { "titulo": "Como funcionam os descontos?", "texto": "Os benefícios variam conforme os parceiros. As condições vigentes são divulgadas nos canais oficiais do clube." },
+            { "titulo": "O contato pelo WhatsApp garante minha entrada?", "texto": "Não. O primeiro contato inicia a solicitação, que passa por análise antes da aprovação." }
+          ],
+          "ctas": [{ "texto": "Ainda tenho dúvidas", "link": "wa:club-duvidas" }]
+        },
+        {
+          "tipo": "encerramento",
+          "apoio": "DCB Dream Car Club",
+          "titulo": "Pronto para *fazer parte?*",
+          "textos": [
+            "Se você é proprietário de um veículo e se identifica com a proposta do clube, converse com nossa equipe. Vamos explicar o processo de participação e os próximos passos."
+          ],
+          "ctas": [{ "texto": "Quero fazer parte", "link": "wa:club" }]
+        }
+      ]
+    },
+    {
+      "slug": "conteudos",
+      "menu": "Conteúdo",
+      "titulo": "Conteúdo Automotivo",
+      "secoes": [
+        {
+          "tipo": "capa",
+          "foto": "banner.jpg",
+          "apoio": "Conteúdo automotivo",
+          "titulo": "Cada carro tem *sua* história.",
+          "textos": [
+            "Acompanhe nossos registros, conheça projetos e descubra detalhes de veículos que fazem parte do cenário automotivo.",
+            "A DCB produz fotos, vídeos e conteúdos sobre modelos de diferentes marcas, épocas e categorias, valorizando as características dos carros e as histórias de seus proprietários."
+          ],
+          "ctas": [{ "texto": "Ver publicações no Instagram", "link": "https://www.instagram.com/dcbdreamcar/" }]
+        },
+        {
+          "tipo": "experiencias",
+          "id": "categorias",
+          "apoio": "Categorias de conteúdo",
+          "titulo": "Explore o universo *automotivo.*",
+          "ctas": [{ "texto": "Acompanhar conteúdos", "link": "/redes-sociais" }],
+          "itens": [
+            { "titulo": "Esportivos & superesportivos", "texto": "Modelos que se destacam por desempenho, engenharia e características próprias." },
+            { "titulo": "Clássicos & antigos", "texto": "Veículos que representam diferentes épocas e preservam histórias." },
+            { "titulo": "Projetos & personalizações", "texto": "Carros preparados, modificações e projetos desenvolvidos por seus proprietários." },
+            { "titulo": "Motos", "texto": "Modelos e projetos do universo das duas rodas." },
+            { "titulo": "Eventos & coberturas", "texto": "Registros de encontros, exposições, competições e experiências automotivas." }
+          ]
+        },
+        {
+          "tipo": "convite",
+          "id": "seu-projeto",
+          "apoio": "Projeto em destaque",
+          "titulo": "Seu projeto também pode *aparecer aqui.*",
+          "textos": [
+            "Tem um veículo ou projeto que gostaria de apresentar para a DCB? Entre em contato e conte um pouco da sua história."
+          ],
+          "ctas": [{ "texto": "Apresentar meu projeto", "link": "wa:conteudo" }]
+        },
+        {
+          "tipo": "encerramento",
+          "apoio": "Redes sociais",
+          "titulo": "Acompanhe as próximas *publicações.*",
+          "textos": ["Confira novos vídeos, fotos, histórias e bastidores nos canais oficiais da DCB."],
+          "ctas": [{ "texto": "Conheça nossas redes", "link": "/redes-sociais" }]
+        }
+      ]
+    },
+    {
+      "slug": "empresas",
+      "menu": "Empresas",
+      "titulo": "Para Empresas",
+      "secoes": [
+        {
+          "tipo": "capa",
+          "foto": "presence.jpg",
+          "apoio": "DCB Dream Car para empresas",
+          "titulo": "Sua marca mais próxima do *público automotivo.*",
+          "textos": [
+            "A DCB Dream Car desenvolve projetos de comunicação, divulgação e eventos para empresas que desejam ampliar sua presença junto à comunidade automotiva.",
+            "Com atuação em Bauru e região, reunimos experiência na produção de conteúdo, realização de encontros e desenvolvimento de ações com o público.",
+            "Conheça nossas soluções e converse com a equipe sobre seu projeto."
+          ],
+          "ctas": [{ "texto": "Fale com o comercial", "link": "wa:empresas" }]
+        },
+        {
+          "tipo": "experiencias",
+          "id": "solucoes",
+          "itens": [
+            {
+              "tag": "Publicidade",
+              "titulo": "Divulgação & publicidade",
+              "texto": "Divulgação de empresas, produtos e serviços através dos canais de comunicação da DCB.\n\nOs projetos podem incluir publicações, materiais promocionais e ações de divulgação, de acordo com a necessidade da empresa e a proposta contratada.",
+              "ctas": [{ "texto": "Solicitar proposta de divulgação", "link": "wa:empresas" }]
+            },
+            {
+              "tag": "Produção audiovisual",
+              "titulo": "Produção de conteúdo",
+              "texto": "Produção de fotos, vídeos e materiais audiovisuais para apresentar produtos, serviços, veículos e empresas de forma profissional.",
+              "ctas": [{ "texto": "Falar sobre produção", "link": "wa:empresas" }]
+            },
+            {
+              "tag": "Eventos corporativos",
+              "titulo": "Eventos & experiências para marcas",
+              "texto": "Planejamento e desenvolvimento de encontros e experiências automotivas para empresas.\n\nEntre as possibilidades estão apresentações de veículos, exposições, ações de relacionamento, test-drives, comboios e experiências com convidados.",
+              "ctas": [{ "texto": "Planejar um evento", "link": "wa:corporativo" }]
+            },
+            {
+              "tag": "Patrocínios",
+              "titulo": "Patrocínios & ativações",
+              "texto": "Sua empresa pode participar de encontros e projetos promovidos pela DCB, com possibilidades de exposição da marca e relacionamento com o público.\n\nCada oportunidade depende do formato e das condições do projeto.",
+              "ctas": [{ "texto": "Conversar sobre patrocínio", "link": "wa:parceria" }]
+            }
+          ]
+        },
+        {
+          "tipo": "parceiros",
+          "id": "parceiros",
+          "apoio": "Rede de parceiros",
+          "titulo": "Parcerias que fazem *sentido.*",
+          "textos": [
+            "Empresas de diferentes segmentos participam de ações e projetos da DCB. As parcerias podem envolver divulgação, benefícios à comunidade e atividades presenciais."
+          ],
+          "ctas": [{ "texto": "Seja um parceiro", "link": "wa:parceria" }]
+        },
+        {
+          "tipo": "encerramento",
+          "apoio": "Para empresas",
+          "titulo": "Vamos conversar sobre *sua empresa?*",
+          "textos": [
+            "Conte um pouco sobre seu negócio e o que deseja desenvolver. Nossa equipe poderá avaliar as possibilidades e conversar sobre uma proposta adequada ao seu objetivo."
+          ],
+          "ctas": [
+            { "texto": "Falar com o comercial", "link": "wa:empresas" },
+            { "texto": "Solicitar evento corporativo", "link": "wa:corporativo" }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "redes-sociais",
+      "menu": "Redes",
+      "titulo": "Redes Sociais",
+      "secoes": [
+        {
+          "tipo": "capa",
+          "apoio": "Nossos canais",
+          "titulo": "Acompanhe a DCB onde você *preferir.*",
+          "textos": [
+            "O universo DCB continua nas redes sociais. Acompanhe novos conteúdos, registros de encontros, bastidores e informações sobre os próximos projetos.",
+            "Escolha seu canal e fique mais perto da nossa comunidade."
+          ],
+          "ctas": [{ "texto": "Abrir Instagram", "link": "https://www.instagram.com/dcbdreamcar/" }]
+        },
+        {
+          "tipo": "experiencias",
+          "id": "canais",
+          "itens": [
+            {
+              "tag": "Instagram",
+              "titulo": "Fotos, vídeos e novidades.",
+              "texto": "Acompanhe registros de veículos, projetos, encontros, histórias dos membros e novidades da DCB.",
+              "ctas": [{ "texto": "Acessar Instagram", "link": "https://www.instagram.com/dcbdreamcar/" }]
+            },
+            {
+              "tag": "Facebook",
+              "titulo": "Publicações e comunidade.",
+              "texto": "Acompanhe conteúdos e atualizações da DCB também pelo Facebook.",
+              "rascunho": true
+            },
+            {
+              "tag": "TikTok",
+              "titulo": "Vídeos do nosso dia a dia.",
+              "texto": "Confira vídeos curtos, registros e momentos do universo automotivo.",
+              "rascunho": true
+            },
+            {
+              "tag": "YouTube",
+              "titulo": "Vídeos e coberturas.",
+              "texto": "Assista a vídeos, coberturas e produções da DCB.",
+              "rascunho": true
+            },
+            {
+              "tag": "WhatsApp de atendimento",
+              "titulo": "Fale diretamente com a DCB.",
+              "texto": "Tem alguma dúvida sobre encontros, o Club ou nossos projetos? Entre em contato pelo WhatsApp.",
+              "ctas": [{ "texto": "Chamar no WhatsApp", "link": "wa" }]
+            },
+            {
+              "tag": "Comunidade aberta",
+              "titulo": "Fique por dentro dos encontros.",
+              "texto": "A DCB também mantém uma comunidade aberta no WhatsApp para quem deseja acompanhar informações e trocar assuntos ligados ao universo automotivo. A entrada está sujeita às regras do grupo.",
+              "rascunho": true
+            }
+          ]
+        },
+        {
+          "tipo": "encerramento",
+          "apoio": "Nossos canais",
+          "titulo": "Nos vemos nos próximos *encontros.*",
+          "textos": [
+            "Siga os canais oficiais, acompanhe nossa programação e continue fazendo parte da comunidade DCB."
+          ],
+          "ctas": [{ "texto": "Ver eventos", "link": "/eventos" }]
+        }
+      ]
+    },
+    {
+      "slug": "contato",
+      "menu": "Contato",
+      "titulo": "Contato",
+      "secoes": [
+        {
+          "tipo": "capa",
+          "foto": "banner.jpg",
+          "apoio": "Contato",
+          "titulo": "Fale com a *DCB.*",
+          "textos": [
+            "Quer participar de um encontro, saber mais sobre o clube, apresentar um projeto ou desenvolver uma parceria?",
+            "Escolha o assunto e fale diretamente com nossa equipe pelo WhatsApp."
+          ],
+          "ctas": [{ "texto": "Iniciar conversa", "link": "wa" }]
+        },
+        {
+          "tipo": "parceiros",
+          "id": "atendimento",
+          "apoio": "Atendimento",
+          "titulo": "Qual é o *assunto?*",
+          "itens": [
+            { "titulo": "Eventos e encontros", "texto": "Dúvidas sobre programação, participação e experiências.", "ctas": [{ "texto": "Eventos", "link": "wa:eventos" }] },
+            { "titulo": "DCB Dream Car Club", "texto": "Informações sobre regras, benefícios e solicitação de participação.", "ctas": [{ "texto": "Dream Car Club", "link": "wa:club-duvidas" }] },
+            { "titulo": "Publicidade e parcerias", "texto": "Divulgação de empresas, patrocínios e ações comerciais.", "ctas": [{ "texto": "Empresas", "link": "wa:empresas" }] },
+            { "titulo": "Eventos corporativos", "texto": "Organização de eventos, apresentações de veículos e experiências para empresas.", "ctas": [{ "texto": "Evento corporativo", "link": "wa:corporativo" }] },
+            { "titulo": "Conteúdo automotivo", "texto": "Sugestões de pautas, projetos e veículos para apresentação.", "ctas": [{ "texto": "Apresentar projeto", "link": "wa:conteudo" }] }
+          ]
+        },
+        {
+          "tipo": "alcance",
+          "id": "localizacao",
+          "apoio": "Localização",
+          "titulo": "Nossa base é em *Bauru, SP.*",
+          "textos": [
+            "A DCB Dream Car tem sua base em Bauru, no interior de São Paulo, e desenvolve projetos e atividades na região e em outras localidades, conforme cada iniciativa."
+          ],
+          "itens": [{ "titulo": "Bauru" }, { "titulo": "São Paulo" }, { "titulo": "Brasil" }],
+          "ctas": [{ "texto": "Acompanhe nossas redes", "link": "/redes-sociais" }]
+        }
+      ]
+    }
+  ]
+}

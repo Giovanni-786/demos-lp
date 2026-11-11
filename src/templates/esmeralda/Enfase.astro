@@ -1,0 +1,11 @@
+---
+// Título com *ênfase*: o trecho entre asteriscos vira <em> (serifa dourada do mock).
+import { partes } from './site';
+
+interface Props {
+  texto: string;
+  classe?: string;
+}
+const { texto, classe } = Astro.props;
+---
+{partes(texto).map((p, i) => (i % 2 ? <em class={classe}>{p}</em> : p))}

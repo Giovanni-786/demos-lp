@@ -5,6 +5,7 @@
 // - Arquivos com "_" no início são rascunhos: aparecem só no `npm run dev`.
 // - Subpáginas do estilo primarias só existem quando o JSON tem o campo:
 //   /blog/ precisa de `posts` e /concurso-de-bolsas/ precisa de `concurso`.
+// - Subpáginas do estilo esmeralda saem de `paginas` no JSON (uma rota por item).
 
 export const ROTAS = [
   {
@@ -21,6 +22,20 @@ export const ROTAS = [
     arquivo: 'src/content/clinicas/colegio-gbi.json',
     estilo: 'primarias',
     rotas: ['/demo/colegio-gbi/', '/demo/colegio-gbi/blog/', '/demo/colegio-gbi/concurso-de-bolsas/'],
+  },
+  {
+    arquivo: 'src/content/clinicas/dcb.json',
+    estilo: 'esmeralda',
+    rotas: [
+      '/demo/dcb/',
+      '/demo/dcb/sobre/',
+      '/demo/dcb/eventos/',
+      '/demo/dcb/club/',
+      '/demo/dcb/conteudos/',
+      '/demo/dcb/empresas/',
+      '/demo/dcb/redes-sociais/',
+      '/demo/dcb/contato/',
+    ],
   },
   {
     arquivo: 'src/content/clinicas/exemplo-grafite.json',

@@ -1,0 +1,117 @@
+SUPER CARROS ALPHAVILLE (SCA) — wireframe ASCII tipado
+Referências: reference.png (desktop 1357 x 15064) · reference-mobile.png (426 x 13016)
+Tags: [h1..h3] títulos · [t1..t3] textos · [eyb:] eyebrow (traço/losango + caixa-alta espaçada)
+      [btn:] botão · [lnk:] link · [ico:] ícone · [img:] imagem · [num:] número grande
+      [deco:] decoração · [*…*] trecho em serif itálico dourado
+
++-- nav (sobre o hero, transparente) ----------------------------------------+
+| [img:logo-sca]   [lnk:O ECOSSISTEMA] [lnk:ESSÊNCIA] [lnk:EXPERIÊNCIAS]     |
+|                  [lnk:ALCANCE] [lnk:PARCERIAS]          [btn:SEJA MEMBRO →] |
+|  (mobile: logo + [ico:menu])                                               |
++----------------------------------------------------------------------------+
++-- hero (100vh, [img:hero-bg] vídeo/foto de comboio, overlay escuro) -------+
+| [eyb:CLUBE PRIVADO · MEMBROS DESDE 2019]                                   |
+| [h1:EXPERIÊNCIA] [h1:*Além da*] [h1:VELOCIDADE]                            |
+| [t1:Onde a paixão por super carros encontra o networking de alto nível.    |
+|     Não é apenas um clube. É um universo de possibilidades, exclusividade  |
+|     e conexões que movem negócios.]                                        |
+| [btn:SEJA MEMBRO →] [lnk:CONHEÇA O ECOSSISTEMA]                            |
+| [btn:som] (pill)        [t3:EXPLORAR] + [deco:linha]   [t3:◆ ALPHAVILLE · BARUERI, SP]|
++----------------------------------------------------------------------------+
++-- ticker (faixa rolando) --------------------------------------------------+
+| [t3:MEMBROS DESDE 2019 ◆ +12 ESTADOS DO BRASIL ◆ 7 PAÍSES ◆ 148 EDIÇÕES ◆  |
+|     +3.000 MEMBROS ◆ +30 MARCAS DE LUXO ◆ CLUBE …]                         |
++-- stats (4 colunas com divisória à esquerda; mobile 2x2) ------------------+
+| [num:+3.000][t3:MEMBROS ATIVOS] [num:148][t3:EDIÇÕES REALIZADAS]           |
+| [num:+12][t3:ESTADOS DE ATUAÇÃO] [num:+30][t3:MARCAS PARCEIRAS]            |
++----------------------------------------------------------------------------+
++-- about (2 colunas; mobile empilha) ---------------------------------------+
+| [eyb:BEM-VINDO AO UNIVERSO SCA]          | [t1:O que começou como um       |
+| [h2:Mais que um clube, um *estilo de     |  encontro entre amigos em 2019  |
+|  vida*, um selo de exclusividade e uma   |  se transformou …]              |
+|  plataforma de crescimento.]             | [t1:Proporcionamos experiências |
+|                                          |  inesquecíveis …]               |
+| +-- about-media --------------------------------------------------------+ |
+| | [img:membros-sao-roque]  [t3:◆ MEMBROS SCA EM SÃO ROQUE] (tag)        | |
+| +-----------------------------------------------------------------------+ |
++----------------------------------------------------------------------------+
++-- presence (full-bleed, [img:lambo-floresta]) -----------------------------+
+| [eyb:PRESENÇA]                                                             |
+| [h2:Carros exclusivos não entram em cena. *Eles são a cena.*]              |
++----------------------------------------------------------------------------+
++-- values ([img:membros-bg] escurecido; [deco:diamante] outline) -----------+
+| [eyb:A ESSÊNCIA DA EXCLUSIVIDADE]                                          |
+| [h2:Construído sobre os valores que movem o sucesso e a paixão.]           |
+| +-- value-row x3 (linhas divisórias) -----------------------------------+ |
+| | [t3:01] [h3:Paixão Compartilhada]   [t3:O elo que une …]   [ico:◇]     | |
+| | [t3:02] [h3:Relacionamento de Alto Nível] [t3:Aqui, conexões …] [ico:◇]| |
+| | [t3:03] [h3:Experiências Incomparáveis]   [t3:Eventos projetados …]    | |
+| +-----------------------------------------------------------------------+ |
++----------------------------------------------------------------------------+
++-- banner (full-bleed, [img:fazenda-dimep], moldura fina) ------------------+
+| [t3:◆ EDIÇÃO FAZENDA DIMEP] (tag)                                          |
++----------------------------------------------------------------------------+
++-- editions ----------------------------------------------------------------+
+| [eyb:EXPERIÊNCIAS]                                                         |
+| [h2:Cada edição é uma obra de curadoria.]                                  |
+| [t1:Carros raros. Pessoas extraordinárias. Experiências irrepetíveis.]     |
+| +-- edition x5 (imagem/texto alternando lados; mobile empilha) ---------+ |
+| | [img:ed-01] [num:01] | [eyb:◆ ANIVERSÁRIO DE 4 ANOS] [h3:A edição dos  | |
+| |                      |  4 anos do SCA] [t3:O clube comemorou …]        | |
+| | [h3:Nosso track day] [t3:Um registro …]  | [img:ed-02] [num:02]        | |
+| | [img:ed-03] [num:03] | [h3:Eventos em São Roque] [t3:Um mega encontro…]| |
+| | [eyb:◆ PORSCHE] [h3:Porsches lado a lado] [t3:Do 718 …] | [img:ed-04] | |
+| | [img:ed-05] [num:05] | [eyb:◆ NO LIMITE] [h3:SCA Track Day] [t3:…]     | |
+| +-----------------------------------------------------------------------+ |
++----------------------------------------------------------------------------+
++-- gallery (carrossel horizontal, cards altos, sangra à direita) ----------+
+| [img:g1] [img:g2] [img:g3] …                                               |
++----------------------------------------------------------------------------+
++-- reach ([img:reach-bg] estacionamento, overlay) --------------------------+
+| [eyb:UMA POTÊNCIA NO CENÁRIO GLOBAL]                                       |
+| [h2:Nosso alcance vai muito além da velocidade.]                           |
+| [t1:Conectando marcas e pessoas em uma escala sem precedentes.]            |
+| +-- reach-stats x4 (mobile empilha) ------------------------------------+ |
+| | [num:+3.000][t2:Membros ativos][t3:Empresários, investidores e …]     | |
+| | [num:+12][t2:Estados no Brasil][t3:E em mais 7 países]                | |
+| | [num:148][t2:Edições realizadas][t3:Encontros, viagens e experiências]| |
+| | [num:+30][t2:Marcas parceiras][t3:Ecossistema de luxo e performance]  | |
+| +-----------------------------------------------------------------------+ |
+| [eyb:◆ PRESENÇA EM]                                                        |
+| [h2:Brasil · USA · Paraguai · Itália · Portugal · Suíça · Dubai · Japão]   |
++----------------------------------------------------------------------------+
++-- partners ----------------------------------------------------------------+
+| [eyb:ECOSSISTEMA DE PARCERIAS]           | [t1:Concessionárias premium,    |
+| [h2:Mais de 30 marcas de luxo ativam     |  blindagem, …]                  |
+|  suas experiências dentro do SCA.]       | [btn:SEJA PARCEIRO →] (outline) |
+| +-- logos (círculos, 7 + 6 centralizados) -----------------------------+  |
+| | [img:logo-x][t3:COUNTACH MOTORS] … [t3:POSTAL RACING]                |  |
+| +----------------------------------------------------------------------+  |
+| +-- benefit x3 (cards com borda) --------------------------------------+  |
+| | [t3:01][h3:Sua marca em destaque][t3:…] | 02 Amostras … | 03 Divulg… |  |
+| +----------------------------------------------------------------------+  |
++----------------------------------------------------------------------------+
++-- invite ([img:invite-bg] hero escurecido, centralizado) -----------------+
+| [eyb:ACESSO POR CONVITE]                                                   |
+| [h2:O SCA é um clube fechado. A entrada é uma decisão e um privilégio.]    |
+| [t1:Os eventos não são abertos ao público. …]                              |
+| +-- plan (destaque, borda dourada) --+ +-- plan --------------------------+|
+| | [tag:MAIS PROCURADO]               | | [h3:Parceiro]                    ||
+| | [h3:Membro] [t3:Para apaixonados…] | | [t3:Para marcas que querem …]    ||
+| | ◆ [t3:Acesso aos encontros …] x3   | | ◆ [t3:Exposição …] x3            ||
+| | [btn:SEJA MEMBRO →]                | | [btn:SEJA PARCEIRO →] (outline)  ||
+| +------------------------------------+ +----------------------------------+|
+| [t3:Os eventos não são abertos ao público, exclusivos para membros, …]     |
++----------------------------------------------------------------------------+
++-- footer ([img:footer-bg] prédio 4 anos, escurecido) ----------------------+
+| [eyb:ACESSO POR CONVITE]                                                   |
+| [h2:Entre para o universo *Super Carros Alphaville.*] [btn:FALAR NO WHATSAPP →]|
+| +-- footer-cols (3) ---------------------------------------------------+  |
+| | [eyb:CONTATO] [t2:(11) 99463-3003] [t3:contato@…] [t3:Alameda …]     |  |
+| | [eyb:NAVEGAR] [lnk:O Ecossistema] … [lnk:Parcerias]                  |  |
+| | [eyb:CONECTE-SE] [lnk:Instagram] [lnk:YouTube · Podcast] [lnk:Facebook]| |
+| +----------------------------------------------------------------------+  |
+| [deco:S.C.A gigante] [deco:SUPER CARROS ALPHAVILLE] (outline/translúcido)  |
+| [t3:© 2026 SCA Super Carros Alphaville LTDA · CNPJ …] [lnk:Política …]     |
+| [lnk:Termos de Uso]                          [t3:Desenvolvido por][img:novra]|
++----------------------------------------------------------------------------+

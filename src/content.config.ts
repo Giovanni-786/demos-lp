@@ -1,6 +1,63 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
+// Estilo esmeralda: site de várias páginas montado por seções. Cada `tipo` é um bloco
+// visual do mock (capa = hero, apresentacao = about, valores, banner, experiencias,
+// galeria, alcance, parceiros, convite) ou um bloco criado depois (faq). A seção
+// `encerramento` não aparece no meio da página: vira a chamada do rodapé.
+// `titulo` aceita *ênfase* (trecho em serifa dourada). `foto` é um arquivo de
+// src/templates/esmeralda/assets/ (cada tipo tem uma foto padrão).
+// `link` aceita: "/pagina", "/pagina#ancora", "/#ancora" (início), "#ancora",
+// "wa" (WhatsApp com whatsappMensagem), "wa:<chave>" (whatsappMensagens) ou URL completa.
+const ctaEsmeralda = z.object({ texto: z.string(), link: z.string() });
+const itemEsmeralda = z.object({
+  titulo: z.string(),
+  tag: z.string().optional(),
+  // valores: número da linha; alcance: número/ano grande (sem marco, o item entra na lista dourada)
+  marco: z.string().optional(),
+  // parágrafos separados por linha em branco
+  texto: z.string().optional(),
+  lista: z.array(z.string()).optional(),
+  foto: z.string().optional(),
+  ctas: z.array(ctaEsmeralda).optional(),
+  // fica no JSON mas não aparece (ex.: rede social com link ainda pendente)
+  rascunho: z.boolean().optional(),
+});
+const secaoEsmeralda = z.object({
+  tipo: z.enum([
+    'capa',
+    'faixa',
+    'apresentacao',
+    'presenca',
+    'valores',
+    'banner',
+    'experiencias',
+    'galeria',
+    'alcance',
+    'parceiros',
+    'convite',
+    'faq',
+    'encerramento',
+  ]),
+  id: z.string().regex(/^[a-z0-9-]+$/).optional(),
+  // site de uma página só: seções com `menu` e `id` entram no menu
+  menu: z.string().optional(),
+  apoio: z.string().optional(),
+  titulo: z.string().optional(),
+  textos: z.array(z.string()).optional(),
+  itens: z.array(itemEsmeralda).optional(),
+  // alcance: texto depois da lista dourada
+  nota: z.string().optional(),
+  // galeria: com `itens`, cada item é uma foto (`foto` + `titulo` como descrição)
+  // apresentacao/banner: legenda sobre a foto; alcance: rótulo da lista dourada
+  legenda: z.string().optional(),
+  foto: z.string().optional(),
+  // capa: vídeo de fundo (arquivo de src/templates/esmeralda/assets/); a `foto` vira
+  // a imagem de espera enquanto o vídeo carrega
+  video: z.string().optional(),
+  ctas: z.array(ctaEsmeralda).optional(),
+});
+
 const clinicas = defineCollection({
   loader: glob({
     base: './src/content/clinicas',
@@ -8,7 +65,7 @@ const clinicas = defineCollection({
   }),
   schema: z.object({
     nome: z.string(),
-    estilo: z.enum(['lavanda', 'grafite', 'primarias', 'dourado']),
+    estilo: z.enum(['lavanda', 'grafite', 'primarias', 'dourado', 'esmeralda']),
     bairro: z.string().optional(),
     whatsapp: z.string().optional(),
     // texto pré-preenchido na conversa do WhatsApp (wa.me/?text=)
@@ -101,6 +158,24 @@ const clinicas = defineCollection({
     online: z.boolean().default(false),
     produtos: z
       .array(z.object({ tag: z.string().optional(), titulo: z.string(), descricao: z.string(), link: z.string().optional() }))
+      .optional(),
+    // estilo esmeralda (ver secaoEsmeralda no topo). Sem `inicio`, a home é montada
+    // com os campos genéricos (area, slogan, descricao, diferenciais, produtos...).
+    // Cada item de `paginas` gera /demo/<slug>/<pagina.slug>/.
+    whatsappMensagens: z.record(z.string(), z.string()).optional(),
+    facebook: z.string().optional(),
+    youtube: z.string().optional(),
+    navCta: ctaEsmeralda.optional(),
+    inicio: z.array(secaoEsmeralda).optional(),
+    paginas: z
+      .array(
+        z.object({
+          slug: z.string().regex(/^[a-z0-9-]+$/),
+          menu: z.string(),
+          titulo: z.string(),
+          secoes: z.array(secaoEsmeralda),
+        })
+      )
       .optional(),
   }),
 });
